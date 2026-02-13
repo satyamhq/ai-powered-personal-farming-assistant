@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast - Agri1</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="shortcut icon" href="favicon/favicon.ico">
+    <link rel="manifest" href="favicon/site.webmanifest">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .weather-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .weather-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+        }
+
+        .temp-large {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 1rem 0;
+        }
+
+        .weather-icon-large {
+            font-size: 5rem;
+            color: #fbbf24;
+            /* Sun Yellow */
+        }
+
+        .forecast-list {
+            margin-top: 2rem;
+        }
+
+        .forecast-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .forecast-item:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Top Bar & Header (Same as Index) -->
+    <div class="top-bar">
+        <div class="container">
+            <span><i class="fas fa-phone-alt"></i> Call Us: +91 1800-123-4567</span>
+        </div>
+    </div>
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo"><i class="fas fa-leaf"></i> Agri<span>1</span></a>
+
+                <nav class="main-nav" style="border:none; padding:0;">
+                    <ul class="nav-list" style="padding:0;">
+                        <li><a href="index.html" class="nav-link">Home</a></li>
+                        <li><a href="weather.html" class="nav-link active">Weather</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="container" style="padding: 2rem 1rem;">
+        <h1 class="section-title">Local Weather Forecast</h1>
+        <p style="text-align: center; color: var(--text-light);">Hyderabad, India (Updated 10 mins ago)</p>
+
+        <div class="weather-grid">
+            <!-- Current Condition -->
+            <div class="weather-card">
+                <h3>Current Weather</h3>
+                <div style="margin: 2rem 0;">
+                    <i class="fas fa-sun weather-icon-large"></i>
+                </div>
+                <div class="temp-large">32°C</div>
+                <p>Sunny & Clear</p>
+                <div
+                    style="display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; color: var(--text-light);">
+                    <span><i class="fas fa-tint"></i> 45% Humidity</span>
+                    <span><i class="fas fa-wind"></i> 12 km/h Wind</span>
+                </div>
+            </div>
+
+            <!-- Advisory -->
+            <div class="weather-card" style="text-align: left;">
+                <h3 style="text-align: center;">Farming Advisory</h3>
+                <ul style="margin-top: 2rem; list-style: disc; padding-left: 1.5rem;">
+                    <li style="margin-bottom: 1rem;">Ideally suitable for harvesting dried crops.</li>
+                    <li style="margin-bottom: 1rem;">Apply irrigation to vegetables in the evening.</li>
+                    <li style="margin-bottom: 1rem;">High chance of clear skies for the next 3 days.</li>
+                    <li>Monitor for pests due to rising temperatures.</li>
+                </ul>
+            </div>
+
+            <!-- 5 Day Forecast -->
+            <div class="weather-card">
+                <h3>5-Day Forecast</h3>
+                <div class="forecast-list">
+                    <div class="forecast-item">
+                        <span>Today</span>
+                        <span><i class="fas fa-sun"></i> Sunny</span>
+                        <span>32°C</span>
+                    </div>
+                    <div class="forecast-item">
+                        <span>Tomorrow</span>
+                        <span><i class="fas fa-cloud-sun"></i> Cloudy</span>
+                        <span>30°C</span>
+                    </div>
+                    <div class="forecast-item">
+                        <span>Wed</span>
+                        <span><i class="fas fa-cloud-rain"></i> Light Rain</span>
+                        <span>28°C</span>
+                    </div>
+                    <div class="forecast-item">
+                        <span>Thu</span>
+                        <span><i class="fas fa-sun"></i> Sunny</span>
+                        <span>31°C</span>
+                    </div>
+                    <div class="forecast-item">
+                        <span>Fri</span>
+                        <span><i class="fas fa-sun"></i> Sunny</span>
+                        <span>33°C</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

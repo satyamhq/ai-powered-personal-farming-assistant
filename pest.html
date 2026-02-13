@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pest Management - Agri1</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="shortcut icon" href="favicon/favicon.ico">
+    <link rel="manifest" href="favicon/site.webmanifest">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .pest-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .pest-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s;
+        }
+
+        .pest-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .pest-image {
+            height: 200px;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+        }
+
+        .pest-content {
+            padding: 1.5rem;
+        }
+
+        .pest-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .pest-symptoms {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-bar">
+        <div class="container"><span><i class="fas fa-phone-alt"></i> Help: +91 1800-123-4567</span></div>
+    </div>
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo"><i class="fas fa-leaf"></i> Agri<span>1</span></a>
+
+                <div class="search-bar">
+                    <input type="text" class="search-input" placeholder="Search for pests or symptoms...">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="crop.html" class="nav-link">Crop Guidance</a></li>
+                    <li><a href="pest.html" class="nav-link active">Pest Management</a></li>
+                    <li><a href="assistant.html" class="nav-link">AI Assistant</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container" style="padding: 2rem 1rem;">
+        <h1 class="section-title">Common Crop Pests & Remedies</h1>
+
+        <div class="pest-grid">
+            <!-- Pest 1 -->
+            <div class="pest-card">
+                <div class="pest-image"><i class="fas fa-bug fa-3x"></i></div>
+                <div class="pest-content">
+                    <div class="pest-name">Aphids</div>
+                    <p class="pest-symptoms">Small soft-bodied insects that suck nutrient-rich liquids from plants.
+                        Causes yellowing and distorted leaves.</p>
+                    <button class="btn btn-outline" style="width: 100%; margin-top: 1rem;"
+                        onclick="location.href='assistant.html?q=aphids'">View Remedy</button>
+                </div>
+            </div>
+
+            <!-- Pest 2 -->
+            <div class="pest-card">
+                <div class="pest-image"><i class="fas fa-spider fa-3x"></i></div>
+                <div class="pest-content">
+                    <div class="pest-name">Spider Mites</div>
+                    <p class="pest-symptoms">Tiny reddish or brown arachnids. Look for fine silk webbing on the
+                        underside of leaves and stippling.</p>
+                    <button class="btn btn-outline" style="width: 100%; margin-top: 1rem;"
+                        onclick="location.href='assistant.html?q=mites'">View Remedy</button>
+                </div>
+            </div>
+
+            <!-- Pest 3 -->
+            <div class="pest-card">
+                <div class="pest-image"><i class="fas fa-locust fa-3x"></i></div>
+                <div class="pest-content">
+                    <div class="pest-name">Fall Armyworm</div>
+                    <p class="pest-symptoms">Voracious caterpillars that feed on maize and other crops. Look for ragged
+                        holes in leaves and sawdust-like frass.</p>
+                    <button class="btn btn-outline" style="width: 100%; margin-top: 1rem;"
+                        onclick="location.href='assistant.html?q=armyworm'">View Remedy</button>
+                </div>
+            </div>
+
+            <!-- Pest 4 -->
+            <div class="pest-card">
+                <div class="pest-image"><i class="fas fa-worm fa-3x"></i></div>
+                <div class="pest-content">
+                    <div class="pest-name">Root Knot Nematodes</div>
+                    <p class="pest-symptoms">Microscopic worms that cause galls or knots on roots. Results in stunted
+                        growth and yellowing.</p>
+                    <button class="btn btn-outline" style="width: 100%; margin-top: 1rem;"
+                        onclick="location.href='assistant.html?q=nematodes'">View Remedy</button>
+                </div>
+            </div>
+        </div>
+
+        <div
+            style="text-align: center; margin-top: 4rem; padding: 3rem; background: var(--white); border-radius: var(--radius);">
+            <h2>Don't see your pest?</h2>
+            <p style="margin-bottom: 1.5rem; color: var(--text-light);">Upload a photo or describe the symptoms to our
+                AI Assistant for instant identification.</p>
+            <a href="assistant.html" class="btn btn-primary">Ask AI Assistant</a>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
