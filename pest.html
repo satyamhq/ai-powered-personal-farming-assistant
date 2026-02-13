@@ -63,6 +63,32 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
+        .pest-image {
+  position: relative;
+  height: 180px;
+  overflow: hidden;
+}
+
+.pest-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-overlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  text-align: center;
+}
+
+.image-overlay h4 {
+  margin: 0;
+  font-size: 16px;
+}
     </style>
 </head>
 
@@ -95,55 +121,137 @@
     <div class="container" style="padding: 2rem 1rem;">
         <h1 class="section-title">Common Crop Pests & Remedies</h1>
 
-        <div class="pest-grid">
-            <!-- Pest 1 -->
-            <div class="pest-card">
-                <div class="pest-image"><i class="fas fa-bug fa-3x"></i></div>
-                <div class="pest-content">
-                    <div class="pest-name">Aphids</div>
-                    <p class="pest-symptoms">Small soft-bodied insects that suck nutrient-rich liquids from plants.
-                        Causes yellowing and distorted leaves.</p>
-                    <button class="btn btn-outline" style="width: 100%; margin-top: 1rem;"
-                        onclick="location.href='assistant.html?q=aphids'">View Remedy</button>
-                </div>
-            </div>
+       <div class="pest-grid">
 
-            <!-- Pest 2 -->
-            <div class="pest-card">
-                <div class="pest-image"><i class="fas fa-spider fa-3x"></i></div>
-                <div class="pest-content">
-                    <div class="pest-name">Spider Mites</div>
-                    <p class="pest-symptoms">Tiny reddish or brown arachnids. Look for fine silk webbing on the
-                        underside of leaves and stippling.</p>
-                    <button class="btn btn-outline" style="width: 100%; margin-top: 1rem;"
-                        onclick="location.href='assistant.html?q=mites'">View Remedy</button>
-                </div>
-            </div>
+  <!-- Pest 1 (already OK) -->
+  <div class="pest-card">
+    <div class="pest-image">
+      <img src="images/aphid.jpg" alt="Aphids">
+      <div class="image-overlay"><h4>Aphids</h4></div>
+    </div>
+    <div class="pest-content">
+      <p class="pest-symptoms">
+        Small soft-bodied insects that suck nutrient-rich liquids from plants.
+        Causes yellowing and distorted leaves.
+      </p>
+      <button class="btn btn-outline" onclick="location.href='assistant.html?q=aphids'">
+        View Remedy
+      </button>
+    </div>
+  </div>
 
-            <!-- Pest 3 -->
-            <div class="pest-card">
-                <div class="pest-image"><i class="fas fa-locust fa-3x"></i></div>
-                <div class="pest-content">
-                    <div class="pest-name">Fall Armyworm</div>
-                    <p class="pest-symptoms">Voracious caterpillars that feed on maize and other crops. Look for ragged
-                        holes in leaves and sawdust-like frass.</p>
-                    <button class="btn btn-outline" style="width: 100%; margin-top: 1rem;"
-                        onclick="location.href='assistant.html?q=armyworm'">View Remedy</button>
-                </div>
-            </div>
+  <!-- Pest 2 -->
+  <div class="pest-card">
+    <div class="pest-image">
+      <img src="images/spider.jpg" alt="Spider Mites">
+      <div class="image-overlay"><h4>Spider Mites</h4></div>
+    </div>
+    <div class="pest-content">
+      <p class="pest-symptoms">
+        Tiny reddish or brown arachnids. Look for fine silk webbing on the
+        underside of leaves and stippling.
+      </p>
+      <button class="btn btn-outline" onclick="location.href='assistant.html?q=mites'">
+        View Remedy
+      </button>
+    </div>
+  </div>
 
-            <!-- Pest 4 -->
-            <div class="pest-card">
-                <div class="pest-image"><i class="fas fa-worm fa-3x"></i></div>
-                <div class="pest-content">
-                    <div class="pest-name">Root Knot Nematodes</div>
-                    <p class="pest-symptoms">Microscopic worms that cause galls or knots on roots. Results in stunted
-                        growth and yellowing.</p>
-                    <button class="btn btn-outline" style="width: 100%; margin-top: 1rem;"
-                        onclick="location.href='assistant.html?q=nematodes'">View Remedy</button>
-                </div>
-            </div>
-        </div>
+  <!-- Pest 3 -->
+  <div class="pest-card">
+    <div class="pest-image">
+      <img src="images/Armyworm.jpg" alt="Fall Armyworm">
+      <div class="image-overlay"><h4>Fall Armyworm</h4></div>
+    </div>
+    <div class="pest-content">
+      <p class="pest-symptoms">
+        Voracious caterpillars that feed on maize and other crops. Look for ragged
+        holes in leaves and sawdust-like frass.
+      </p>
+      <button class="btn btn-outline" onclick="location.href='assistant.html?q=armyworm'">
+        View Remedy
+      </button>
+    </div>
+  </div>
+
+  <!-- Pest 4 -->
+  <div class="pest-card">
+    <div class="pest-image">
+      <img src="images/root.jpg" alt="Root Knot Nematodes">
+      <div class="image-overlay"><h4>Root Knot Nematodes</h4></div>
+    </div>
+    <div class="pest-content">
+      <p class="pest-symptoms">
+        Microscopic worms that cause galls or knots on roots. Results in stunted
+        growth and yellowing.
+      </p>
+      <button class="btn btn-outline" onclick="location.href='assistant.html?q=nematodes'">
+        View Remedy
+      </button>
+    </div>
+  </div>
+    <!-- Pest 5 -->
+  <div class="pest-card">
+    <div class="pest-image">
+      <img src="images/stream.jpg" alt="stream">
+      <div class="image-overlay"><h4>Stream</h4></div>
+    </div>
+    <div class="pest-content">
+      <p class="pest-symptoms">
+        These pests attack plant roots and form knots. Plants become weak and stunted. Crop rotation and resistant varieties are the best prevention
+      </p>
+      <button class="btn btn-outline" onclick="location.href='assistant.html?q=mites'">
+        View Remedy
+      </button>
+    </div>
+  </div>
+    <!-- Pest 6 -->
+  <div class="pest-card">
+    <div class="pest-image">
+      <img src="images/leaf-miners.jpg" alt="leaf-miners">
+      <div class="image-overlay"><h4>Leaf-Miners</h4></div>
+    </div>
+    <div class="pest-content">
+      <p class="pest-symptoms">
+        Leaf miners create white zig-zag lines inside leaves and weaken plants. Early neem spray helps control them.
+      </p>
+      <button class="btn btn-outline" onclick="location.href='assistant.html?q=mites'">
+        View Remedy
+      </button>
+    </div>
+  </div>
+    <!-- Pest 7-->
+  <div class="pest-card">
+    <div class="pest-image">
+      <img src="images/Bollworm.jpg" alt="Bollworm">
+      <div class="image-overlay"><h4>Bollworm</h4></div>
+    </div>
+    <div class="pest-content">
+      <p class="pest-symptoms">
+        Bollworm is a harmful caterpillar that bores into fruits and bolls, causing heavy crop damage. Early control is essential.
+      </p>
+      <button class="btn btn-outline" onclick="location.href='assistant.html?q=mites'">
+        View Remedy
+      </button>
+    </div>
+  </div>
+    <!-- Pest 8 -->
+  <div class="pest-card">
+    <div class="pest-image">
+      <img src="images/whitefiles.jpg" alt="whitefiles">
+      <div class="image-overlay"><h4>whitefiles</h4></div>
+    </div>
+    <div class="pest-content">
+      <p class="pest-symptoms">
+        Whiteflies are tiny white insects that suck plant sap and spread diseases. They weaken crops and reduce yield quickly.
+      </p>
+      <button class="btn btn-outline" onclick="location.href='assistant.html?q=mites'">
+        View Remedy
+      </button>
+    </div>
+  </div>
+
+</div>
 
         <div
             style="text-align: center; margin-top: 4rem; padding: 3rem; background: var(--white); border-radius: var(--radius);">
