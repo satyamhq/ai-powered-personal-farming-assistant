@@ -143,3 +143,68 @@ td:first-child {
         grid-template-columns: 1fr;
     }
 }
+.trend-up::before {
+    content: "▲";
+    margin-right: 0.25rem;
+    color: #2e7d32;
+    animation: bounce 1s infinite;
+}
+
+.trend-down::before {
+    content: "▼";
+    margin-right: 0.25rem;
+    color: #d32f2f;
+    animation: bounce 1s infinite;
+}
+
+.trend-stable::before {
+    content: "■";
+    margin-right: 0.25rem;
+    color: #f57c00;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+.market-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.market-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+.market-search input:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 8px rgba(76,175,80,0.3);
+}
+.chat-input-area input {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 25px;
+    outline: none;
+    font-family: inherit;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.table-container {
+    position: relative;
+    overflow-x: auto;
+}
+
+.table-container::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 30px;
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(to left, var(--background-color), transparent);
+}
+.market-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}

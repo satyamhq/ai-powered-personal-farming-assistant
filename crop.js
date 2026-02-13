@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Dummy Data for Recommendations
     const recommendations = {
         'clay-kharif': { name: 'Rice', icon: 'fa-bowl-rice', desc: 'Rice thrives in clay soil with high water retention during monsoons.' },
-        'cay-rabi': { name: 'Wheat', icon: 'fa-wheat', desc: 'Wheat is ideal for clay soil in winter seasons.' },
+        'clay-rabi': { name: 'Wheat', icon: 'fa-wheat', desc: 'Wheat is ideal for clay soil in winter seasons.' },
         'black-kharif': { name: 'Cotton', icon: 'fa-tshirt', desc: 'Black soil is perfect for cotton cultivation.' },
         'black-rabi': { name: 'Chickpeas', icon: 'fa-cookie', desc: 'Chickpeas grow well in black soil during winter.' },
         'sandy-zaid': { name: 'Watermelon', icon: 'fa-apple-alt', desc: 'Sandy soil is excellent for melons in summer.' }, // Apple icon as placeholder if needed
@@ -48,5 +48,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // Scroll to result
             resultSection.scrollIntoView({ behavior: 'smooth' });
         }, 1000);
+        navigator.geolocation.getCurrentPosition((position) => {
+    console.log(position.coords.latitude);
+    console.log(position.coords.longitude);
     });
+});
 });
