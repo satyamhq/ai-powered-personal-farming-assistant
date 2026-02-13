@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Assistant - Agri1</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="shortcut icon" href="favicon/favicon.ico">
+    <link rel="manifest" href="favicon/site.webmanifest">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Specific Styles for Strong Chatbox */
+        .chat-layout {
+            display: flex;
+            height: calc(100vh - 180px);
+            /* Adjust based on header size */
+            background-color: var(--white);
+            margin-top: 1rem;
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .chat-sidebar {
+            width: 300px;
+            background-color: #f8f9fa;
+            border-right: 1px solid var(--border-color);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+            background-color: #f0fdf4;
+            /* Very light green hint */
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            max-width: 80%;
+        }
+
+        .message.user {
+            margin-left: auto;
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 0.75rem 1rem;
+            border-radius: 1rem 1rem 0 1rem;
+        }
+
+        .message.bot {
+            margin-right: auto;
+            background-color: var(--white);
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            border-radius: 1rem 1rem 1rem 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .chat-input-area {
+            padding: 1rem 1.5rem;
+            background-color: var(--white);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            gap: 1rem;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 2rem;
+            outline: none;
+        }
+
+        .chat-input:focus {
+            border-color: var(--primary-color);
+        }
+
+        .send-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .suggested-questions {
+            margin-top: auto;
+            /* Push to bottom of sidebar */
+        }
+
+        .suggestion-chip {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 0.75rem;
+            background: var(--white);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .suggestion-chip:hover {
+            border-color: var(--primary-color);
+            background-color: #e6f0eb;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo"><i class="fas fa-leaf"></i> Agri<span>1</span></a>
+                <nav class="main-nav" style="border:0; padding:0;">
+                    <ul class="nav-list" style="padding:0;">
+                        <li><a href="index.html" class="nav-link">Home</a></li>
+                        <li><a href="assistant.html" class="nav-link active">AI Assistant</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="chat-layout">
+            <!-- Sidebar -->
+            <div class="chat-sidebar">
+                <h3 style="margin-bottom: 1rem;">Agri1 Assistant</h3>
+                <p style="font-size: 0.9rem; color: var(--text-light); margin-bottom: 2rem;">
+                    I can help you with crop advice, pest identification, and market insights.
+                </p>
+
+                <div class="suggested-questions">
+                    <p style="font-weight: 600; margin-bottom: 0.5rem;">Try asking:</p>
+                    <button class="suggestion-chip">How to treat aphids on cotton?</button>
+                    <button class="suggestion-chip">Best fertilizer for tomatoes?</button>
+                    <button class="suggestion-chip">Tomato price in Hyderabad?</button>
+                </div>
+            </div>
+
+            <!-- Main Chat -->
+            <div class="chat-main">
+                <div class="chat-header">
+                    <div style="width: 10px; height: 10px; background: #22c55e; border-radius: 50%;"></div>
+                    <span style="font-weight: 600;">AgriBot Online</span>
+                </div>
+
+                <div class="chat-messages" id="chat-messages">
+                    <div class="message bot">
+                        Hello! I'm your personal farming assistant. How can I help you today?
+                    </div>
+                </div>
+
+                <div class="chat-input-area">
+                    <input type="text" class="chat-input" id="user-input" placeholder="Type your question here...">
+                    <button class="send-btn" id="send-btn"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assistant.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Guidance - Agri1</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="crop.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="shortcut icon" href="favicon/favicon.ico">
+    <link rel="manifest" href="favicon/site.webmanifest">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container"><span><i class="fas fa-phone-alt"></i> Help: +91 1800-123-4567</span></div>
+    </div>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo"><i class="fas fa-leaf"></i> Agri<span>1</span></a>
+                <div class="search-bar">
+                    <input type="text" class="search-input" placeholder="Search crops...">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="crop.html" class="nav-link active">Crop Guidance</a></li>
+                    <li><a href="pest.html" class="nav-link">Pest Management</a></li>
+                    <li><a href="weather.html" class="nav-link">Weather</a></li>
+                    <li><a href="market.html" class="nav-link">Market Prices</a></li>
+                    <li><a href="assistant.html" class="nav-link">AI Assistant</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container" style="padding: 2rem 1rem;">
+        <h1 class="section-title">Crop Cultivation Guide</h1>
+
+        <div class="crop-advisor-container" style="max-width: 800px; margin: 0 auto;">
+            <form id="crop-form" class="crop-form"
+                style="background: var(--white); padding: 2rem; border-radius: var(--radius); box-shadow: var(--shadow-sm);">
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label for="soil-type" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Soil
+                        Type</label>
+                    <select id="soil-type" class="form-input"
+                        style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: var(--radius);">
+                        <option value="">Select Soil Type</option>
+                        <option value="clay">Clay</option>
+                        <option value="sandy">Sandy</option>
+                        <option value="loamy">Loamy</option>
+                        <option value="black">Black</option>
+                    </select>
+                </div>
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label for="season" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Season</label>
+                    <select id="season" class="form-input"
+                        style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: var(--radius);">
+                        <option value="">Select Season</option>
+                        <option value="kharif">Kharif (Monsoon)</option>
+                        <option value="rabi">Rabi (Winter)</option>
+                        <option value="zaid">Zaid (Summer)</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Get Recommendations</button>
+            </form>
+
+            <div id="recommendations" class="recommendations-grid"
+                style="margin-top: 2rem; display: grid; gap: 1.5rem;">
+                <!-- Results will appear here -->
+                <div class="placeholder-text" style="text-align: center; color: var(--text-light); padding: 2rem;">
+                    Select soil and season to see crop recommendations.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p style="text-align: center;">&copy; 2026 Agri1. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="crop.js"></script>
+</body>
+
+</html>
