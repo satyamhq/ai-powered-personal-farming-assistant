@@ -1,0 +1,146 @@
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: linear-gradient(to right, #e8f5e9, #f1f8e9);
+    color: #333;
+}
+
+/* Navbar */
+nav {
+    background: linear-gradient(135deg, #1b5e20, #2e7d32);
+    color: white;
+    padding: 18px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+nav h2 {
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    transition: 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #c8e6c9;
+}
+
+/* Section Styling */
+.section {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+/* Card Layout */
+.section {
+    background: white;
+    margin: 30px auto;
+    width: 85%;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    transition: 0.3s ease;
+}
+
+.section:hover {
+    transform: translateY(-5px);
+}
+
+/* Headings */
+h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+    color: #1b5e20;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #2e7d32;
+}
+
+/* Forms */
+form input,
+input[type="text"],
+input[type="file"] {
+    padding: 12px;
+    margin: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: 250px;
+    outline: none;
+    transition: 0.3s ease;
+}
+
+form input:focus {
+    border-color: #2e7d32;
+    box-shadow: 0 0 5px rgba(46,125,50,0.3);
+}
+
+/* Buttons */
+button {
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #2e7d32, #1b5e20);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+button:hover {
+    transform: scale(1.05);
+    background: linear-gradient(135deg, #1b5e20, #0d3d14);
+}
+
+/* Footer */
+footer {
+    background: #1b5e20;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: 40px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .section {
+        width: 95%;
+    }
+
+    form input {
+        width: 90%;
+    }
+}
