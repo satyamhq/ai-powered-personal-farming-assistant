@@ -84,68 +84,44 @@
 
     <div class="container" style="padding: 2rem 1rem;">
         <h1 class="section-title">Local Weather Forecast</h1>
-        <p style="text-align: center; color: var(--text-light);">Hyderabad, India (Updated 10 mins ago)</p>
+        <p style="text-align: center; color: var(--text-light);" id="location-status">Initializing...</p>
 
         <div class="weather-grid">
             <!-- Current Condition -->
             <div class="weather-card">
                 <h3>Current Weather</h3>
-                <div style="margin: 2rem 0;">
+                <div style="margin: 2rem 0;" id="current-icon-container">
                     <i class="fas fa-sun weather-icon-large"></i>
                 </div>
-                <div class="temp-large">32°C</div>
-                <p>Sunny & Clear</p>
+                <div class="temp-large" id="current-temp">--°C</div>
+                <p id="current-condition">Loading...</p>
                 <div
                     style="display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; color: var(--text-light);">
-                    <span><i class="fas fa-tint"></i> 45% Humidity</span>
-                    <span><i class="fas fa-wind"></i> 12 km/h Wind</span>
+                    <span><i class="fas fa-tint"></i> <span id="current-humidity">--%</span> Humidity</span>
+                    <span><i class="fas fa-wind"></i> <span id="current-wind">-- km/h</span> Wind</span>
                 </div>
             </div>
 
             <!-- Advisory -->
             <div class="weather-card" style="text-align: left;">
                 <h3 style="text-align: center;">Farming Advisory</h3>
-                <ul style="margin-top: 2rem; list-style: disc; padding-left: 1.5rem;">
-                    <li style="margin-bottom: 1rem;">Ideally suitable for harvesting dried crops.</li>
-                    <li style="margin-bottom: 1rem;">Apply irrigation to vegetables in the evening.</li>
-                    <li style="margin-bottom: 1rem;">High chance of clear skies for the next 3 days.</li>
-                    <li>Monitor for pests due to rising temperatures.</li>
+                <ul style="margin-top: 2rem; list-style: disc; padding-left: 1.5rem;" id="advisory-list">
+                    <li style="margin-bottom: 1rem;">Loading advisory based on weather...</li>
                 </ul>
             </div>
 
             <!-- 5 Day Forecast -->
             <div class="weather-card">
                 <h3>5-Day Forecast</h3>
-                <div class="forecast-list">
-                    <div class="forecast-item">
-                        <span>Today</span>
-                        <span><i class="fas fa-sun"></i> Sunny</span>
-                        <span>32°C</span>
-                    </div>
-                    <div class="forecast-item">
-                        <span>Tomorrow</span>
-                        <span><i class="fas fa-cloud-sun"></i> Cloudy</span>
-                        <span>30°C</span>
-                    </div>
-                    <div class="forecast-item">
-                        <span>Wed</span>
-                        <span><i class="fas fa-cloud-rain"></i> Light Rain</span>
-                        <span>28°C</span>
-                    </div>
-                    <div class="forecast-item">
-                        <span>Thu</span>
-                        <span><i class="fas fa-sun"></i> Sunny</span>
-                        <span>31°C</span>
-                    </div>
-                    <div class="forecast-item">
-                        <span>Fri</span>
-                        <span><i class="fas fa-sun"></i> Sunny</span>
-                        <span>33°C</span>
-                    </div>
+                <div class="forecast-list" id="forecast-container">
+                    <!-- Forecast items will be injected here -->
+                    <div class="forecast-item">Loading forecast...</div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script src="weather.js" type="module"></script>
 
 </body>
 
