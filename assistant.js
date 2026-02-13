@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const userInput = document.getElementById('user-input');
   const chatMessages = document.getElementById('chat-messages');
 
-  // Pre-programmed responses for "Strong Chatbox"
+  // Pre-programmed responses for fallback
   const knowledgeBase = {
     'aphids': "To control aphids, you can spray a solution of Neem oil (5ml per liter of water). Ladybugs are also natural predators.",
     'tomato': "For tomato crops, ensure consistent watering to prevent blossom end rot. Support plants with stakes. Watch out for early blight.",
@@ -19,14 +19,28 @@ document.addEventListener('DOMContentLoaded', () => {
   function addMessage(text, sender) {
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('message', sender);
-    messageDiv.innerText = text;
+
+    // Allow HTML for bot messages (for formatting)
+    if (sender === 'bot') {
+      // Simple markdown-like parsing for bold and newlines
+      let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      formattedText = formattedText.replace(/\n/g, '<br>');
+
+      // Convert simple links if present
+      formattedText = formattedText.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
+
+      messageDiv.innerHTML = formattedText;
+    } else {
+      messageDiv.innerText = text;
+    }
+
     chatMessages.appendChild(messageDiv);
     chatMessages.scrollTop = chatMessages.scrollHeight; // Auto scroll
   }
 
-  function getBotResponse(query) {
+  function getLocalResponse(query) {
     query = query.toLowerCase();
-    
+
     // Simple keyword matching
     if (query.includes('aphid') || query.includes('insect')) return knowledgeBase['aphids'];
     if (query.includes('tomato')) return knowledgeBase['tomato'];
@@ -36,22 +50,76 @@ document.addEventListener('DOMContentLoaded', () => {
     if (query.includes('cotton')) return knowledgeBase['cotton'];
     if (query.includes('hello') || query.includes('namaste')) return knowledgeBase['hello'];
     if (query.includes('hi')) return knowledgeBase['hi'];
-    
-    return knowledgeBase['default'];
+
+    return null; // Return null to indicate no local match found
   }
 
-  function handleSend() {
+  async function callWikipediaAPI(query) {
+    try {
+      // Step 1: Search for the page title
+      const searchUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(query)}&format=json&origin=*`;
+      const searchResponse = await fetch(searchUrl);
+      const searchData = await searchResponse.json();
+
+      if (!searchData.query.search || searchData.query.search.length === 0) {
+        return null;
+      }
+
+      const bestMatch = searchData.query.search[0];
+      const pageTitle = bestMatch.title;
+
+      // Step 2: Get the summary of the page
+      const summaryUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(pageTitle)}`;
+      const summaryResponse = await fetch(summaryUrl);
+      const summaryData = await summaryResponse.json();
+
+      if (summaryData.extract) {
+        return `**${summaryData.title}**: ${summaryData.extract}\n\n[Read more on Wikipedia](${summaryData.content_urls.desktop.page})`;
+      }
+
+      return null;
+
+    } catch (error) {
+      console.error("Wikipedia API Error:", error);
+      return null;
+    }
+  }
+
+  async function handleSend() {
     const text = userInput.value.trim();
     if (text === "") return;
 
     addMessage(text, 'user');
     userInput.value = "";
+    userInput.disabled = true; // Disable input while processing
 
-    // Simulate thinking delay
-    setTimeout(() => {
-      const response = getBotResponse(text);
-      addMessage(response, 'bot');
-    }, 800);
+    // Show loading state
+    const loadingDiv = document.createElement('div');
+    loadingDiv.classList.add('message', 'bot');
+    loadingDiv.innerText = "Searching knowledge base...";
+    loadingDiv.id = "loading-message";
+    chatMessages.appendChild(loadingDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    let response = getLocalResponse(text);
+
+    // If no local response, try Wikipedia
+    if (!response) {
+      const wikiResponse = await callWikipediaAPI(text);
+      if (wikiResponse) {
+        response = wikiResponse;
+      } else {
+        response = knowledgeBase['default'];
+      }
+    }
+
+    // Remove loading message
+    const currentLoading = document.getElementById('loading-message');
+    if (currentLoading) currentLoading.remove();
+
+    addMessage(response, 'bot');
+    userInput.disabled = false;
+    userInput.focus();
   }
 
   sendBtn.addEventListener('click', handleSend);
@@ -62,8 +130,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Handle Suggestion Chips
   document.querySelectorAll('.suggestion-chip').forEach(chip => {
     chip.addEventListener('click', () => {
-        userInput.value = chip.innerText;
-        handleSend();
+      userInput.value = chip.innerText;
+      handleSend();
     });
   });
 
@@ -71,10 +139,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search);
   const autoQuery = urlParams.get('q');
   if (autoQuery) {
-      setTimeout(() => {
-          userInput.value = "How to treat " + autoQuery + "?";
-          handleSend();
-      }, 500);
+    setTimeout(() => {
+      userInput.value = "How to treat " + autoQuery + "?";
+      handleSend();
+    }, 500);
   }
 
 });
