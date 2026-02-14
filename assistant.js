@@ -347,8 +347,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const subject = extractSubject(rawQuery);
 
     // --- Greetings (exact or near-exact match) ---
-    if (/^(hi|hey|hello|hii+)$/i.test(q.replace(/[!.?]/g, '').trim())) {
-      return "Hello! 👋 I am your **Agri1 AI Assistant**. Ask me about:\n• 🌾 Crops & cultivation\n• 🐛 Pest & disease control\n• 💰 Market prices (50+ crops)\n• 🌤️ Live weather\n• 🏛️ Govt schemes & subsidies\n• 📚 Any topic (via Wikipedia)\n\nJust type your question!";
+    if (/^(hi|hey|hello|hii+|start|wake|up)$/i.test(q.replace(/[!.?]/g, '').trim())) {
+      return "Hello! 👋 I am **AgriBot**, your smart farming companion.\n\nI can help you with:\n• 🌤️ **Weather updates** for your farm\n• 🌾 **Crop advice** & disease diagnosis\n• 💰 **Mandi prices** for 50+ crops\n• 🏛️ **Government schemes**\n\nTry asking: *\"What is the weather today?\"* or *\"Price of cotton\"*";
     }
     if (/^(namaste|namaskar)$/i.test(q.replace(/[!.?]/g, '').trim())) {
       return "Namaste! 🙏 I am your **Agri1 AI Assistant**. Ask me about crops, pests, weather, prices, or government schemes!";
@@ -563,7 +563,8 @@ document.addEventListener('DOMContentLoaded', () => {
       response = getLocalResponse(text);
 
       // Step 2: Weather intent
-      if (!response && /\b(weather|temperature|forecast|climate|mausam|rain|barish|humidity|wind)\b/i.test(lowerText)) {
+      if (!response && /\b(weather|temperature|forecast|climate|mausam|rain|barish|humidity|wind|garmi|sardi|baarish)\b/i.test(lowerText)) {
+        addMessage('🌍 Checking weather for your location...', 'bot'); // Feedback
         response = await callWeatherAPI();
       }
 
