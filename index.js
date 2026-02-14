@@ -1,13 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Mobile Menu Toggle
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    const navList = document.querySelector('nav ul');
-
-    if (mobileMenuBtn) {
-        mobileMenuBtn.addEventListener('click', () => {
-            navList.classList.toggle('show');
-        });
-    }
+    // Mobile Menu Toggle logic moved to common.js
 
     // Welcome Message based on time
     const welcomeMessageElement = document.getElementById('welcome-message');

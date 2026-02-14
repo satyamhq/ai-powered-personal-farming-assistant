@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <h3 style="color: var(--primary-color); margin-bottom: 0.5rem;">${crop.name}</h3>
                 <p style="margin-bottom: 0.5rem;"><strong>Why:</strong> ${crop.reason}</p>
                 <p><strong>Expected Yield:</strong> ${crop.yield}</p>
-                <button class="btn btn-outline" style="margin-top: 1rem; font-size: 0.8rem;">View Detailed Guide</button>
+                <button class="btn btn-outline" style="margin-top: 1rem; font-size: 0.8rem;" onclick="location.href='assistant.html?q=How to grow ${crop.name}'">View Detailed Guide</button>
             `;
             resultsContainer.appendChild(card);
         });
