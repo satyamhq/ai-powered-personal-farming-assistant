@@ -25,4 +25,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
         welcomeMessageElement.textContent = `${greeting}, Welcome to Agri1`;
     }
+    // Search Bar Redirection
+    const searchInput = document.querySelector('.search-input');
+    const searchBtn = document.querySelector('.search-btn');
+
+    function handleSearch() {
+        const query = searchInput.value.trim();
+        if (query) {
+            window.location.href = `assistant.html?q=${encodeURIComponent(query)}`;
+        }
+    }
+
+    if (searchBtn && searchInput) {
+        searchBtn.addEventListener('click', handleSearch);
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleSearch();
+            }
+        });
+    }
 });

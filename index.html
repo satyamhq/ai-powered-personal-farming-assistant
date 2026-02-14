@@ -48,10 +48,8 @@
             <i class="far fa-user"></i>
             <span>Login/Sign Up</span>
           </a>
-          <a href="#" class="action-item">
-            <i class="fas fa-shopping-cart"></i>
-            <span>Cart (0)</span>
-          </a>
+          <!-- Cart link removed/hidden as per user request to focus on assistant/info for now, or keep as is. Keeping as is but could redirect to assistant if needed. -->
+          <div id="google_translate_element"></div>
         </div>
       </div>
 
@@ -90,30 +88,30 @@
     <div class="container">
       <h2 class="section-title">Explore by Category</h2>
       <div class="categories-grid">
-        <div class="category-card">
+        <a href="assistant.html?q=Best seeds for my area" class="category-card">
           <i class="fas fa-seedling category-icon"></i>
           <span class="category-title">Seeds</span>
-        </div>
-        <div class="category-card">
+        </a>
+        <a href="assistant.html?q=Best fertilizers for my crop" class="category-card">
           <i class="fas fa-flask category-icon"></i>
           <span class="category-title">Fertilizers</span>
-        </div>
-        <div class="category-card">
+        </a>
+        <a href="assistant.html?q=Pest control solutions" class="category-card">
           <i class="fas fa-bug category-icon"></i>
           <span class="category-title">Pesticides</span>
-        </div>
-        <div class="category-card">
+        </a>
+        <a href="assistant.html?q=Farm machinery and tools" class="category-card">
           <i class="fas fa-tractor category-icon"></i>
           <span class="category-title">Machinery</span>
-        </div>
-        <div class="category-card">
+        </a>
+        <a href="assistant.html?q=Farming tools" class="category-card">
           <i class="fas fa-tools category-icon"></i>
           <span class="category-title">Tools</span>
-        </div>
-        <div class="category-card">
+        </a>
+        <a href="assistant.html?q=Irrigation systems" class="category-card">
           <i class="fas fa-tint category-icon"></i>
           <span class="category-title">Irrigation</span>
-        </div>
+        </a>
       </div>
     </div>
   </section>
@@ -212,6 +210,13 @@
   </footer>
 
   <script src="index.js"></script>
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({ pageLanguage: 'en', includedLanguages: 'en,hi', layout: google.translate.TranslateElement.InlineLayout.SIMPLE }, 'google_translate_element');
+    }
+  </script>
+  <script type="text/javascript"
+    src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 
 </html>

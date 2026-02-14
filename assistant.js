@@ -627,7 +627,7 @@ document.addEventListener('DOMContentLoaded', () => {
   var autoQuery = urlParams.get('q');
   if (autoQuery) {
     setTimeout(function () {
-      userInput.value = 'How to treat ' + autoQuery + '?';
+      userInput.value = autoQuery;
       handleSend();
     }, 500);
   }
