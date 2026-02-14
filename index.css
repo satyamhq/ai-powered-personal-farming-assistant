@@ -372,3 +372,29 @@ footer {
     color: #6b7280;
     font-size: 0.9rem;
 }
+
+/* Hero Section Background Image */
+.hero-wrapper {
+  background-image: url("images/main.avif"); /* yaha apni image ka path do */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 80px 0;   /* height control */
+}
+
+/* Optional: text readable banane ke liye overlay */
+.hero-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); /* dark overlay */
+  z-index: 1;
+}
+
+.hero-wrapper .container {
+  position: relative;
+  z-index: 2;
+}
