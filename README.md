@@ -191,23 +191,6 @@ Found a bug? Please open an issue with:
 - Screenshots (if applicable)
 - Browser/device information
 
-## 🔮 Future Enhancements
-
-- [ ] Offline mode support
-- [ ] Multi-language support
-- [ ] Mobile app (React Native)
-- [ ] Integration with IoT sensors
-- [ ] Advanced analytics and reporting
-- [ ] Community forum for farmers
-- [ ] Integration with government schemes
-- [ ] Soil health monitoring
-- [ ] Irrigation management
-- [ ] Yield prediction using ML
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
 
 ## 🙏 Acknowledgments
 
