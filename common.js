@@ -41,50 +41,96 @@ if ('serviceWorker' in navigator) {
     });
 }
 // PWA Install Logic
+// PWA Install Logic
 let deferredPrompt;
-const pwaPopup = document.getElementById('pwa-install-popup');
-const installBtn = document.getElementById('pwa-install-btn');
-const dismissBtn = document.getElementById('pwa-dismiss-btn');
 
-window.addEventListener('beforeinstallprompt', (e) => {
-    // Prevent Chrome 67 and earlier from automatically showing the prompt
-    e.preventDefault();
-    // Stash the event so it can be triggered later.
-    deferredPrompt = e;
-    // Update UI to notify the user they can add to home screen
-    if (pwaPopup) {
-        setTimeout(() => {
-             // Check if user has already dismissed it in this session (optional, but good UX)
-             if (!sessionStorage.getItem('pwa-dismissed')) {
-                 pwaPopup.style.display = 'block';
-             }
-        }, 2000); // Show after 2 seconds
-    }
-});
+// Function to inject PWA Popup HTML
+function injectPWAPopup() {
+    if (document.getElementById('pwa-install-popup')) return; // Already exists
 
-if (installBtn) {
-    installBtn.addEventListener('click', (e) => {
-        // Hide our user interface that shows our A2HS button
-        pwaPopup.style.display = 'none';
-        // Show the prompt
-        if (deferredPrompt) {
-            deferredPrompt.prompt();
-            // Wait for the user to respond to the prompt
-            deferredPrompt.userChoice.then((choiceResult) => {
+    const popupHTML = `
+    <div id="pwa-install-popup" class="pwa-popup" style="display: none;">
+        <div class="pwa-popup-content">
+            <div class="pwa-icon">
+                <img src="favicon_io/android-chrome-192x192.png" alt="Agri1 Logo" onerror="this.src='favicon_io/favicon-32x32.png'">
+            </div>
+            <div class="pwa-details">
+                <h3>Install Agri1 App</h3>
+                <p>Get the best experience with our app.</p>
+            </div>
+            <div class="pwa-actions">
+                <button id="pwa-install-btn" class="btn btn-primary">Install</button>
+                <button id="pwa-dismiss-btn" class="btn btn-ghost">Maybe Later</button>
+            </div>
+        </div>
+    </div>`;
+
+    document.body.insertAdjacentHTML('beforeend', popupHTML);
+    attachPWAEvents();
+}
+
+function attachPWAEvents() {
+    const pwaPopup = document.getElementById('pwa-install-popup');
+    const installBtn = document.getElementById('pwa-install-btn');
+    const dismissBtn = document.getElementById('pwa-dismiss-btn');
+
+    if (installBtn) {
+        installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const choiceResult = await deferredPrompt.userChoice;
                 if (choiceResult.outcome === 'accepted') {
                     console.log('User accepted the A2HS prompt');
                 } else {
                     console.log('User dismissed the A2HS prompt');
                 }
                 deferredPrompt = null;
-            });
-        }
-    });
+            }
+            if (pwaPopup) pwaPopup.style.display = 'none';
+        });
+    }
+
+    if (dismissBtn) {
+        dismissBtn.addEventListener('click', () => {
+            if (pwaPopup) pwaPopup.style.display = 'none';
+            sessionStorage.setItem('pwa-dismissed', 'true');
+        });
+    }
 }
 
-if (dismissBtn) {
-    dismissBtn.addEventListener('click', (e) => {
-        pwaPopup.style.display = 'none';
-        sessionStorage.setItem('pwa-dismissed', 'true');
+// Listen for install prompt
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    console.log('beforeinstallprompt fired');
+
+    if (!sessionStorage.getItem('pwa-dismissed')) {
+        // Inject popup if not already present
+        injectPWAPopup();
+
+        const pwaPopup = document.getElementById('pwa-install-popup');
+        if (pwaPopup) {
+            setTimeout(() => {
+                pwaPopup.style.display = 'block';
+            }, 2000);
+        }
+    }
+});
+
+// Check if app is already installed
+window.addEventListener('appinstalled', () => {
+    console.log('PWA was installed');
+    const pwaPopup = document.getElementById('pwa-install-popup');
+    if (pwaPopup) pwaPopup.style.display = 'none';
+});
+
+// Forcing popup for debugging/demo if needed (Optional: Remove in prod)
+// Check if not standalone and not dismissed
+if (!window.matchMedia('(display-mode: standalone)').matches) {
+    window.addEventListener('load', () => {
+        // If no prompt fired after 3 seconds, logging it (logic remains driven by beforeinstallprompt for compliance)
+        setTimeout(() => {
+            if (!deferredPrompt) console.log('PWA prompt did not fire yet. Check HTTPS/Manifest.');
+        }, 3000);
     });
 }
