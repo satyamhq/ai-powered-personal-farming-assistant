@@ -17,6 +17,36 @@ document.addEventListener('DOMContentLoaded', () => {
         script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
         document.body.appendChild(script);
     }
+
+    // Header Download Button Logic (Global)
+    const headerBtn = document.getElementById('header-download-btn');
+    if (headerBtn) {
+        headerBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const choiceResult = await deferredPrompt.userChoice;
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('User accepted the A2HS prompt');
+                }
+                deferredPrompt = null;
+            } else {
+                // Check if popup exists, if not, inject it
+                if (!document.getElementById('pwa-install-popup')) {
+                    // We need to access injectPWAPopup. It is defined in global scope below.
+                    // Since functions are hoisted, this might work if defined as function declaration.
+                    // injectPWAPopup is defined as: function injectPWAPopup() {...} so it is hoisted!
+                    injectPWAPopup();
+                }
+
+                const pwaPopup = document.getElementById('pwa-install-popup');
+                if (pwaPopup) {
+                    pwaPopup.style.display = 'block';
+                } else {
+                    alert('To install the app, look for "Add to Home Screen" in your browser menu.');
+                }
+            }
+        });
+    }
 });
 
 // Google Translate Init Function (global)
@@ -96,6 +126,8 @@ function attachPWAEvents() {
             sessionStorage.setItem('pwa-dismissed', 'true');
         });
     }
+
+
 }
 
 // Listen for install prompt
