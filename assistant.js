@@ -322,7 +322,96 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ============================================================
-  // 4. SMART INTENT DETECTION
+  // 4. LIVE MANDI PRICE API (data.gov.in)
+  // ============================================================
+  const MANDI_API_BASE = 'https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070';
+  const MANDI_API_KEY = '579b464db66ec23bdd000001cdd3946e44ce4aad7209ff7b23ac571b';
+  const mandiCache = {};
+
+  async function fetchLiveMandiPrice(cropName) {
+    if (!cropName) return null;
+    var cacheKey = cropName.toLowerCase();
+    if (mandiCache[cacheKey] && (Date.now() - mandiCache[cacheKey].ts) < 5 * 60 * 1000) {
+      return mandiCache[cacheKey].data;
+    }
+    try {
+      var url = MANDI_API_BASE + '?api-key=' + MANDI_API_KEY + '&format=json&limit=15&filters[commodity]=' + encodeURIComponent(cropName);
+      var res = await fetchSafe(url, 10000);
+      var json = await res.json();
+      var records = json.records || [];
+      if (records.length > 0) {
+        mandiCache[cacheKey] = { data: records, ts: Date.now() };
+      }
+      return records.length > 0 ? records : null;
+    } catch (e) {
+      console.error('Mandi API error:', e);
+      return null;
+    }
+  }
+
+  function formatMandiResponse(records, cropName) {
+    var label = cropName.split(' ').map(function (w) { return w.charAt(0).toUpperCase() + w.slice(1); }).join(' ');
+    var prices = records.map(function (r) { return parseFloat(r.modal_price) || 0; }).filter(function (p) { return p > 0; });
+    var avg = prices.length > 0 ? prices.reduce(function (a, b) { return a + b; }, 0) / prices.length : 0;
+    var sorted = records.slice().sort(function (a, b) { return (parseFloat(b.modal_price) || 0) - (parseFloat(a.modal_price) || 0); });
+    var best = sorted[0];
+    var worst = sorted[sorted.length - 1];
+
+    var result = '**💰 Live Mandi Prices: ' + label + '**\n';
+    result += '*(Real-time data from Agmarknet/data.gov.in)*\n\n';
+
+    // Show top markets (max 8)
+    var shown = Math.min(records.length, 8);
+    for (var i = 0; i < shown; i++) {
+      var r = records[i];
+      var modal = parseFloat(r.modal_price) || 0;
+      var market = (r.market || 'Unknown') + ', ' + (r.state || '');
+      var variety = r.variety ? ' (' + r.variety + ')' : '';
+      result += '• **' + market + '**' + variety + ': ₹' + modal.toLocaleString('en-IN') + '/Qtl';
+      result += ' (Min: ₹' + (parseFloat(r.min_price) || 0).toLocaleString('en-IN') + ' — Max: ₹' + (parseFloat(r.max_price) || 0).toLocaleString('en-IN') + ')\n';
+    }
+    if (records.length > shown) {
+      result += '\n*...and ' + (records.length - shown) + ' more markets.*\n';
+    }
+
+    // AI Insights
+    result += '\n**🤖 AI Market Insights:**\n';
+    if (best) {
+      result += '• 📈 **Best price:** ₹' + (parseFloat(best.modal_price) || 0).toLocaleString('en-IN') + '/Qtl at ' + (best.market || '') + ', ' + (best.state || '') + '\n';
+    }
+    if (worst && records.length > 1) {
+      result += '• 📉 **Lowest price:** ₹' + (parseFloat(worst.modal_price) || 0).toLocaleString('en-IN') + '/Qtl at ' + (worst.market || '') + ', ' + (worst.state || '') + '\n';
+    }
+    result += '• 📊 **Average:** ₹' + Math.round(avg).toLocaleString('en-IN') + '/Qtl across ' + records.length + ' markets\n';
+
+    var spread = prices.length > 0 ? ((Math.max.apply(null, prices) - Math.min.apply(null, prices)) / avg * 100).toFixed(0) : 0;
+    if (spread > 30) {
+      result += '• ⚠️ High price variation (' + spread + '%) — compare multiple mandis before selling!\n';
+    } else if (spread > 15) {
+      result += '• ℹ️ Moderate variation (' + spread + '%). Check best mandi near you.\n';
+    } else {
+      result += '• ✅ Stable pricing across markets. Good selling conditions.\n';
+    }
+
+    result += '\n👉 **[See all prices on Market page](market.html?q=' + encodeURIComponent(cropName) + ')**';
+    return result;
+  }
+
+  // Extract crop name from a price query
+  function extractCropFromPriceQuery(query) {
+    var q = query.toLowerCase().trim();
+    // Remove price-related words
+    q = q.replace(/\b(price|rate|cost|mandi|msp|market|value|bhav|of|for|the|what|is|are|how|much|today|current|live|show|tell|me|get|check)\b/gi, '').trim();
+    // Also try matching against known crops
+    var crops = Object.keys(priceDatabase).sort(function (a, b) { return b.length - a.length; });
+    for (var i = 0; i < crops.length; i++) {
+      if (query.toLowerCase().includes(crops[i])) return crops[i];
+    }
+    return q || null;
+  }
+
+  // ============================================================
+  // 5. SMART INTENT DETECTION
   // ============================================================
   function extractSubject(query) {
     // Remove common question words and fillers to extract the core subject
@@ -366,16 +455,9 @@ document.addEventListener('DOMContentLoaded', () => {
       return "Goodbye! Wishing you a great harvest! 🌾";
     }
 
-    // --- Price / Mandi Intent ---
+    // --- Price / Mandi Intent --- (handled async in handleSend, return null to trigger live fetch)
     if (/\b(price|rate|cost|mandi|msp|market\s*value|bhav)\b/i.test(q)) {
-      const crops = Object.keys(priceDatabase).sort((a, b) => b.length - a.length);
-      for (const crop of crops) {
-        if (q.includes(crop) || subject.includes(crop)) {
-          const label = crop.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
-          return "**💰 Market Rate: " + label + "**\n" + priceDatabase[crop] + "\n\n**📊 Advice:**\n• Prices change daily — check your nearest APMC mandi for today's rate.\n• If price is low, consider storing (if possible) and selling after 2-4 weeks.\n• If price is at or above MSP, it is a good time to sell.\n• Use **eNAM portal** to compare rates across mandis.\n*(Prices shown are approximate averages per Quintal unless specified.)*";
-        }
-      }
-      return "I have prices for **50+ crops** including Rice, Wheat, Cotton, Pulses, Spices, Fruits & more.\nAsk: **'Price of [Crop Name]'**\n\nI need the crop name to give accurate price advice.";
+      return '__LIVE_PRICE_INTENT__'; // Signal to handleSend to fetch live data
     }
 
     // --- Farming Knowledge (check both raw query and extracted subject) ---
@@ -561,6 +643,36 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       // Step 1: Local farming knowledge
       response = getLocalResponse(text);
+
+      // Step 1b: Live Price Intent — fetch from data.gov.in API
+      if (response === '__LIVE_PRICE_INTENT__') {
+        response = null;
+        var cropName = extractCropFromPriceQuery(text);
+        if (cropName) {
+          addMessage('📊 Fetching live mandi prices for **' + cropName + '**...', 'bot');
+          var liveRecords = await fetchLiveMandiPrice(cropName);
+          if (liveRecords && liveRecords.length > 0) {
+            response = formatMandiResponse(liveRecords, cropName);
+          } else {
+            // Fallback to local price DB
+            var crops = Object.keys(priceDatabase).sort(function (a, b) { return b.length - a.length; });
+            for (var ci = 0; ci < crops.length; ci++) {
+              if (text.toLowerCase().includes(crops[ci])) {
+                var lbl = crops[ci].split(' ').map(function (w) { return w.charAt(0).toUpperCase() + w.slice(1); }).join(' ');
+                response = "**💰 Market Rate: " + lbl + "** (Reference Prices)\n" + priceDatabase[crops[ci]] +
+                  "\n\n*(Live API prices unavailable right now. Above are approximate reference prices.)*" +
+                  "\n\n**📊 Advice:**\n• Check your nearest APMC mandi for today's rate.\n• Use **eNAM portal** to compare rates across mandis.\n• 👉 **[View Market Page](market.html?q=" + encodeURIComponent(crops[ci]) + ")**";
+                break;
+              }
+            }
+            if (!response) {
+              response = "I couldn't find live prices for '" + cropName + "'. Try a different spelling (e.g. 'Wheat', 'Tomato', 'Rice').\n\nI have prices for **50+ crops** — ask: **'Price of [Crop Name]'**";
+            }
+          }
+        } else {
+          response = "I have **live prices** for 300+ crops from Indian mandis!\nAsk: **'Price of [Crop Name]'** (e.g. Price of Wheat, Rate of Tomato)\n\n👉 Or visit the **[Market Prices page](market.html)**";
+        }
+      }
 
       // Step 2: Weather intent
       if (!response && /\b(weather|temperature|forecast|climate|mausam|rain|barish|humidity|wind|garmi|sardi|baarish)\b/i.test(lowerText)) {
