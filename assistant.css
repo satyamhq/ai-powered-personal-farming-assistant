@@ -1,119 +1,189 @@
-/* Specific Styles for Strong Chatbox */
-.chat-layout {
+/* Assistant Page Styles */
+
+/* Chat Layout */
+.chat-container {
     display: flex;
-    height: calc(100vh - 180px);
-    background-color: var(--white);
-    margin-top: 1rem;
-    border-radius: var(--radius);
+    flex-direction: column;
+    height: calc(100vh - 140px);
+    /* Adjust based on header height */
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border);
     overflow: hidden;
-    border: 1px solid var(--border-color);
-}
-
-.chat-sidebar {
-    width: 300px;
-    background-color: #f8f9fa;
-    border-right: 1px solid var(--border-color);
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-}
-
-.chat-main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
 }
 
 .chat-header {
-    padding: 1rem 1.5rem;
-    border-bottom: 1px solid var(--border-color);
-    background-color: var(--white);
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
+    background: var(--primary);
+    color: white;
+    padding: var(--space-md);
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+.chat-header h1 {
+    font-size: var(--text-lg);
+    margin: 0;
+    font-weight: 700;
+}
+
+.chat-header p {
+    margin: 0;
+    font-size: var(--text-sm);
+    opacity: 0.9;
+    color: #e6f0eb;
+}
+
+/* Messages Area */
 .chat-messages {
     flex: 1;
-    padding: 1.5rem;
+    padding: var(--space-md);
     overflow-y: auto;
-    background-color: #f0fdf4;
+    background-color: var(--bg-body);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
 }
 
 .message {
-    margin-bottom: 1rem;
-    max-width: 80%;
-}
-
-.message.user {
-    margin-left: auto;
-    background-color: var(--primary-color);
-    color: var(--white);
-    padding: 0.75rem 1rem;
-    border-radius: 1rem 1rem 0 1rem;
+    max-width: 85%;
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    font-size: var(--text-base);
+    line-height: 1.5;
+    position: relative;
+    word-wrap: break-word;
 }
 
 .message.bot {
-    margin-right: auto;
-    background-color: var(--white);
-    border: 1px solid var(--border-color);
-    padding: 0.75rem 1rem;
-    border-radius: 1rem 1rem 1rem 0;
+    align-self: flex-start;
+    background-color: white;
+    border: 1px solid var(--border);
+    border-bottom-left-radius: 0;
     box-shadow: var(--shadow-sm);
 }
 
-.chat-input-area {
-    padding: 1rem 1.5rem;
-    background-color: var(--white);
-    border-top: 1px solid var(--border-color);
-    display: flex;
-    gap: 1rem;
+.message.user {
+    align-self: flex-end;
+    background-color: var(--primary-light);
+    color: var(--primary);
+    border-bottom-right-radius: 0;
+    border: 1px solid #c6f6d5;
 }
 
-.chat-input {
+/* Message Content Formatting */
+.message strong {
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.message a {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+.message ul {
+    margin-left: var(--space-md);
+    margin-top: var(--space-xs);
+}
+
+/* Input Area */
+.input-area {
+    padding: var(--space-md);
+    background: white;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: var(--space-sm);
+    align-items: flex-end;
+    /* Align if textarea grows */
+}
+
+#user-input {
     flex: 1;
-    padding: 0.75rem 1rem;
-    border: 1px solid var(--border-color);
-    border-radius: 2rem;
-    outline: none;
-}
-
-.chat-input:focus {
-    border-color: var(--primary-color);
-}
-
-.send-btn {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    background-color: var(--primary-color);
-    color: var(--white);
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.suggested-questions {
-    margin-top: auto;
-}
-
-.suggestion-chip {
-    display: block;
-    width: 100%;
-    text-align: left;
-    padding: 0.75rem;
-    background: var(--white);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius);
-    margin-bottom: 0.5rem;
-    cursor: pointer;
-    font-size: 0.9rem;
+    height: 50px;
+    /* Larger touch target */
+    border-radius: 25px;
+    padding: 0 var(--space-md);
+    border: 2px solid var(--border);
     transition: all 0.2s;
 }
 
-.suggestion-chip:hover {
-    border-color: var(--primary-color);
-    background-color: #e6f0eb;
+#user-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+#send-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+#send-btn:hover {
+    background: var(--primary-hover);
+    transform: scale(1.05);
+}
+
+#send-btn:disabled {
+    background: var(--text-muted);
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Quick Prompts */
+.quick-prompts {
+    padding: var(--space-sm) var(--space-md);
+    background: white;
+    display: flex;
+    gap: var(--space-sm);
+    overflow-x: auto;
+    border-bottom: 1px solid var(--border);
+}
+
+.prompt-chip {
+    padding: 0.5rem 1rem;
+    background: var(--bg-body);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    white-space: nowrap;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: all 0.2s;
+}
+
+.prompt-chip:hover {
+    background: var(--primary-light);
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .chat-container {
+        height: calc(100vh - 120px);
+        border-radius: 0;
+        border: none;
+    }
+
+    .chat-messages {
+        padding: var(--space-sm);
+    }
+
+    .message {
+        max-width: 90%;
+        padding: var(--space-sm) var(--space-md);
+    }
 }

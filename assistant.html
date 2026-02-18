@@ -4,94 +4,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Assistant - Agri1</title>
-    <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="mobile.css">
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
-    <link rel="shortcut icon" href="favicon/favicon.ico">
-    <link rel="manifest" href="favicon/site.webmanifest">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>AI Farming Assistant - Agri1</title>
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="assistant.css">
+    <link rel="icon" type="image/svg+xml" href="favicon/icon.svg">
+    <link rel="manifest" href="favicon/site.webmanifest">
 </head>
 
-<body>
+<body style="height: 100vh; display: flex; flex-direction: column;">
 
-    <!-- Header -->
-    <header class="main-header">
-        <div class="container">
-            <div class="header-content">
-                <a href="index.html" class="logo"><i class="fas fa-leaf"></i> <span>Agri<span>1</span></span></a>
-                <!-- Mobile Menu Button -->
-                <button class="mobile-menu-btn"
-                    style="display: none; background: none; border: none; font-size: 1.5rem; color: var(--primary-color); cursor: pointer; margin-left: auto;">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <!-- Translate Widget -->
-                <div id="google_translate_element" style="margin-left: 1rem;"></div>
-                <nav class="main-nav" style="border:0; padding:0;">
-                    <ul class="nav-list" style="padding:0;">
-                        <li><a href="index.html" class="nav-link">Home</a></li>
-                        <li><a href="crop.html" class="nav-link">Crop Guidance</a></li>
-                        <li><a href="pest.html" class="nav-link">Pest Management</a></li>
-                        <li><a href="weather.html" class="nav-link">Weather</a></li>
-                        <li><a href="market.html" class="nav-link">Market Prices</a></li>
-                        <li><a href="assistant.html" class="nav-link active">AI Assistant</a></li>
-                    </ul>
-                </nav>
-            </div>
+    <!-- Main Header -->
+    <header class="main-header" style="flex-shrink: 0;">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <i class="fas fa-leaf"></i>
+                <span>Agri<span>1</span></span>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="weather.html" class="nav-link">Weather</a>
+                <a href="market.html" class="nav-link">Market</a>
+                <a href="assistant.html" class="nav-link active">AI Assistant</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="login.html" class="btn btn-primary">Login</a>
+            </nav>
+
+            <!-- Mobile Toggle -->
+            <button class="mobile-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </header>
 
-    <div class="container">
-        <div class="chat-layout">
-            <!-- Sidebar -->
-            <div class="chat-sidebar">
-                <h3 style="margin-bottom: 1rem;">Agri1 Assistant</h3>
-                <p style="font-size: 0.9rem; color: var(--text-light); margin-bottom: 2rem;">
-                    I can help you with crop advice, pest identification, and market insights.
-                </p>
-
-                <div class="suggested-questions">
-                    <p style="font-weight: 600; margin-bottom: 0.5rem;">Try asking:</p>
-                    <button class="suggestion-chip">Price of Cotton</button>
-                    <button class="suggestion-chip">How to grow rice?</button>
-                    <button class="suggestion-chip">Weather today</button>
-                    <button class="suggestion-chip">Government schemes for farmers</button>
-                    <button class="suggestion-chip">Fungus treatment</button>
-                </div>
-            </div>
-
-            <!-- Main Chat -->
-            <div class="chat-main">
+    <!-- Chat Interface -->
+    <main class="section" style="flex: 1; padding: var(--space-md) 0; overflow: hidden;">
+        <div class="container" style="height: 100%;">
+            <div class="chat-container">
                 <div class="chat-header">
-                    <div style="width: 10px; height: 10px; background: #22c55e; border-radius: 50%;"></div>
-                    <span style="font-weight: 600;">AgriBot Online</span>
+                    <h1>
+                        <div class="ai-logo-container"
+                            style="width: 40px; height: 40px; margin-right: 0; display: inline-flex;">
+                            <i class="fas fa-seedling ai-logo-icon" style="font-size: 20px;"></i>
+                            <div class="ai-logo-leaf"
+                                style="width: 16px; height: 16px; font-size: 10px; top: -2px; right: -2px; border: 2px solid white;">
+                                <i class="fas fa-smile"></i>
+                            </div>
+                        </div>
+                    </h1>
+                    <p>Ask about crops, diseases, weather, or prices</p>
                 </div>
 
-                <div class="chat-messages" id="chat-messages">
+                <div id="chat-messages" class="chat-messages">
                     <div class="message bot">
-                        Hello! I'm your personal farming assistant. How can I help you today?
+                        <strong>Namaste! 🙏 I am <span class="text-primary">Agri1</span> AI.</strong><br>
+                        I can help you with:
+                        <ul>
+                            <li>🌾 Crop advice & cultivation</li>
+                            <li>💰 Live Mandi prices (e.g. "Price of Wheat")</li>
+                            <li>🐛 Pest & disease control</li>
+                            <li>🌤️ Weather forecast</li>
+                            <li>🏛️ Government schemes</li>
+                        </ul>
+                        How can I help you today?
                     </div>
                 </div>
 
-                <div class="chat-input-area">
-                    <input type="text" class="chat-input" id="user-input" placeholder="Type your question here...">
-                    <button class="send-btn" id="send-btn"><i class="fas fa-paper-plane"></i></button>
+                <div class="quick-prompts">
+                    <button class="prompt-chip"
+                        onclick="document.getElementById('user-input').value='Price of Tomato'; document.getElementById('send-btn').click();">💰
+                        Price of Tomato</button>
+                    <button class="prompt-chip"
+                        onclick="document.getElementById('user-input').value='Weather today'; document.getElementById('send-btn').click();">🌤️
+                        Weather</button>
+                    <button class="prompt-chip"
+                        onclick="document.getElementById('user-input').value='How to control whitefly?'; document.getElementById('send-btn').click();">🐛
+                        Pest Control</button>
+                    <button class="prompt-chip"
+                        onclick="document.getElementById('user-input').value='PM Kisan scheme details'; document.getElementById('send-btn').click();">🏛️
+                        Schemes</button>
+                </div>
+
+                <div class="input-area">
+                    <input type="text" id="user-input" placeholder="Type your question here... (e.g. 'Gehu ka bhav')"
+                        autocomplete="off">
+                    <button id="send-btn"><i class="fas fa-paper-plane"></i></button>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
-    <!-- AI Assistant Floating Button -->
-    <a href="assistant.html" class="ai-floating-btn" title="Chat with AI Assistant">
-        <i class="fas fa-robot"></i>
-    </a>
-
-    <script src="assistant.js"></script>
+    <!-- Scripts -->
+    <div id="google_translate_element" style="display:none;"></div>
     <script src="common.js"></script>
+    <script src="assistant.js"></script>
+
+    <!-- Handle URL params for auto-query -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const query = urlParams.get('q');
+            if (query) {
+                const input = document.getElementById('user-input');
+                const btn = document.getElementById('send-btn');
+                if (input && btn) {
+                    input.value = query;
+                    // Small delay to let everything load
+                    setTimeout(() => btn.click(), 500);
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>

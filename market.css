@@ -1,128 +1,72 @@
-/* Market Prices — Styles */
+/* Market Page Styles */
 
 /* Search Section */
-.section-subtitle {
-    text-align: center;
-    color: var(--text-light);
-    margin-top: -0.5rem;
-    margin-bottom: 2rem;
-    font-size: 0.95rem;
-}
-
 .market-search-section {
-    background: var(--white);
-    padding: 1.5rem 2rem;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow-sm);
-    margin-bottom: 1.5rem;
-}
-
-.crop-search-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.crop-search-icon {
-    position: absolute;
-    left: 1.2rem;
-    color: #999;
-    font-size: 1rem;
-    z-index: 1;
-}
-
-.crop-search-input {
-    flex: 1;
-    padding: 0.9rem 1rem 0.9rem 3rem;
-    border: 2px solid var(--border-color);
-    border-radius: 2.5rem;
-    font-size: 1rem;
-    font-family: inherit;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.crop-search-input:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(34, 139, 34, 0.1);
-}
-
-.crop-search-btn {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    border: none;
-    background: var(--primary-color);
+    background-color: var(--primary);
+    padding: var(--space-lg) 0;
     color: white;
-    font-size: 1.1rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.2s, background-color 0.2s;
-    flex-shrink: 0;
+    text-align: center;
+    margin-bottom: var(--space-lg);
 }
 
-.crop-search-btn:hover {
-    background: #1a6b1a;
-    transform: scale(1.05);
-}
-
-.filter-row {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 1rem;
-    flex-wrap: wrap;
-}
-
-.filter-select {
-    padding: 0.5rem 1rem;
-    border: 1px solid var(--border-color);
-    border-radius: 2rem;
-    font-family: inherit;
-    font-size: 0.9rem;
+.search-container {
+    max-width: 700px;
+    margin: 0 auto;
     background: white;
-    cursor: pointer;
-    outline: none;
-    min-width: 140px;
-}
-
-.filter-select:focus {
-    border-color: var(--primary-color);
-}
-
-/* Quick Search Chips */
-.quick-search-chips {
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
     display: flex;
-    gap: 0.5rem;
+    gap: var(--space-sm);
     flex-wrap: wrap;
+}
+
+.search-group {
     flex: 1;
+    min-width: 200px;
+}
+
+.market-search-input {
+    border: 1px solid var(--border);
+    height: var(--touch-target);
+    padding: 0 var(--space-sm);
+    border-radius: var(--radius-sm);
+    width: 100%;
+}
+
+.state-select {
+    height: var(--touch-target);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0 var(--space-sm);
+    width: 100%;
+    background-color: white;
+}
+
+/* Quick Chips */
+.quick-chips {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+    margin-top: var(--space-md);
 }
 
 .quick-chip {
-    padding: 0.4rem 0.85rem;
-    border: 1px solid var(--border-color);
-    border-radius: 2rem;
-    background: white;
-    font-size: 0.8rem;
-    cursor: pointer;
-    font-family: inherit;
-    transition: all 0.2s;
-    white-space: nowrap;
-}
-
-.quick-chip:hover {
-    border-color: var(--primary-color);
-    background: #e8f5e9;
-    transform: translateY(-1px);
-}
-
-.quick-chip.active {
-    background: var(--primary-color);
+    background: rgba(255, 255, 255, 0.2);
     color: white;
-    border-color: var(--primary-color);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    font-size: var(--text-sm);
+    transition: all 0.2s;
+}
+
+.quick-chip:hover,
+.quick-chip.active {
+    background: white;
+    color: var(--primary);
 }
 
 /* Results Bar */
@@ -130,335 +74,172 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
-    padding: 0.5rem 0;
-    font-size: 0.9rem;
-    color: var(--text-light);
+    margin-bottom: var(--space-md);
+    padding: var(--space-sm);
+    background: var(--primary-light);
+    border-radius: var(--radius-sm);
+    color: var(--primary);
+    font-weight: 500;
 }
 
-.results-bar span:first-child {
-    font-weight: 600;
-    color: var(--text-dark);
-}
-
-/* Loading */
-.loading-state {
-    text-align: center;
-    padding: 3rem 1rem;
-}
-
-.loading-spinner {
-    width: 40px;
-    height: 40px;
-    margin: 0 auto 1rem;
-    border: 4px solid #e0e0e0;
-    border-top-color: var(--primary-color);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-.loading-state p {
-    color: var(--text-light);
-    font-size: 0.95rem;
-}
-
-/* Empty & Error States */
-.empty-state,
-.error-state {
-    text-align: center;
-    padding: 4rem 2rem;
-    color: var(--text-light);
-}
-
-.empty-state i,
-.error-state i {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    opacity: 0.3;
-}
-
-.empty-state h3,
-.error-state h3 {
-    margin-bottom: 0.5rem;
-    color: var(--text-dark);
-}
-
-.error-state i {
-    color: #e74c3c;
-    opacity: 0.6;
-}
-
-/* AI Insights Panel */
-.ai-insights-panel {
-    background: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 100%);
-    border: 1px solid #bbdefb;
-    border-radius: var(--radius);
-    margin-bottom: 1.5rem;
-    overflow: hidden;
-}
-
-.ai-insights-header {
-    background: linear-gradient(135deg, var(--primary-color) 0%, #1565c0 100%);
-    color: white;
-    padding: 0.75rem 1.25rem;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    font-weight: 600;
-    font-size: 0.95rem;
-}
-
-.ai-insights-header i {
-    font-size: 1.1rem;
-}
-
-.ai-insights-body {
-    padding: 1rem 1.25rem;
-    font-size: 0.9rem;
-    line-height: 1.6;
-    color: var(--text-dark);
-}
-
-.ai-insights-body .insight-item {
-    margin-bottom: 0.5rem;
-    display: flex;
-    gap: 0.5rem;
-    align-items: flex-start;
-}
-
-.ai-insights-body .insight-item .emoji {
-    font-size: 1rem;
-    flex-shrink: 0;
-}
-
-.ai-insights-body .insight-highlight {
-    font-weight: 600;
-    color: var(--primary-color);
-}
-
-.ai-insights-body a {
-    color: #1565c0;
-    text-decoration: underline;
-}
-
-/* Prices Grid */
+/* Price Cards */
 .prices-grid {
     display: grid;
-    gap: 1rem;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-md);
 }
 
-/* Price Card */
 .price-card {
-    background: var(--white);
-    border-radius: var(--radius);
-    border: 1px solid var(--border-color);
-    padding: 0;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
     overflow: hidden;
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .price-card:hover {
-    transform: translateY(-3px);
+    transform: translateY(-2px);
     box-shadow: var(--shadow-md);
+    border-color: var(--primary);
 }
 
-.price-card-header {
-    background: linear-gradient(135deg, #f0fdf4, #e8f5e9);
-    padding: 1rem 1.25rem 0.75rem;
-    border-bottom: 1px solid #e8f5e9;
+.price-card.nearest-card {
+    border: 2px solid var(--secondary);
+    position: relative;
 }
 
-.price-card-header h3 {
-    font-size: 1.1rem;
-    color: var(--primary-color);
-    margin: 0 0 0.25rem;
+.nearest-label {
+    background: var(--secondary);
+    color: white;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
     font-weight: 700;
 }
 
-.price-card-header .variety-tag {
+.price-card-header {
+    padding: var(--space-sm);
+    border-bottom: 1px solid var(--border);
+    background: #f9fafb;
+}
+
+.price-card-header h3 {
+    margin: 0;
+    font-size: var(--text-lg);
+    color: var(--text-main);
+}
+
+.variety-tag {
     font-size: 0.75rem;
-    color: var(--text-light);
-    background: white;
-    padding: 0.15rem 0.5rem;
-    border-radius: 1rem;
-    display: inline-block;
+    background: #e5e7eb;
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    color: var(--text-muted);
 }
 
 .price-card-body {
-    padding: 1rem 1.25rem;
+    padding: var(--space-md);
 }
 
 .price-card-location {
-    font-size: 0.85rem;
-    color: var(--text-light);
-    margin-bottom: 0.75rem;
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin-bottom: var(--space-md);
     display: flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.25rem;
 }
 
 .price-card-prices {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 0.5rem;
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--space-md);
 }
 
 .price-item {
-    padding: 0.4rem;
-    border-radius: 0.5rem;
-    background: #f9f9f9;
+    text-align: center;
 }
 
 .price-item .label {
     font-size: 0.7rem;
+    color: var(--text-muted);
     text-transform: uppercase;
-    color: #999;
-    letter-spacing: 0.5px;
-    margin-bottom: 0.15rem;
 }
 
 .price-item .value {
+    font-weight: 600;
     font-size: 1rem;
-    font-weight: 700;
-    color: var(--text-dark);
-}
-
-.price-item.modal-price {
-    background: #e8f5e9;
 }
 
 .price-item.modal-price .value {
-    color: var(--primary-color);
+    color: var(--primary);
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.price-vs-avg {
+    display: block;
+    font-size: 0.8rem;
+    margin-bottom: var(--space-sm);
+    padding: 0.25rem;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.price-vs-avg.above {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.price-vs-avg.below {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.price-vs-avg.avg {
+    background: #f3f4f6;
+    color: var(--text-muted);
 }
 
 .price-card-date {
     font-size: 0.75rem;
-    color: #bbb;
-    margin-top: 0.75rem;
-    padding-top: 0.5rem;
-    border-top: 1px solid #f0f0f0;
+    color: var(--text-muted);
+    text-align: right;
+    margin-top: var(--space-xs);
 }
 
-/* Distance Badge */
-.distance-badge {
-    font-size: 0.7rem;
-    background: #e3f2fd;
-    color: #1565c0;
-    padding: 0.15rem 0.5rem;
-    border-radius: 1rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25rem;
-    font-weight: 500;
+/* AI Insights */
+.ai-insights-card {
+    background: linear-gradient(135deg, #f0fdf4, #e0f2fe);
+    border: 1px solid #bbdefb;
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    margin-bottom: var(--space-lg);
 }
 
-.distance-badge i {
-    font-size: 0.6rem;
+.insight-item {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
 }
 
-/* Nearest Mandi Label */
-.nearest-label {
-    font-size: 0.7rem;
-    background: #228B22;
-    color: white;
-    padding: 0.15rem 0.5rem;
-    border-radius: 1rem;
+.insight-highlight {
     font-weight: 600;
+    color: var(--primary);
 }
 
-/* Nearest Card Highlight */
-.price-card.nearest-card {
-    border: 2px solid var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(34, 139, 34, 0.1);
-}
-
-/* Price vs Average Indicator */
-.price-vs-avg {
-    display: block;
+/* States */
+.state-message {
     text-align: center;
-    font-size: 0.75rem;
-    font-weight: 600;
-    padding: 0.35rem 0.5rem;
-    border-radius: 0.4rem;
-    margin-top: 0.5rem;
+    padding: var(--space-xl);
+    color: var(--text-muted);
 }
 
-.price-vs-avg.above {
-    background: #e8f5e9;
-    color: #2e7d32;
-}
-
-.price-vs-avg.below {
-    background: #fbe9e7;
-    color: #c62828;
-}
-
-.price-vs-avg.avg {
-    background: #f5f5f5;
-    color: #757575;
-}
-
-.price-vs-avg i {
-    font-size: 0.65rem;
-    margin-right: 0.2rem;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .market-search-section {
-        padding: 1rem;
-    }
-
-    .crop-search-input {
-        font-size: 0.9rem;
-        padding: 0.75rem 1rem 0.75rem 2.5rem;
-    }
-
-    .crop-search-btn {
-        width: 42px;
-        height: 42px;
-    }
-
-    .filter-row {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .filter-select {
-        width: 100%;
-    }
-
-    .quick-search-chips {
-        overflow-x: auto;
-        flex-wrap: nowrap;
-        -webkit-overflow-scrolling: touch;
-        padding-bottom: 0.25rem;
-    }
-
-    .quick-chip {
-        flex: 0 0 auto;
-    }
-
-    .prices-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .results-bar {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.25rem;
-    }
-
-    .ai-insights-body {
-        padding: 0.75rem 1rem;
-        font-size: 0.85rem;
-    }
+.state-message i {
+    font-size: 3rem;
+    margin-bottom: var(--space-md);
+    display: block;
+    color: #d1d5db;
 }

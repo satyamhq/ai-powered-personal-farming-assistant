@@ -5,110 +5,106 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crop Guidance - Agri1</title>
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- CSS -->
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="crop.css">
-    <link rel="stylesheet" href="mobile.css">
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
-    <link rel="shortcut icon" href="favicon/favicon.ico">
+    <link rel="icon" type="image/svg+xml" href="favicon/icon.svg">
     <link rel="manifest" href="favicon/site.webmanifest">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
 
-    <!-- Top Bar -->
-    <div class="top-bar">
-        <div class="container"><span><i class="fas fa-phone-alt"></i> Help: +91 1800-123-4567</span></div>
-    </div>
-
-    <!-- Header -->
+    <!-- Main Header -->
     <header class="main-header">
-        <div class="container">
-            <div class="header-content">
-                <a href="index.html" class="logo"><i class="fas fa-leaf"></i> <span>Agri<span>1</span></span></a>
-                <div class="search-bar">
-                    <input type="text" class="search-input" placeholder="Search crops...">
-                    <button class="search-btn"><i class="fas fa-search"></i></button>
-                </div>
-                <!-- Mobile Menu Button -->
-                <button class="mobile-menu-btn"
-                    style="display: none; background: none; border: none; font-size: 1.5rem; color: var(--primary-color); cursor: pointer; margin-left: 1rem;">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <!-- Translate Widget -->
-                <div id="google_translate_element" style="margin-left: 1rem;"></div>
-            </div>
-            <nav class="main-nav">
-                <ul class="nav-list">
-                    <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="crop.html" class="nav-link active">Crop Guidance</a></li>
-                    <li><a href="pest.html" class="nav-link">Pest Management</a></li>
-                    <li><a href="weather.html" class="nav-link">Weather</a></li>
-                    <li><a href="market.html" class="nav-link">Market Prices</a></li>
-                    <li><a href="assistant.html" class="nav-link">AI Assistant</a></li>
-                </ul>
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <i class="fas fa-leaf"></i>
+                <span>Agri<span>1</span></span>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="weather.html" class="nav-link">Weather</a>
+                <a href="market.html" class="nav-link">Market</a>
+                <a href="assistant.html" class="nav-link">AI Assistant</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="login.html" class="btn btn-primary">Login</a>
             </nav>
+
+            <!-- Mobile Toggle -->
+            <button class="mobile-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </header>
 
-    <div class="container" style="padding: 2rem 1rem;">
-        <h1 class="section-title">Crop Cultivation Guide</h1>
+    <!-- Content -->
+    <main class="container section">
 
-        <div class="crop-advisor-container" style="max-width: 800px; margin: 0 auto;">
-            <form id="crop-form" class="crop-form"
-                style="background: var(--white); padding: 2rem; border-radius: var(--radius); box-shadow: var(--shadow-sm);">
-                <div class="form-group" style="margin-bottom: 1.5rem;">
-                    <label for="soil-type" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Soil
+        <div style="text-align: center; margin-bottom: var(--space-lg);">
+            <h1 class="section-title">Smart Crop Advisor</h1>
+            <p class="hero-subtitle">Get personalized crop recommendations based on your soil and season.</p>
+        </div>
+
+        <div class="crop-form-container">
+            <form id="crop-form">
+                <div class="form-group">
+                    <label for="soil-type"><i class="fas fa-layer-group" style="color:var(--primary);"></i> Soil
                         Type</label>
-                    <select id="soil-type" class="form-input"
-                        style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: var(--radius);">
-                        <option value="">Select Soil Type</option>
-                        <option value="clay">Clay</option>
-                        <option value="sandy">Sandy</option>
-                        <option value="loamy">Loamy</option>
-                        <option value="black">Black</option>
+                    <select id="soil-type" required>
+                        <option value="">-- Select Soil Type --</option>
+                        <option value="clay">Clay (Heavy, holds water)</option>
+                        <option value="sandy">Sandy (Loose, drains fast)</option>
+                        <option value="loamy">Loamy (Balanced fertile)</option>
+                        <option value="black">Black (Cotton soil)</option>
+                        <option value="red">Red Soil</option>
                     </select>
                 </div>
-                <div class="form-group" style="margin-bottom: 1.5rem;">
-                    <label for="season" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Season</label>
-                    <select id="season" class="form-input"
-                        style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: var(--radius);">
-                        <option value="">Select Season</option>
-                        <option value="kharif">Kharif (Monsoon)</option>
-                        <option value="rabi">Rabi (Winter)</option>
-                        <option value="zaid">Zaid (Summer)</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Get Recommendations</button>
-            </form>
 
-            <div id="recommendations" class="recommendations-grid"
-                style="margin-top: 2rem; display: grid; gap: 1.5rem;">
-                <!-- Results will appear here -->
-                <div class="placeholder-text" style="text-align: center; color: var(--text-light); padding: 2rem;">
-                    Select soil and season to see crop recommendations.
+                <div class="form-group">
+                    <label for="season"><i class="fas fa-cloud-sun" style="color:var(--warning);"></i> Season</label>
+                    <select id="season" required>
+                        <option value="">-- Select Season --</option>
+                        <option value="kharif">Kharif (Monsoon: June-Oct)</option>
+                        <option value="rabi">Rabi (Winter: Oct-March)</option>
+                        <option value="zaid">Zaid (Summer: March-June)</option>
+                    </select>
                 </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    Find Best Crops <i class="fas fa-search-location"></i>
+                </button>
+            </form>
+        </div>
+
+        <div id="recommendations-area" style="display: none;">
+            <h3 style="border-bottom: 2px solid var(--primary-light); padding-bottom: 0.5rem; margin-bottom: 1rem;">
+                Recommended Crops
+            </h3>
+            <div id="results-grid" class="result-grid">
+                <!-- Javascript will populate this -->
             </div>
         </div>
-    </div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p style="text-align: center;">&copy; 2026 Agri1. All rights reserved.</p>
+    </main>
+
+    <footer style="margin-top: auto; padding: 2rem 0; text-align: center; border-top: 1px solid var(--border);">
+        <div class="container" style="opacity: 0.5; font-size: 0.9rem;">
+            &copy; 2026 <span style="color:var(--secondary)">Agri1</span>. All rights reserved.
         </div>
     </footer>
 
-    <!-- AI Assistant Floating Button -->
-    <a href="assistant.html" class="ai-floating-btn" title="Chat with AI Assistant">
-        <i class="fas fa-robot"></i>
-    </a>
-
-    <script src="crop.js"></script>
+    <!-- Scripts -->
+    <div id="google_translate_element" style="display:none;"></div>
     <script src="common.js"></script>
+    <script src="crop.js"></script>
+
 </body>
 
 </html>

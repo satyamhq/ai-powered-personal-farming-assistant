@@ -4,18 +4,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agri1 - Smart Farming Marketplace & Advisor</title>
-  <link rel="stylesheet" href="index.css">
-  <link rel="stylesheet" href="mobile.css">
+  <title>Agri1 - AI Personal Farming Assistant</title>
+  <meta name="description"
+    content="Empowering Indian farmers with AI-driven crop advice, weather forecasts, and market insights.">
+
+  <!-- Favicon -->
   <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
-  <link rel="shortcut icon" href="favicon/favicon.ico">
   <link rel="manifest" href="favicon/site.webmanifest">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
@@ -23,293 +27,174 @@
   <!-- Top Bar -->
   <div class="top-bar">
     <div class="container">
-      <span><i class="fas fa-phone-alt"></i> Help: +91 XXXXX-XXXXX</span>
-      <span>Download App</span>
+      <span><i class="fas fa-phone-alt"></i> Support: +91 XXXXX-XXXXX</span>
     </div>
   </div>
 
   <!-- Main Header -->
   <header class="main-header">
-    <div class="container">
-      <div class="header-content">
-        <!-- Logo -->
-        <a href="index.html" class="logo">
-          <i class="fas fa-leaf"></i> <span>Agri<span>1</span></span>
-        </a>
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <i class="fas fa-leaf"></i>
+        <span>Agri<span>1</span></span>
+      </a>
 
-        <button class="mobile-menu-btn"
-          style="display: none; background: none; border: none; font-size: 1.5rem; color: var(--primary-color); cursor: pointer;">
-          <i class="fas fa-bars"></i>
-        </button>
-
-        <!-- Search Bar -->
-        <div class="search-bar">
-          <input type="text" class="search-input" placeholder="Search for seeds, pesticides, equipment...">
-          <button class="search-btn"><i class="fas fa-search"></i></button>
-        </div>
-
-        <!-- Actions -->
-        <div class="header-actions">
-          <a href="login.html" class="action-item">
-            <i class="far fa-user"></i>
-            <span>Login/Sign Up</span>
-          </a>
-          <!-- Cart link removed/hidden as per user request to focus on assistant/info for now, or keep as is. Keeping as is but could redirect to assistant if needed. -->
-          <div id="google_translate_element"></div>
-        </div>
-      </div>
-
-      <!-- Navigation Menu -->
-      <nav class="main-nav">
-        <ul class="nav-list">
-          <li><a href="index.html" class="nav-link active">Home</a></li>
-          <li><a href="crop.html" class="nav-link">Crop Guidance</a></li>
-          <li><a href="pest.html" class="nav-link">Pest Management</a></li>
-          <li><a href="weather.html" class="nav-link">Weather</a></li>
-          <li><a href="market.html" class="nav-link">Market Prices</a></li>
-          <li><a href="assistant.html" class="nav-link">AI Assistant</a></li>
-        </ul>
+      <!-- Desktop Nav -->
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="weather.html" class="nav-link">Weather</a>
+        <a href="market.html" class="nav-link">Market</a>
+        <a href="assistant.html" class="nav-link">AI Assistant</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="login.html" class="btn btn-primary">Login</a>
       </nav>
+
+      <!-- Mobile Toggle -->
+      <button class="mobile-toggle">
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
   </header>
 
-  <!-- ===== Weather Section (below nav) ===== -->
-  <section id="home-weather-section">
-
-    <div class="hw-section">
-      <div class="hw-inner">
-        <div class="hw-top">
-          <div>
-            <div class="hw-location"><i class="fas fa-map-marker-alt"></i> <span id="hw-loc">Detecting
-                location...</span></div>
-          </div>
-          <div class="hw-current">
-            <span class="hw-current-icon" id="hw-icon"><i class="fas fa-spinner fa-spin"></i></span>
-            <span class="hw-current-temp" id="hw-temp">--°</span>
-            <span class="hw-current-desc" id="hw-desc">Loading...</span>
-            <a href="weather.html" class="hw-link">Full forecast →</a>
-          </div>
-        </div>
-        <div class="hw-summary" id="hw-summary"><span>🔄</span><span>Fetching weather data...</span></div>
-        <div class="hw-forecast-strip" id="hw-strip">
-          <div class="hw-day" style="flex:1; opacity:0.6; padding:1rem;">Loading 7-day forecast...</div>
-        </div>
-      </div>
-    </div>
-
-    <script>
-      (function () {
-        var wcodes = { 0: { l: 'Clear', i: 'fa-sun' }, 1: { l: 'Clear', i: 'fa-sun' }, 2: { l: 'Cloudy', i: 'fa-cloud-sun' }, 3: { l: 'Overcast', i: 'fa-cloud' }, 45: { l: 'Fog', i: 'fa-smog' }, 48: { l: 'Fog', i: 'fa-smog' }, 51: { l: 'Drizzle', i: 'fa-cloud-rain' }, 53: { l: 'Drizzle', i: 'fa-cloud-rain' }, 55: { l: 'Drizzle', i: 'fa-cloud-showers-heavy' }, 61: { l: 'Rain', i: 'fa-cloud-rain' }, 63: { l: 'Rain', i: 'fa-cloud-showers-heavy' }, 65: { l: 'Heavy Rain', i: 'fa-cloud-showers-heavy' }, 71: { l: 'Snow', i: 'fa-snowflake' }, 73: { l: 'Snow', i: 'fa-snowflake' }, 75: { l: 'Snow', i: 'fa-snowflake' }, 80: { l: 'Showers', i: 'fa-cloud-rain' }, 81: { l: 'Showers', i: 'fa-cloud-showers-heavy' }, 82: { l: 'Showers', i: 'fa-cloud-showers-heavy' }, 95: { l: 'Storm', i: 'fa-bolt' }, 96: { l: 'Storm', i: 'fa-bolt' }, 99: { l: 'Storm', i: 'fa-bolt' } };
-        var dayN = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-        function wi(c) { return wcodes[c] || { l: 'Fair', i: 'fa-cloud-sun' }; }
-
-        function render(data, locName) {
-          var c = data.current, d = data.daily, h = data.hourly;
-          var info = wi(c.weather_code);
-          document.getElementById('hw-loc').textContent = locName;
-          document.getElementById('hw-temp').textContent = Math.round(c.temperature_2m) + '°C';
-          document.getElementById('hw-icon').innerHTML = '<i class="fas ' + info.i + '"></i>';
-          document.getElementById('hw-desc').textContent = info.l + ' · ' + c.relative_humidity_2m + '% hum · ' + c.wind_speed_10m + 'km/h';
-
-          // AI summary
-          var rainy = 0, dry = 0;
-          for (var j = 0; j < 7; j++) { var rp = d.precipitation_probability_max ? d.precipitation_probability_max[j] : 0; if (rp > 50) rainy++; else dry++; }
-          var sumTxt = '';
-          if (rainy === 0) sumTxt = '☀️ All 7 days look dry — great for spraying, harvesting, and fieldwork.';
-          else if (rainy <= 2) sumTxt = '🌤️ ' + dry + ' dry + ' + rainy + ' rainy day(s) this week. Plan spraying on dry days.';
-          else sumTxt = '🌧️ ' + rainy + ' rainy days ahead. Ensure drainage and delay pesticide spraying.';
-          document.getElementById('hw-summary').innerHTML = '<span>' + (rainy > 2 ? '🌧️' : '☀️') + '</span><span>' + sumTxt + ' <a href="weather.html" class="hw-link">See AI farming advice →</a></span>';
-
-          // 7-day strip
-          var strip = document.getElementById('hw-strip'); strip.innerHTML = '';
-          for (var i = 0; i < 7; i++) {
-            var dt = new Date(d.time[i]);
-            var dn = i === 0 ? 'Today' : i === 1 ? 'Tmrw' : dayN[dt.getDay()];
-            var mx = Math.round(d.temperature_2m_max[i]), mn = Math.round(d.temperature_2m_min[i]);
-            var rp2 = d.precipitation_probability_max ? d.precipitation_probability_max[i] : 0;
-            var ic = wi(d.weather_code[i]);
-            var el = document.createElement('div'); el.className = 'hw-day';
-            el.innerHTML = '<div class="hw-day-name' + (i === 0 ? ' today' : '') + '">' + dn + '</div>' +
-              '<div class="hw-day-icon"><i class="fas ' + ic.i + '"></i></div>' +
-              '<div class="hw-day-temps">' + mx + '° <span class="hw-min">' + mn + '°</span></div>' +
-              '<div class="hw-rain-bar"><div class="hw-rain-fill" style="width:' + Math.min(rp2, 100) + '%"></div></div>' +
-              '<div class="hw-rain-pct">' + rp2 + '% 🌧</div>';
-            strip.appendChild(el);
-          }
-        }
-
-        function go(lat, lon, name) {
-          fetch('https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon + '&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum&timezone=auto&forecast_days=7')
-            .then(function (r) { return r.json(); })
-            .then(function (data) { render(data, name); })
-            .catch(function () { document.getElementById('hw-summary').innerHTML = '<span>⚠️</span><span>Weather unavailable. <a href="weather.html" class="hw-link">Try full page →</a></span>'; });
-        }
-
-        function init() {
-          if (!navigator.geolocation) { go(17.385, 78.487, 'Hyderabad (Default)'); return; }
-          navigator.geolocation.getCurrentPosition(
-            function (p) {
-              fetch('https://nominatim.openstreetmap.org/reverse?format=json&lat=' + p.coords.latitude + '&lon=' + p.coords.longitude + '&zoom=10', { headers: { 'User-Agent': 'Agri1/1.0' } })
-                .then(function (r) { return r.json(); })
-                .then(function (d) { var a = d.address || {}; go(p.coords.latitude, p.coords.longitude, (a.city || a.town || a.village || 'Your area') + ', ' + (a.state || '')); })
-                .catch(function () { go(p.coords.latitude, p.coords.longitude, 'Your Location'); });
-            },
-            function () { go(17.385, 78.487, 'Hyderabad (Default)'); },
-            { timeout: 5000 }
-          );
-        }
-        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
-      })();
-    </script>
-  </section>
-
   <!-- Hero Section -->
-  <div class="hero-wrapper">
-    <div class="container">
-      <div class="hero-banner">
-        <div class="hero-content">
-          <h1>Agri1 AI Assistant</h1>
-          <p>Expert advice in one place.</p>
-          <!-- <a href="#shop" class="btn btn-primary">Shop Now</a> -->
-        </div>
-        <div class="hero-image">
-          <!-- CSS background image handles this -->
-        </div>
-      </div>
-    </div>
-  </div>
+  <section class="hero-section">
+    <div class="container hero-content">
+      <h1 class="hero-title" id="welcome-message">Welcome to <span style="color:var(--secondary)">Agri1</span></h1>
+      <p class="hero-subtitle">Your personal AI farming assistant. Get crop advice, weather alerts, and market prices in
+        seconds.</p>
 
-  <!-- Core Services / Categories -->
-  <section class="categories-section">
-    <div class="container">
-      <h2 class="section-title">Explore by Category</h2>
-      <div class="categories-grid">
-        <a href="assistant.html?q=Best seeds for my area" class="category-card">
-          <i class="fas fa-seedling category-icon"></i>
-          <span class="category-title">Seeds</span>
-        </a>
-        <a href="assistant.html?q=Best fertilizers for my crop" class="category-card">
-          <i class="fas fa-flask category-icon"></i>
-          <span class="category-title">Fertilizers</span>
-        </a>
-        <a href="assistant.html?q=Pest control solutions" class="category-card">
-          <i class="fas fa-bug category-icon"></i>
-          <span class="category-title">Pesticides</span>
-        </a>
-        <a href="assistant.html?q=Farm machinery and tools" class="category-card">
-          <i class="fas fa-tractor category-icon"></i>
-          <span class="category-title">Machinery</span>
-        </a>
-        <a href="assistant.html?q=Farming tools" class="category-card">
-          <i class="fas fa-tools category-icon"></i>
-          <span class="category-title">Tools</span>
-        </a>
-        <a href="assistant.html?q=Irrigation systems" class="category-card">
-          <i class="fas fa-tint category-icon"></i>
-          <span class="category-title">Irrigation</span>
-        </a>
+      <div class="search-hero">
+        <input type="text" class="search-input"
+          placeholder="Ask AI: 'Best fertilizer for wheat?' or 'Mandi price tomato'">
+        <button class="btn btn-primary search-btn"><i class="fas fa-search"></i></button>
       </div>
     </div>
   </section>
 
-  <!-- Advisory Features -->
-  <section class="features-section">
+  <!-- Weather Preview (Simplified) -->
+  <section class="section" style="padding-top: 0; margin-top: -3rem;">
     <div class="container">
-      <h2 class="section-title">Smart Farming Advisory</h2>
-      <div class="features-grid">
-
-        <div class="feature-card">
-          <div class="feature-icon-wrapper">
-            <i class="fas fa-sprout"></i>
+      <div class="card weather-home-card">
+        <div class="grid grid-2" style="align-items: center;">
+          <div>
+            <h3 id="location-name" style="color:white; opacity:0.9; margin-bottom:0.5rem">Loading Location...</h3>
+            <div class="weather-current">
+              <div>
+                <div class="weather-desc" id="current-condition">--</div>
+                <div class="weather-temp" id="current-temp">--°</div>
+              </div>
+              <div id="current-icon-container">
+                <i class="fas fa-cloud-sun" style="font-size: 4rem; opacity: 0.8;"></i>
+              </div>
+            </div>
           </div>
-          <h3>Crop Guidance</h3>
-          <p>Scientific advice for every stage of your crop cycle. Maximize your yield.</p>
-          <br>
-          <a href="crop.html" class="btn btn-outline" style="width: 100%; text-align: center;">View Guide</a>
+          <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: var(--radius-md);">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.9rem;">
+              <span><i class="fas fa-tint"></i> Humidity</span>
+              <span id="current-humidity" style="font-weight: 700;">--%</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.9rem;">
+              <span><i class="fas fa-wind"></i> Wind</span>
+              <span id="current-wind" style="font-weight: 700;">-- km/h</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
+              <span><i class="fas fa-umbrella"></i> Rain Chance</span>
+              <span id="current-rain-prob" style="font-weight: 700;">--%</span>
+            </div>
+            <a href="weather.html" class="btn btn-ghost"
+              style="color: white; width: 100%; margin-top: 1rem; border: 1px solid rgba(255,255,255,0.3);">
+              View 7-Day Forecast <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
         </div>
 
-        <div class="feature-card">
-          <div class="feature-icon-wrapper">
-            <i class="fas fa-shield-alt"></i>
-          </div>
-          <h3>Pest Management</h3>
-          <p>Identify pests early and get the right solutions to protect your harvest.</p>
-          <br>
-          <a href="pest.html" class="btn btn-outline" style="width: 100%; text-align: center;">Check Solutions</a>
-        </div>
+        <!-- Hidden elements required by weather.js to prevent errors -->
+        <div id="forecast-grid" style="display: none;"></div>
+        <div id="ai-summary-body" style="display: none;"></div>
+        <div id="advisory-list" style="display: none;"></div>
+      </div>
+    </div>
+  </section>
 
-        <div class="feature-card">
-          <div class="feature-icon-wrapper">
-            <i class="fas fa-cloud-sun-rain"></i>
-          </div>
-          <h3>Weather Forecast</h3>
-          <p>Localized weather updates to help you plan sowing and harvesting.</p>
-          <br>
-          <a href="weather.html" class="btn btn-outline" style="width: 100%; text-align: center;">Get Forecast</a>
-        </div>
+  <!-- Features Grid -->
+  <section class="section" style="background-color: white;">
+    <div class="container">
+      <h2 style="text-align: center; margin-bottom: var(--space-xl);">Smart Farming Tools</h2>
 
-        <div class="feature-card">
-          <div class="feature-icon-wrapper">
-            <i class="fas fa-robot"></i>
-          </div>
-          <h3>AI Assistant</h3>
-          <p>24/7 Support. Ask any farming question and get instant answers.</p>
-          <br>
-          <a href="assistant.html" class="btn btn-outline" style="width: 100%; text-align: center;">Chat Now</a>
-        </div>
+      <div class="grid grid-4">
+        <!-- Crop Doctor -->
+        <a href="assistant.html?mode=doctor" class="card"
+          style="text-align: center; text-decoration: none; color: inherit;">
+          <div class="feature-icon"><i class="fas fa-stethoscope"></i></div>
+          <h3>Crop Doctor</h3>
+          <p>Detect diseases early. Upload a photo or describe symptoms for instant remedies.</p>
+        </a>
 
+        <!-- Market Prices -->
+        <a href="market.html" class="card" style="text-align: center; text-decoration: none; color: inherit;">
+          <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+          <h3>Market Prices</h3>
+          <p>Live mandi rates for all crops across India. Plan your sales better.</p>
+        </a>
+
+        <!-- Weather -->
+        <a href="weather.html" class="card" style="text-align: center; text-decoration: none; color: inherit;">
+          <div class="feature-icon"><i class="fas fa-cloud-sun-rain"></i></div>
+          <h3>Weather Advisory</h3>
+          <p>Accurate 7-day forecast with rain alerts and farming advisory.</p>
+        </a>
+
+        <!-- Account -->
+        <a href="account.html" class="card" style="text-align: center; text-decoration: none; color: inherit;">
+          <div class="feature-icon"><i class="fas fa-user-circle"></i></div>
+          <h3>My Farm</h3>
+          <p>Manage your profile, saved crops, and language preferences.</p>
+        </a>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer>
+  <footer class="footer">
     <div class="container">
       <div class="footer-grid">
-        <div class="footer-col">
-          <div class="logo" style="margin-bottom: 1rem; color: #fff;">
-            <i class="fas fa-leaf"></i> Agri1
+        <div>
+          <div class="logo" style="color: white; margin-bottom: 1rem;">
+            <i class="fas fa-leaf" style="color: var(--secondary);"></i>
+            <span>Agri<span style="color: var(--secondary);">1</span></span>
           </div>
-          <p>Empowering millions of farmers with technology and transparency.</p>
+          <p>Empowering farmers with technology.</p>
         </div>
-        <div class="footer-col">
+        <div>
           <h4>Quick Links</h4>
-          <ul class="footer-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="contact.html">Contact Us</a></li>
-            <li><a href="market.html">Market Prices</a></li>
-          </ul>
+          <p><a href="about.html">About Us</a></p>
+          <p><a href="contact.html">Contact</a></p>
+          <p><a href="faq.html">FAQs</a></p>
         </div>
-        <div class="footer-col">
-          <h4>Customer Care</h4>
-          <ul class="footer-links">
-            <li><a href="account.html">My Account</a></li>
-            <li><a href="faq.html">FAQs</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
+        <div>
           <h4>Contact</h4>
-          <ul class="footer-links">
-            <li><i class="fas fa-map-marker-alt"></i> LPU, India</li>
-            <li><i class="fas fa-envelope"></i> support@agri1.in</li>
-            <li><i class="fas fa-phone"></i> +91 XXXXX-XXXXX</li>
-          </ul>
+          <p><i class="fas fa-envelope"></i> support@agri1.in</p>
+          <p><i class="fas fa-phone"></i> +91 XXXXX-XXXXX</p>
         </div>
       </div>
-      <div class="footer-bottom">
-        <p>&copy; 2026 Agri1. All rights reserved.</p>
+      <div style="text-align: center; margin-top: 3rem; opacity: 0.5; font-size: 0.9rem;">
+        &copy; 2026 <span style="color:var(--secondary)">Agri1</span>. All rights reserved.
       </div>
     </div>
   </footer>
 
-  <!-- AI Assistant Floating Button -->
-  <a href="assistant.html" class="ai-floating-btn" title="Chat with AI Assistant">
-    <i class="fas fa-robot"></i>
+  <!-- Floating AI Button -->
+  <a href="assistant.html" class="ai-fab" title="Chat with Agri1 AI">
+    <i class="fas fa-seedling"></i>
   </a>
 
-  <script src="index.js"></script>
+  <!-- Scripts -->
+  <!-- Google Translate (Hidden but functional) -->
+  <div id="google_translate_element" style="display:none;"></div>
+
   <script src="common.js"></script>
+  <script src="weather.js"></script>
+  <script src="index.js"></script>
 </body>
 
 </html>

@@ -5,206 +5,119 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FAQs - Agri1</title>
-    <meta name="description"
-        content="Frequently asked questions about Agri1 — AI assistant, market prices, weather, and more.">
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- CSS -->
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="faq.css">
-    <link rel="stylesheet" href="mobile.css">
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
-    <link rel="shortcut icon" href="favicon/favicon.ico">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="favicon/icon.svg">
+    <link rel="manifest" href="favicon/site.webmanifest">
 </head>
 
 <body>
-    <div class="top-bar">
-        <div class="container"><span><i class="fas fa-phone-alt"></i> Help: +91 XXXXX-XXXXX</span></div>
-    </div>
+
+    <!-- Main Header -->
     <header class="main-header">
-        <div class="container">
-            <div class="header-content">
-                <a href="index.html" class="logo"><i class="fas fa-leaf"></i> <span>Agri<span>1</span></span></a>
-                <button class="mobile-menu-btn"
-                    style="display:none;background:none;border:none;font-size:1.5rem;color:var(--primary-color);cursor:pointer;margin-left:1rem"><i
-                        class="fas fa-bars"></i></button>
-                <div id="google_translate_element" style="margin-left:1rem"></div>
-            </div>
-            <nav class="main-nav">
-                <ul class="nav-list">
-                    <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="crop.html" class="nav-link">Crop Guidance</a></li>
-                    <li><a href="pest.html" class="nav-link">Pest Management</a></li>
-                    <li><a href="weather.html" class="nav-link">Weather</a></li>
-                    <li><a href="market.html" class="nav-link">Market Prices</a></li>
-                    <li><a href="assistant.html" class="nav-link">AI Assistant</a></li>
-                </ul>
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <i class="fas fa-leaf"></i>
+                <span>Agri<span>1</span></span>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="weather.html" class="nav-link">Weather</a>
+                <a href="market.html" class="nav-link">Market</a>
+                <a href="assistant.html" class="nav-link">AI Assistant</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="login.html" class="btn btn-primary">Login</a>
             </nav>
+
+            <!-- Mobile Toggle -->
+            <button class="mobile-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </header>
 
-    <section class="faq-hero">
-        <h1>Frequently Asked Questions</h1>
-        <p>Everything you need to know about using Agri1.</p>
-    </section>
-
-    <div class="faq-wrap">
-        <div class="faq-category">
-            <h2><i class="fas fa-info-circle"></i> General</h2>
-            <div class="faq-item">
-                <div class="faq-q" onclick="toggleFaq(this)">What is Agri1? <i class="fas fa-chevron-down"></i></div>
-                <div class="faq-a">Agri1 is a free, AI-powered farming assistant platform that provides live mandi
-                    prices, weather forecasts, crop guidance, pest management solutions, and government scheme
-                    information — all designed specifically for Indian farmers.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-q" onclick="toggleFaq(this)">Is Agri1 free to use? <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-a">Yes! Agri1 is completely free. All features — including the AI chatbot, live market
-                    prices, and weather forecasts — are available at no cost.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-q" onclick="toggleFaq(this)">Who created Agri1? <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-a">Agri1 was created by <strong>Satyam Kumar</strong>, a passionate developer based at
-                    Lovely Professional University (LPU), India. He designed and built every component of the platform.
-                </div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-q" onclick="toggleFaq(this)">Does Agri1 work on mobile phones? <i
-                        class="fas fa-chevron-down"></i></div>
-                <div class="faq-a">Absolutely. Agri1 is fully responsive and optimized for all devices — smartphones,
-                    tablets, and desktops. No app download is needed; just open it in your browser.</div>
-            </div>
-        </div>
-        <div class="faq-category">
-            <h2><i class="fas fa-robot"></i> AI Assistant</h2>
-            <div class="faq-item">
-                <div class="faq-q" onclick="toggleFaq(this)">What can the AI assistant help with? <i
-                        class="fas fa-chevron-down"></i></div>
-                <div class="faq-a">The AI assistant can answer questions about crop cultivation, mandi prices, pest and
-                    disease management, weather conditions, government farming schemes, fertilizers, irrigation, and
-                    more. It supports both English and Hindi.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-q" onclick="toggleFaq(this)">Can I ask non-farming questions? <i
-                        class="fas fa-chevron-down"></i></div>
-                <div class="faq-a">No. The Agri1 AI is fine-tuned exclusively for agriculture and farming topics. It
-                    will politely decline any questions unrelated to farming.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-q" onclick="toggleFaq(this)">Does it understand Hindi? <i
-                        class="fas fa-chevron-down"></i></div>
-                <div class="faq-a">Yes! You can type in Romanized Hindi (e.g., "Gehu ka bhav batao" or "Tamatar kitna
-                    hai"). The AI understands 30+ crop names in Hindi along with common farming terms.</div>
-            </div>
-        </div>
-        <div class="faq-category">
-            <h2><i class="fas fa-chart-line"></i> Market Prices</h2>
-            <div class="faq-item">
-                <div class="faq-q" onclick="toggleFaq(this)">Where does the price data come from? <i
-                        class="fas fa-chevron-down"></i></div>
-                <div class="faq-a">Live mandi prices are fetched from the official <strong>data.gov.in
-                        (Agmarknet)</strong> API, which provides government-verified commodity prices from mandis across
-                    India.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-q" onclick="toggleFaq(this)">How often are prices updated? <i
-                        class="fas fa-chevron-down"></i></div>
-                <div class="faq-a">Prices are fetched in real-time from the API. The platform caches data for 5 minutes
-                    to ensure fast loading. The API itself updates prices as mandis report them daily.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-q" onclick="toggleFaq(this)">Can I see the nearest mandi? <i
-                        class="fas fa-chevron-down"></i></div>
-                <div class="faq-a">Yes. When you allow location access, Agri1 automatically sorts results by distance,
-                    showing the nearest mandis first with a distance badge and highlighting the closest one.</div>
-            </div>
-        </div>
-        <div class="faq-category">
-            <h2><i class="fas fa-cloud-sun"></i> Weather</h2>
-            <div class="faq-item">
-                <div class="faq-q" onclick="toggleFaq(this)">How accurate are the weather forecasts? <i
-                        class="fas fa-chevron-down"></i></div>
-                <div class="faq-a">Weather data is powered by the <strong>Open-Meteo API</strong>, which aggregates data
-                    from multiple meteorological sources. Forecasts are generally accurate but may vary for hyper-local
-                    conditions.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-q" onclick="toggleFaq(this)">What does rain probability mean? <i
-                        class="fas fa-chevron-down"></i></div>
-                <div class="faq-a">Rain probability shows the maximum chance of precipitation on a given day. For
-                    example, 70% means there is a high likelihood of rainfall. Use this to plan your spraying,
-                    harvesting, and irrigation schedule.</div>
-            </div>
-        </div>
-        <div class="faq-category">
-            <h2><i class="fas fa-user-shield"></i> Account &amp; Privacy</h2>
-            <div class="faq-item">
-                <div class="faq-q" onclick="toggleFaq(this)">Do I need to create an account? <i
-                        class="fas fa-chevron-down"></i></div>
-                <div class="faq-a">No account is required to use most features. You can browse prices, weather, and the
-                    AI assistant without signing up. An account lets you save preferences and track your farming data.
-                </div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-q" onclick="toggleFaq(this)">Is my data safe? <i class="fas fa-chevron-down"></i></div>
-                <div class="faq-a">Agri1 stores minimal data locally on your device (using browser storage). We do not
-                    collect personal information, track your activity, or share data with third parties.</div>
-            </div>
+    <!-- Content -->
+    <main class="container section">
+        <div style="text-align: center; margin-bottom: var(--space-lg);">
+            <h1>Frequently Asked Questions</h1>
+            <p class="hero-subtitle" style="color: var(--text-muted);">Common questions about using Agri1</p>
         </div>
 
-        <div class="cta-box">
-            <h2>Still have questions?</h2>
-            <p>Our AI assistant is available 24/7 to help you with any farming-related queries.</p>
-            <a href="assistant.html" class="btn btn-primary"><i class="fas fa-robot"></i> Ask AI Assistant</a>
-            <span style="margin:0 1rem;color:var(--text-light)">or</span>
-            <a href="contact.html" class="btn btn-outline"><i class="fas fa-envelope"></i> Contact Us</a>
-        </div>
-    </div>
+        <div class="card" style="max-width: 800px; margin: 0 auto; padding: 0;">
 
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <div class="footer-logo"><i class="fas fa-leaf"></i> Agri1</div>
-                    <p>Empowering millions of farmers with technology and transparency.</p>
-                </div>
-                <div class="footer-col">
-                    <h4>Quick Links</h4>
-                    <ul class="footer-links">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="contact.html">Contact Us</a></li>
-                        <li><a href="market.html">Market Prices</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Customer Care</h4>
-                    <ul class="footer-links">
-                        <li><a href="account.html">My Account</a></li>
-                        <li><a href="faq.html">FAQs</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Contact</h4>
-                    <ul class="footer-links">
-                        <li><i class="fas fa-map-marker-alt"></i> LPU, India</li>
-                        <li><i class="fas fa-envelope"></i> support@agri1.in</li>
-                        <li><i class="fas fa-phone"></i> +91 XXXXX-XXXXX</li>
-                    </ul>
-                </div>
+            <div class="faq-item" style="border-bottom: 1px solid var(--border); padding: var(--space-md);">
+                <h3
+                    style="font-size: var(--text-lg); margin-bottom: var(--space-xs); display:flex; align-items:center; gap:0.5rem; cursor:pointer;">
+                    <i class="fas fa-chevron-right" style="color:var(--primary); font-size: 0.8em;"></i> Is Agri1 free
+                    for farmers?
+                </h3>
+                <p style="margin-left: 1.5rem; margin-bottom: 0;">Yes, Agri1 is completely free to use for all farmers.
+                    You can access weather, market prices, and AI advice without any cost.</p>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 Agri1. All rights reserved.</p>
+
+            <div class="faq-item" style="border-bottom: 1px solid var(--border); padding: var(--space-md);">
+                <h3
+                    style="font-size: var(--text-lg); margin-bottom: var(--space-xs); display:flex; align-items:center; gap:0.5rem; cursor:pointer;">
+                    <i class="fas fa-chevron-right" style="color:var(--primary); font-size: 0.8em;"></i> How accurate is
+                    the weather forecast?
+                </h3>
+                <p style="margin-left: 1.5rem; margin-bottom: 0;">We use advanced meteorological data from open-source
+                    satellite APIs (Open-Meteo) to provide accurate location-based forecasts updated every hour.</p>
             </div>
+
+            <div class="faq-item" style="border-bottom: 1px solid var(--border); padding: var(--space-md);">
+                <h3
+                    style="font-size: var(--text-lg); margin-bottom: var(--space-xs); display:flex; align-items:center; gap:0.5rem; cursor:pointer;">
+                    <i class="fas fa-chevron-right" style="color:var(--primary); font-size: 0.8em;"></i> Where do you
+                    get Mandi prices?
+                </h3>
+                <p style="margin-left: 1.5rem; margin-bottom: 0;">We fetch real-time data from the government's
+                    Agmarknet portal via APIs. Prices are updated daily as mandis upload them.</p>
+            </div>
+
+            <div class="faq-item" style="border-bottom: 1px solid var(--border); padding: var(--space-md);">
+                <h3
+                    style="font-size: var(--text-lg); margin-bottom: var(--space-xs); display:flex; align-items:center; gap:0.5rem; cursor:pointer;">
+                    <i class="fas fa-chevron-right" style="color:var(--primary); font-size: 0.8em;"></i> How can the AI
+                    Assistant help me?
+                </h3>
+                <p style="margin-left: 1.5rem; margin-bottom: 0;">The AI Assistant can answer questions about crop
+                    diseases, pest control,
+                    fertilizer dosage, best sowing times, and government schemes in simple
+                    language.</p>
+            </div>
+
+            <div class="faq-item" style="padding: var(--space-md);">
+                <h3
+                    style="font-size: var(--text-lg); margin-bottom: var(--space-xs); display:flex; align-items:center; gap:0.5rem; cursor:pointer;">
+                    <i class="fas fa-chevron-right" style="color:var(--primary); font-size: 0.8em;"></i> Can I change
+                    the app language?
+                </h3>
+                <p style="margin-left: 1.5rem; margin-bottom: 0;">Yes! You can use the Google Translate widget at the
+                    bottom of the page or change your preference in the Account settings.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer style="margin-top: auto; padding: 2rem 0; text-align: center; border-top: 1px solid var(--border);">
+        <div class="container" style="opacity: 0.5; font-size: 0.9rem;">
+            &copy; 2026 <span style="color:var(--secondary)">Agri1</span>. All rights reserved.
         </div>
     </footer>
 
-    <a href="assistant.html" class="ai-floating-btn" title="Chat with AI Assistant"><i class="fas fa-robot"></i></a>
-    <script src="faq.js"></script>
+    <!-- Scripts -->
+    <div id="google_translate_element" style="display:none;"></div>
     <script src="common.js"></script>
+    <script src="faq.js"></script>
+
 </body>
 
 </html>

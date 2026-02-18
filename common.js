@@ -1,12 +1,12 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     // Mobile Menu Toggle
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    const mainNav = document.querySelector('.main-nav');
+    const mobileMenuBtn = document.querySelector('.mobile-toggle');
+    const mainNav = document.querySelector('.nav-menu');
 
     if (mobileMenuBtn && mainNav) {
         mobileMenuBtn.addEventListener('click', () => {
-            mainNav.classList.toggle('show');
+            mainNav.classList.toggle('active');
         });
     }
 
@@ -27,3 +27,16 @@ window.googleTranslateElementInit = function () {
         layout: google.translate.TranslateElement.InlineLayout.SIMPLE
     }, 'google_translate_element');
 };
+
+// Register Service Worker for PWA
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js')
+            .then(registration => {
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            })
+            .catch(err => {
+                console.log('ServiceWorker registration failed: ', err);
+            });
+    });
+}

@@ -266,7 +266,7 @@ function generateAdvisory(current, daily, currentRainProb) {
     }
 
     // General
-    items.push({ icon: 'green', text: '🌱 Monitor soil moisture daily. Use Agri1 AI Assistant for crop-specific guidance.' });
+    items.push({ icon: 'green', text: '🌱 Monitor soil moisture daily. Use <span style="color:var(--primary); font-weight:600;">Agri1</span> AI Assistant for crop-specific guidance.' });
 
     // Render
     var html = '';

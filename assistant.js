@@ -420,7 +420,7 @@ document.addEventListener('DOMContentLoaded', () => {
       result += 'Prices are stable across markets. Good time to sell at your nearest mandi.';
     }
 
-    result += '\n\n👉 **[See all prices](market.html?q=' + encodeURIComponent(cropName) + ')**';
+    // result += '\n\n👉 **[See all prices](market.html?q=' + encodeURIComponent(cropName) + ')**';
     return result;
   }
 
@@ -721,7 +721,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 var lbl = crops[ci].split(' ').map(function (w) { return w.charAt(0).toUpperCase() + w.slice(1); }).join(' ');
                 response = "**💰 Market Rate: " + lbl + "** (Reference Prices)\n" + priceDatabase[crops[ci]] +
                   "\n\n*(Live API prices unavailable right now. Above are approximate reference prices.)*" +
-                  "\n\n**📊 Advice:**\n• Check your nearest APMC mandi for today's rate.\n• Use **eNAM portal** to compare rates across mandis.\n• 👉 **[View Market Page](market.html?q=" + encodeURIComponent(crops[ci]) + ")**";
+                  "\n\n**📊 Advice:**\n• Check your nearest APMC mandi for today's rate.\n• Use **eNAM portal** to compare rates across mandis.";
                 break;
               }
             }
@@ -730,7 +730,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
           }
         } else {
-          response = "I have **live prices** for 300+ crops from Indian mandis!\nAsk: **'Price of [Crop Name]'** (e.g. Price of Wheat, Rate of Tomato)\n\n👉 Or visit the **[Market Prices page](market.html)**";
+          response = "I have **live prices** for 300+ crops from Indian mandis!\nAsk: **'Price of [Crop Name]'** (e.g. Price of Wheat, Rate of Tomato)";
         }
       }
 

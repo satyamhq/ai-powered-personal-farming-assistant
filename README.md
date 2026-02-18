@@ -5,6 +5,7 @@
 **Empowering Indian farmers with real-time market prices, AI-driven crop guidance, and hyper-local weather intelligence.**
 
 [![Live Demo](https://img.shields.io/badge/Live-Demo-228B22?style=for-the-badge&logo=google-chrome&logoColor=white)](#)
+[![PWA Ready](https://img.shields.io/badge/PWA-Installable-purple?style=for-the-badge&logo=pwa&logoColor=white)](#)
 [![GitHub Stars](https://img.shields.io/github/stars/satyamhq/ai-powered-personal-farming-assistant?style=for-the-badge&color=gold)](https://github.com/satyamhq/ai-powered-personal-farming-assistant)
 [![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
 
@@ -14,7 +15,7 @@
 
 ## 📖 About
 
-**Agri1** is a full-stack web platform that brings smart farming technology directly to the hands of Indian farmers. It combines **live mandi price data**, a **fine-tuned AI chatbot** (English + Hindi), a **7-day weather forecast with farming advisory**, and **pest/crop management guides** — all in one responsive, mobile-first interface.
+**Agri1** is a full-stack, **Progressive Web App (PWA)** that brings smart farming technology directly to the hands of Indian farmers. It combines **live mandi price data**, a **fine-tuned AI chatbot** (English + Hindi), a **7-day weather forecast with farming advisory**, and **pest/crop management guides** — all in one offline-capable, mobile-first interface.
 
 > Built as a comprehensive solution to bridge the information gap between farmers and technology — from real-time commodity prices to AI-powered crop recommendations.
 
@@ -37,60 +38,65 @@
 
 ## ✨ Key Features
 
+### 📱 Progressive Web App (PWA)
+- **Installable** — Add to Home Screen as a native app on Android/iOS.
+- **Offline Capable** — Works even with spotty internet connection or completely offline (caches core assets and pages).
+- **Fast Loading** — Service worker caching ensures instant load times for repeat visits.
+
 ### 🤖 AI Assistant (Fine-Tuned for Farmers)
-- **Farming-only responses** — the AI strictly answers agriculture-related questions and politely declines off-topic queries
-- **Bilingual NLP** — understands both English and Hindi (Romanized + Devanagari): `"Gehu ka bhav"`, `"कपास price"`, `"tamatar kitna hai"`
-- **Hindi crop name mapping** — 30+ crops with Hindi-to-English translation (gehu → Wheat, dhan → Paddy, kapas → Cotton, etc.)
-- **Smart mandi recommendations** — shows the best mandi to sell at, with price comparison against average
-- **Sell/Hold advice** — analyzes price spread across markets and recommends whether to sell now or wait
-- **Live data integration** — fetches real-time mandi prices from the government API during conversations
-- **50+ crop knowledge base** — cultivation methods, pest control, government schemes, fertilizers, irrigation
-- **Weather-aware context** — automatically appends live weather data and farming tips to crop-related answers
+- **Farming-only responses** — the AI strictly answers agriculture-related questions and politely declines off-topic queries.
+- **Bilingual NLP** — understands both English and Hindi (Romanized + Devanagari): `"Gehu ka bhav"`, `"कपास price"`, `"tamatar kitna hai"`.
+- **Hindi crop name mapping** — 30+ crops with Hindi-to-English translation (gehu → Wheat, dhan → Paddy, kapas → Cotton, etc.).
+- **Smart mandi recommendations** — shows the best mandi to sell at, with price comparison against average.
+- **Sell/Hold advice** — analyzes price spread across markets and recommends whether to sell now or wait.
+- **Live data integration** — fetches real-time mandi prices from the government API during conversations.
+- **50+ crop knowledge base** — cultivation methods, pest control, government schemes, fertilizers, irrigation.
+- **Weather-aware context** — automatically appends live weather data and farming tips to crop-related answers.
 
 ### 💰 Live Market Prices (Nearest Mandi First)
-- **Real-time data** from India's official **data.gov.in** Agmarknet API (300+ mandis)
-- **Nearest mandi sorting** — uses browser GPS + 80+ Indian city coordinate lookup (Haversine distance)
-- **Distance badge** on every price card (e.g., "📍 42 km away")
-- **"Nearest Mandi" highlight** — green-bordered first card with label
-- **Price vs Average indicator** — shows ▲/▼ with exact ₹ difference and percentage
-- **AI market insights panel** — best market, lowest market, average, and price spread analysis
-- **5-minute cache** — reduces API calls while keeping data fresh
-- **Fallback data** — 12+ crops with reference prices when the API is rate-limited
-- **State filtering** — filter results by any Indian state
-- **Quick search chips** — one-tap search for popular crops
+- **Real-time data** from India's official **data.gov.in** Agmarknet API (300+ mandis).
+- **Nearest mandi sorting** — uses browser GPS + 80+ Indian city coordinate lookup (Haversine distance).
+- **Distance badge** on every price card (e.g., "📍 42 km away").
+- **"Nearest Mandi" highlight** — green-bordered first card with label.
+- **Price vs Average indicator** — shows ▲/▼ with exact ₹ difference and percentage.
+- **AI market insights panel** — best market, lowest market, average, and price spread analysis.
+- **5-minute cache** — reduces API calls while keeping data fresh.
+- **Fallback data** — 12+ crops with reference prices when the API is rate-limited.
+- **State filtering** — filter results by any Indian state.
+- **Quick search chips** — one-tap search for popular crops.
 
 ### 🌤️ Weather Forecast (7-Day + AI Summary)
-- **7-day forecast** with per-day rain probability bars, min/max temperatures, and precipitation in mm
-- **AI Farming Summary** — auto-generates plain-language advice (e.g., "3 dry days ahead — ideal for spraying")
-- **Current conditions** — temperature, humidity, wind speed, weather description
-- **Farming Advisory** with color-coded severity icons (🟢 safe, 🟠 caution, 🔴 danger, 🔵 info)
-- **Homepage weather strip** — compact 7-day forecast embedded below the nav bar on the home page
-- **Location auto-detection** — uses GPS with reverse geocoding for city name display
+- **7-day forecast** with per-day rain probability bars, min/max temperatures, and precipitation in mm.
+- **AI Farming Summary** — auto-generates plain-language advice (e.g., "3 dry days ahead — ideal for spraying").
+- **Current conditions** — temperature, humidity, wind speed, weather description.
+- **Farming Advisory** with color-coded severity icons (🟢 safe, 🟠 caution, 🔴 danger, 🔵 info).
+- **Homepage weather strip** — compact 7-day forecast embedded below the nav bar on the home page.
+- **Location auto-detection** — uses GPS with reverse geocoding for city name display.
 
 ### 🌱 Crop Guidance
-- Scientific cultivation advice for major Indian crops
-- Growth stage tracking and season-wise recommendations (Kharif, Rabi, Zaid)
-- Soil type and climate requirements
-- Fertilizer schedules and irrigation guidance
+- Scientific cultivation advice for major Indian crops.
+- Growth stage tracking and season-wise recommendations (Kharif, Rabi, Zaid).
+- Soil type and climate requirements.
+- Fertilizer schedules and irrigation guidance.
 
 ### 🐛 Pest & Disease Management
-- Identification guides for common Indian crop pests
-- Disease symptoms and treatment methods
-- Organic and chemical control options
-- Prevention strategies and IPM (Integrated Pest Management)
+- Identification guides for common Indian crop pests.
+- Disease symptoms and treatment methods.
+- Organic and chemical control options.
+- Prevention strategies and IPM (Integrated Pest Management).
 
 ### 🏛️ Government Schemes
-- **PM-KISAN** — eligibility, benefits, registration
-- **PMFBY** — crop insurance details
-- **KCC** — Kisan Credit Card information
-- **MSP** — Minimum Support Prices for major crops
-- Subsidies, loans, and other farmer welfare schemes
+- **PM-KISAN** — eligibility, benefits, registration.
+- **PMFBY** — crop insurance details.
+- **KCC** — Kisan Credit Card information.
+- **MSP** — Minimum Support Prices for major crops.
+- Subsidies, loans, and other farmer welfare schemes.
 
 ### 📱 Mobile-First Responsive Design
-- Fully responsive across desktop, tablet, and mobile devices
-- Mobile-optimized navigation with hamburger menu
-- Touch-friendly UI with horizontal scroll for forecast strips
-- ChatGPT-style clean mobile layout for the AI assistant
+- Fully responsive across desktop, tablet, and mobile devices.
+- Mobile-optimized navigation with hamburger menu.
+- Touch-friendly UI with horizontal scroll for forecast strips.
+- ChatGPT-style clean mobile layout for the AI assistant.
 
 ---
 
@@ -113,6 +119,7 @@
 | **Structure** | HTML5 (Semantic) |
 | **Styling** | CSS3, CSS Variables, Flexbox, Grid |
 | **Logic** | Vanilla JavaScript (ES6+) |
+| **PWA** | Service Workers, Web Manifest |
 | **Build Tool** | Vite |
 | **Fonts** | Google Fonts (Inter) |
 | **Icons** | Font Awesome 6 |
@@ -132,7 +139,8 @@ ai-powered-personal-farming-assistant/
 ├── index.css               # Global styles & design system (CSS variables)
 ├── index.js                # Home page logic (mobile menu, search)
 ├── mobile.css              # Mobile responsive overrides
-├── common.js               # Shared utilities (auth, navigation)
+├── common.js               # Shared utilities (auth, navigation, PWA registration)
+├── service-worker.js       # PWA Offline Caching logic
 │
 ├── assistant.html          # AI Assistant chatbot page
 ├── assistant.js            # AI engine: NLP, intent detection, Hindi support,
@@ -152,10 +160,21 @@ ai-powered-personal-farming-assistant/
 ├── crop.css                # Crop page styles
 │
 ├── pest.html               # Pest & Disease Management page
+├── pest.css                # Pest page styles
+│
 ├── login.html              # User authentication page
+├── login.css               # Login page styles
+│
+├── about.html              # About page
+├── contact.html            # Contact page
+├── account.html            # Account/Profile page
+├── faq.html                # FAQ page
 │
 ├── images/                 # Image assets
 ├── favicon/                # Favicon set (multi-size)
+│   ├── icon.svg            # Source icon
+│   └── site.webmanifest    # PWA Manifest
+│
 ├── package.json            # Dependencies & scripts
 ├── vite.config.js          # Vite configuration
 └── README.md               # This file
@@ -276,7 +295,6 @@ User Query
 - [ ] **Push notifications** — price alerts when a crop's mandi rate crosses a threshold
 - [ ] **Historical price charts** — 30/90-day price trends with visual graphs
 - [ ] **Multi-language support** — Tamil, Telugu, Bengali, Marathi UI translations
-- [ ] **Offline mode** — cache essential data for areas with poor connectivity
 - [ ] **Crop calendar** — personalized sowing/harvesting schedule based on location
 - [ ] **Community forum** — farmer-to-farmer knowledge sharing
 - [ ] **eNAM integration** — direct mandi bidding and selling

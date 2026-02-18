@@ -4,160 +4,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Account - Agri1</title>
-    <meta name="description" content="Manage your Agri1 account.">
+    <title>My Farm Account - Agri1</title>
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- CSS -->
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="account.css">
-    <link rel="stylesheet" href="mobile.css">
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
-    <link rel="shortcut icon" href="favicon/favicon.ico">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<link rel="icon" type="image/svg+xml" href="favicon/icon.svg">
+<link rel="manifest" href="favicon/site.webmanifest">
 </head>
 
 <body>
-    <div class="top-bar">
-        <div class="container"><span><i class="fas fa-phone-alt"></i> Help: +91 XXXXX-XXXXX</span></div>
-    </div>
+
+    <!-- Main Header -->
     <header class="main-header">
-        <div class="container">
-            <div class="header-content">
-                <a href="index.html" class="logo"><i class="fas fa-leaf"></i> <span>Agri<span>1</span></span></a>
-                <button class="mobile-menu-btn"
-                    style="display:none;background:none;border:none;font-size:1.5rem;color:var(--primary-color);cursor:pointer;margin-left:1rem"><i
-                        class="fas fa-bars"></i></button>
-                <div id="google_translate_element" style="margin-left:1rem"></div>
-            </div>
-            <nav class="main-nav">
-                <ul class="nav-list">
-                    <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="crop.html" class="nav-link">Crop Guidance</a></li>
-                    <li><a href="pest.html" class="nav-link">Pest Management</a></li>
-                    <li><a href="weather.html" class="nav-link">Weather</a></li>
-                    <li><a href="market.html" class="nav-link">Market Prices</a></li>
-                    <li><a href="assistant.html" class="nav-link">AI Assistant</a></li>
-                </ul>
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <i class="fas fa-leaf"></i>
+                <span>Agri<span>1</span></span>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="weather.html" class="nav-link">Weather</a>
+                <a href="market.html" class="nav-link">Market</a>
+                <a href="assistant.html" class="nav-link">AI Assistant</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="login.html" class="btn btn-primary">Login</a>
             </nav>
+
+            <!-- Mobile Toggle -->
+            <button class="mobile-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </header>
 
-    <section class="acct-hero">
-        <h1>My Account</h1>
-        <p>Manage your profile, preferences, and farming data.</p>
-    </section>
+    <!-- Content -->
+    <main class="container section">
+        <div class="card" style="max-width: 800px; margin: 0 auto;">
+            <div
+                style="display: flex; align-items: center; gap: var(--space-md); margin-bottom: var(--space-lg); border-bottom: 1px solid var(--border); padding-bottom: var(--space-md);">
+                <div
+                    style="width: 80px; height: 80px; background: var(--primary-light); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem;">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div>
+                    <h1 style="font-size: var(--text-xl); margin: 0;">My Profile</h1>
+                    <p style="margin: 0; color: var(--text-muted);">Manage your farm settings</p>
+                </div>
+            </div>
 
-    <div class="acct-wrap">
-        <div class="acct-side">
-            <div class="avatar"><i class="fas fa-user"></i></div>
-            <h3 id="uname">Farmer</h3>
-            <p class="uemail" id="uemail">farmer@agri1.in</p>
-            <ul class="snav">
-                <li><a href="#" class="active"><i class="fas fa-user-circle"></i> Profile</a></li>
-                <li><a href="#"><i class="fas fa-seedling"></i> My Crops</a></li>
-                <li><a href="#"><i class="fas fa-bell"></i> Notifications</a></li>
-                <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
-                <li><a href="faq.html"><i class="fas fa-question-circle"></i> Help &amp; FAQs</a></li>
-            </ul>
-            <button class="logout-btn" onclick="localStorage.clear();window.location.href='login.html'"><i
-                    class="fas fa-sign-out-alt"></i> Log Out</button>
-        </div>
-        <div class="acct-main">
-            <div class="acard">
-                <div class="acard-h"><i class="fas fa-chart-bar"></i> Your Activity</div>
-                <div class="acard-b">
-                    <div class="sgrid">
-                        <div class="sitem">
-                            <div class="snum">0</div>
-                            <div class="slbl">AI Queries</div>
-                        </div>
-                        <div class="sitem">
-                            <div class="snum">3</div>
-                            <div class="slbl">Saved Crops</div>
-                        </div>
-                        <div class="sitem">
-                            <div class="snum">0</div>
-                            <div class="slbl">Price Searches</div>
-                        </div>
-                        <div class="sitem">
-                            <div class="snum">Active</div>
-                            <div class="slbl">Account Status</div>
-                        </div>
+            <form id="profile-form">
+                <div class="grid grid-2">
+                    <div class="form-group">
+                        <label for="farmer-name">Full Name</label>
+                        <input type="text" id="farmer-name" placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="farmer-phone">Phone Number</label>
+                        <input type="tel" id="farmer-phone" placeholder="+91 XXXXX-XXXXX">
                     </div>
                 </div>
-            </div>
-            <div class="acard">
-                <div class="acard-h"><i class="fas fa-id-card"></i> Profile Details</div>
-                <div class="acard-b">
-                    <div class="irow"><span class="ilbl">Full Name</span><span class="ival" id="pname">Farmer</span>
-                    </div>
-                    <div class="irow"><span class="ilbl">Email</span><span class="ival"
-                            id="pemail">farmer@agri1.in</span></div>
-                    <div class="irow"><span class="ilbl">Phone</span><span class="ival">+91 XXXXX-XXXXX</span></div>
-                    <div class="irow"><span class="ilbl">Location</span><span class="ival">India</span></div>
-                    <div class="irow"><span class="ilbl">Member Since</span><span class="ival">February 2026</span>
-                    </div>
-                    <div style="text-align:right;margin-top:1rem"><button class="edit-btn"><i class="fas fa-pen"></i>
-                            Edit Profile</button></div>
-                </div>
-            </div>
-            <div class="acard">
-                <div class="acard-h"><i class="fas fa-sliders-h"></i> Preferences</div>
-                <div class="acard-b">
-                    <div class="irow"><span class="ilbl">Language</span><span class="ival">English / Hindi</span></div>
-                    <div class="irow"><span class="ilbl">Default Crops</span><span class="ival">Wheat, Rice,
-                            Cotton</span></div>
-                    <div class="irow"><span class="ilbl">Price Alerts</span><span class="ival"
-                            style="color:var(--primary-color)">Enabled</span></div>
-                    <div class="irow"><span class="ilbl">Weather Updates</span><span class="ival"
-                            style="color:var(--primary-color)">Daily</span></div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <div class="footer-logo"><i class="fas fa-leaf"></i> Agri1</div>
-                    <p>Empowering millions of farmers with technology and transparency.</p>
+                <div class="form-group">
+                    <label for="location">Farm Location</label>
+                    <div style="display: flex; gap: var(--space-sm);">
+                        <input type="text" id="location" placeholder="City, State">
+                        <button type="button" class="btn btn-outline"><i class="fas fa-location-arrow"></i>
+                            Detect</button>
+                    </div>
                 </div>
-                <div class="footer-col">
-                    <h4>Quick Links</h4>
-                    <ul class="footer-links">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="contact.html">Contact Us</a></li>
-                        <li><a href="market.html">Market Prices</a></li>
-                    </ul>
+
+                <div class="form-group">
+                    <label>Preferred Crops</label>
+                    <div class="quick-chips" style="justify-content: flex-start; margin-top: var(--space-xs);">
+                        <span class="quick-chip" style="background:var(--border); color:var(--text-main);">Wheat</span>
+                        <span class="quick-chip" style="background:var(--border); color:var(--text-main);">Rice</span>
+                        <span class="quick-chip"
+                            style="background:var(--border); color:var(--text-main);">Sugarcane</span>
+                    </div>
                 </div>
-                <div class="footer-col">
-                    <h4>Customer Care</h4>
-                    <ul class="footer-links">
-                        <li><a href="account.html">My Account</a></li>
-                        <li><a href="faq.html">FAQs</a></li>
-                    </ul>
+
+                <div class="form-group">
+                    <label for="language">App Language</label>
+                    <select id="language">
+                        <option value="en">English</option>
+                        <option value="hi">Hindi (हिंदी)</option>
+                        <option value="pa">Punjabi (ਪੰਜਾਬੀ)</option>
+                        <option value="te">Telugu (తెలుగు)</option>
+                    </select>
                 </div>
-                <div class="footer-col">
-                    <h4>Contact</h4>
-                    <ul class="footer-links">
-                        <li><i class="fas fa-map-marker-alt"></i> LPU, India</li>
-                        <li><i class="fas fa-envelope"></i> support@agri1.in</li>
-                        <li><i class="fas fa-phone"></i> +91 XXXXX-XXXXX</li>
-                    </ul>
+
+                <div style="margin-top: var(--space-lg); display: flex; gap: var(--space-md);">
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <button type="button" class="btn btn-ghost" style="color: var(--danger);">Log Out</button>
                 </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 Agri1. All rights reserved.</p>
-            </div>
+            </form>
+        </div>
+    </main>
+
+    <footer style="margin-top: auto; padding: 2rem 0; text-align: center; border-top: 1px solid var(--border);">
+        <div class="container" style="opacity: 0.5; font-size: 0.9rem;">
+            &copy; 2026 <span style="color:var(--secondary)">Agri1</span>. All rights reserved.
         </div>
     </footer>
 
-    <a href="assistant.html" class="ai-floating-btn" title="Chat with AI Assistant"><i class="fas fa-robot"></i></a>
-    <script src="account.js"></script>
+    <!-- Scripts -->
+    <div id="google_translate_element" style="display:none;"></div>
     <script src="common.js"></script>
+    <script src="account.js"></script>
+
 </body>
 
 </html>

@@ -4,141 +4,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Mandi Prices - Agri1</title>
-    <meta name="description"
-        content="Check live Indian mandi prices for crops. Search any commodity and get real-time market rates from mandis across India with AI-powered insights.">
+    <title>Live Market Prices - Agri1</title>
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- CSS -->
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="market.css">
-    <link rel="stylesheet" href="mobile.css">
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
-    <link rel="shortcut icon" href="favicon/favicon.ico">
+    <link rel="icon" type="image/svg+xml" href="favicon/icon.svg">
     <link rel="manifest" href="favicon/site.webmanifest">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
 
-    <!-- Top Bar & Header -->
-    <div class="top-bar">
-        <div class="container"><span><i class="fas fa-phone-alt"></i> Help lines open 24/7</span></div>
-    </div>
+    <!-- Main Header -->
     <header class="main-header">
-        <div class="container">
-            <div class="header-content">
-                <a href="index.html" class="logo"><i class="fas fa-leaf"></i> <span>Agri<span>1</span></span></a>
-                <div class="search-bar">
-                    <input type="text" class="search-input" placeholder="Search market prices...">
-                    <button class="search-btn"><i class="fas fa-search"></i></button>
-                </div>
-                <!-- Mobile Menu Button -->
-                <button class="mobile-menu-btn"
-                    style="display: none; background: none; border: none; font-size: 1.5rem; color: var(--primary-color); cursor: pointer; margin-left: 1rem;">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <!-- Translate Widget -->
-                <div id="google_translate_element" style="margin-left: 1rem;"></div>
-            </div>
-            <nav class="main-nav">
-                <ul class="nav-list">
-                    <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="crop.html" class="nav-link">Crop Guidance</a></li>
-                    <li><a href="pest.html" class="nav-link">Pest Management</a></li>
-                    <li><a href="weather.html" class="nav-link">Weather</a></li>
-                    <li><a href="market.html" class="nav-link active">Market Prices</a></li>
-                    <li><a href="assistant.html" class="nav-link">AI Assistant</a></li>
-                </ul>
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <i class="fas fa-leaf"></i>
+                <span>Agri<span>1</span></span>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="weather.html" class="nav-link">Weather</a>
+                <a href="market.html" class="nav-link active">Market</a>
+                <a href="assistant.html" class="nav-link">AI Assistant</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="login.html" class="btn btn-primary">Login</a>
             </nav>
+
+            <!-- Mobile Toggle -->
+            <button class="mobile-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </header>
 
-    <div class="container" style="padding: 2rem 1rem;">
-        <h1 class="section-title">Live Mandi Prices</h1>
-        <p class="section-subtitle">Real-time Indian market prices from data.gov.in (Agmarknet)</p>
+    <!-- Search Section -->
+    <section class="market-search-section">
+        <div class="container">
+            <h1 style="color:white; margin-bottom: var(--space-md);">Live Mandi Prices</h1>
 
-        <!-- Search & Filter Section -->
-        <div class="market-search-section">
-            <div class="crop-search-wrapper">
-                <i class="fas fa-search crop-search-icon"></i>
-                <input type="text" id="crop-search" class="crop-search-input"
-                    placeholder="Search any crop... (e.g. Wheat, Tomato, Rice)">
-                <button id="search-btn-main" class="crop-search-btn">
-                    <i class="fas fa-arrow-right"></i>
+            <div class="search-container">
+                <div class="search-group">
+                    <input type="text" id="crop-search" class="market-search-input"
+                        placeholder="Search crop (e.g. Wheat, Tomato)">
+                </div>
+                <div class="search-group" style="flex: 0 0 200px;">
+                    <select id="state-filter" class="state-select">
+                        <option value="">All States</option>
+                        <!-- Populated by JS -->
+                    </select>
+                </div>
+                <button id="search-btn-main" class="btn btn-primary" style="height: var(--touch-target);">
+                    <i class="fas fa-search"></i> Search
                 </button>
             </div>
-            <div class="filter-row">
-                <select class="filter-select" id="state-filter">
-                    <option value="">All States</option>
-                </select>
-                <div class="quick-search-chips" id="quick-chips">
-                    <button class="quick-chip" data-crop="Wheat">🌾 Wheat</button>
-                    <button class="quick-chip" data-crop="Rice">🍚 Rice</button>
-                    <button class="quick-chip" data-crop="Tomato">🍅 Tomato</button>
-                    <button class="quick-chip" data-crop="Onion">🧅 Onion</button>
-                    <button class="quick-chip" data-crop="Cotton">🧶 Cotton</button>
-                    <button class="quick-chip" data-crop="Potato">🥔 Potato</button>
-                    <button class="quick-chip" data-crop="Soyabean">🫘 Soybean</button>
-                    <button class="quick-chip" data-crop="Maize">🌽 Maize</button>
-                </div>
+
+            <div class="quick-chips">
+                <span class="quick-chip" data-crop="Wheat">Wheat</span>
+                <span class="quick-chip" data-crop="Rice">Rice</span>
+                <span class="quick-chip" data-crop="Tomato">Tomato</span>
+                <span class="quick-chip" data-crop="Onion">Onion</span>
+                <span class="quick-chip" data-crop="Potato">Potato</span>
+                <span class="quick-chip" data-crop="Cotton">Cotton</span>
             </div>
         </div>
+    </section>
 
-        <!-- Results Summary -->
-        <div class="results-bar" id="results-bar" style="display: none;">
-            <span id="results-count"></span>
-            <span id="results-date"></span>
-        </div>
+    <!-- Results Section -->
+    <div class="container section" style="padding-top:0;">
 
         <!-- Loading State -->
-        <div class="loading-state" id="loading-state" style="display: none;">
-            <div class="loading-spinner"></div>
-            <p>Fetching live mandi prices...</p>
-        </div>
-
-        <!-- AI Insights Panel -->
-        <div class="ai-insights-panel" id="ai-insights" style="display: none;">
-            <div class="ai-insights-header">
-                <i class="fas fa-robot"></i>
-                <span>AI Market Insights</span>
-            </div>
-            <div class="ai-insights-body" id="ai-insights-body"></div>
-        </div>
-
-        <!-- Price Cards Grid -->
-        <div class="prices-grid" id="prices-grid"></div>
-
-        <!-- Empty / Initial State -->
-        <div class="empty-state" id="empty-state">
-            <i class="fas fa-chart-line"></i>
-            <h3>Search for a crop to see live prices</h3>
-            <p>Type any crop name above or click a quick search chip to see real-time mandi prices from across India.
-            </p>
+        <div id="loading-state" class="state-message" style="display:none;">
+            <i class="fas fa-spinner fa-spin" style="color: var(--primary);"></i>
+            <h3>Fetching live prices...</h3>
         </div>
 
         <!-- Error State -->
-        <div class="error-state" id="error-state" style="display: none;">
-            <i class="fas fa-exclamation-triangle"></i>
-            <h3>Unable to fetch live prices</h3>
-            <p id="error-message">Showing cached data. The API may be temporarily unavailable.</p>
+        <div id="error-state" class="state-message" style="display:none;">
+            <i class="fas fa-exclamation-triangle" style="color: var(--danger);"></i>
+            <h3 id="error-message">Error loading data</h3>
         </div>
+
+        <!-- Empty State -->
+        <div id="empty-state" class="state-message">
+            <i class="fas fa-search"></i>
+            <h3>Search for a crop to see live prices</h3>
+            <p>Select a chip above or type a crop name.</p>
+        </div>
+
+        <!-- Results Info -->
+        <div id="results-bar" class="results-bar" style="display:none;">
+            <div id="results-count"></div>
+            <div id="results-date"></div>
+        </div>
+
+        <!-- AI Insights -->
+        <div id="ai-insights" class="ai-insights-card" style="display:none;">
+            <div style="font-weight:700; color:var(--primary); margin-bottom:var(--space-md);">
+                <i class="fas fa-robot"></i> AI Market Analysis
+            </div>
+            <div id="ai-insights-body"></div>
+        </div>
+
+        <!-- Prices Grid -->
+        <div id="prices-grid" class="prices-grid">
+            <!-- Populated by JS -->
+        </div>
+
     </div>
 
-    <footer>
-        <div class="container" style="text-align: center; padding: 2rem;">
-            <p>&copy; 2026 Agri1. Data sourced from <a href="https://data.gov.in" target="_blank"
-                    style="color: var(--primary-color);">data.gov.in</a> (Agmarknet).</p>
+    <footer style="margin-top: auto; padding: 2rem 0; text-align: center; border-top: 1px solid var(--border);">
+        <div class="container" style="opacity: 0.5; font-size: 0.9rem;">
+            &copy; 2026 <span style="color:var(--secondary)">Agri1</span>. All rights reserved.
         </div>
     </footer>
 
-    <!-- AI Assistant Floating Button -->
-    <a href="assistant.html" class="ai-floating-btn" title="Chat with AI Assistant">
-        <i class="fas fa-robot"></i>
-    </a>
-
-    <script src="market.js"></script>
+    <!-- Scripts -->
+    <div id="google_translate_element" style="display:none;"></div>
     <script src="common.js"></script>
+    <script src="market.js"></script>
+
 </body>
 
 </html>

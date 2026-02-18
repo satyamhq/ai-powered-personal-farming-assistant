@@ -4,116 +4,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather Forecast - Agri1</title>
-    <meta name="description"
-        content="7-day weather forecast with rain probability and AI farming advice for Indian farmers.">
-    <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="mobile.css">
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
-    <link rel="shortcut icon" href="favicon/favicon.ico">
-    <link rel="manifest" href="favicon/site.webmanifest">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Weather Advisory - Agri1</title>
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="weather.css">
+</head>
+<link rel="icon" type="image/svg+xml" href="favicon/icon.svg">
+<link rel="manifest" href="favicon/site.webmanifest">
 </head>
 
 <body>
 
-    <!-- Top Bar & Header -->
-    <div class="top-bar">
-        <div class="container"><span><i class="fas fa-phone-alt"></i> Help lines open 24/7</span></div>
-    </div>
+    <!-- Main Header -->
     <header class="main-header">
-        <div class="container">
-            <div class="header-content">
-                <a href="index.html" class="logo"><i class="fas fa-leaf"></i> <span>Agri<span>1</span></span></a>
-                <button class="mobile-menu-btn"
-                    style="display: none; background: none; border: none; font-size: 1.5rem; color: var(--primary-color); cursor: pointer; margin-left: auto;">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div id="google_translate_element" style="margin-left: 1rem;"></div>
-                <nav class="main-nav" style="border:none; padding:0;">
-                    <ul class="nav-list" style="padding:0;">
-                        <li><a href="index.html" class="nav-link">Home</a></li>
-                        <li><a href="crop.html" class="nav-link">Crop Guidance</a></li>
-                        <li><a href="pest.html" class="nav-link">Pest Management</a></li>
-                        <li><a href="weather.html" class="nav-link active">Weather</a></li>
-                        <li><a href="market.html" class="nav-link">Market Prices</a></li>
-                        <li><a href="assistant.html" class="nav-link">AI Assistant</a></li>
-                    </ul>
-                </nav>
-            </div>
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <i class="fas fa-leaf"></i>
+                <span>Agri<span>1</span></span>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="weather.html" class="nav-link active">Weather</a>
+                <a href="market.html" class="nav-link">Market</a>
+                <a href="assistant.html" class="nav-link">AI Assistant</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="login.html" class="btn btn-primary">Login</a>
+            </nav>
+
+            <!-- Mobile Toggle -->
+            <button class="mobile-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </header>
 
-    <div class="container weather-page">
-        <!-- Current Weather Hero -->
-        <div class="weather-hero" id="weather-hero">
-            <div class="location-label"><i class="fas fa-map-marker-alt"></i> Your Location</div>
-            <div class="location-name" id="location-name">Detecting location...</div>
+    <div class="container section">
+
+        <!-- Hero: Current Weather -->
+        <div class="weather-hero">
+            <div id="location-name" class="location-name">Detecting Location...</div>
+            <div class="location-label"><i class="fas fa-map-marker-alt"></i> GPS Detected</div>
+
             <div class="hero-row">
                 <div id="current-icon-container">
-                    <i class="fas fa-sun weather-icon-large"></i>
+                    <i class="fas fa-spinner fa-spin weather-icon-large"></i>
                 </div>
-                <div class="temp-large" id="current-temp">--°C</div>
+                <div>
+                    <div id="current-temp" class="temp-large">--°</div>
+                    <div id="current-condition" class="location-label" style="margin:0; font-size: 1.5rem;">Loading...
+                    </div>
+                </div>
             </div>
-            <div class="condition-label" id="current-condition">Loading...</div>
+
             <div class="hero-stats">
-                <span><i class="fas fa-tint"></i> <span id="current-humidity">--%</span> Humidity</span>
-                <span><i class="fas fa-wind"></i> <span id="current-wind">--</span> km/h Wind</span>
-                <span><i class="fas fa-cloud-rain"></i> <span id="current-rain-prob">--%</span> Rain</span>
+                <div><i class="fas fa-tint"></i> <span id="current-humidity">--%</span></div>
+                <div><i class="fas fa-wind"></i> <span id="current-wind">-- km/h</span></div>
+                <div><i class="fas fa-umbrella"></i> <span id="current-rain-prob">--%</span></div>
             </div>
         </div>
 
-        <div class="weather-columns">
-            <!-- AI Farming Summary -->
-            <div class="weather-card ai-summary-card">
+        <div class="weather-grid">
+            <!-- AI Summary -->
+            <div class="card" style="padding:0; overflow: hidden; border-color: #bbdefb;">
                 <div class="weather-card-header">
-                    <i class="fas fa-robot"></i> AI Farming Summary
+                    <i class="fas fa-robot"></i> AI Farming Analysis
                 </div>
-                <div class="ai-summary-body" id="ai-summary-body">
-                    <div class="summary-line"><span class="summary-emoji">🔄</span> <span>Analyzing weather data for
-                            your area...</span></div>
+                <div id="ai-summary-body" class="ai-summary-body">
+                    <p style="text-align:center; opacity:0.6;">Analyzing weather conditions for farming...</p>
                 </div>
             </div>
 
             <!-- Farming Advisory -->
-            <div class="weather-card">
-                <div class="weather-card-header">
-                    <i class="fas fa-seedling"></i> Farming Advisory
+            <div class="card" style="padding:0; overflow: hidden;">
+                <div class="weather-card-header" style="background-color: #f3f4f6; color: var(--text-main);">
+                    <i class="fas fa-clipboard-list"></i> Field Tasks
                 </div>
-                <div class="advisory-body" id="advisory-list">
-                    <div class="advisory-item">
-                        <div class="advisory-icon blue"><i class="fas fa-spinner fa-spin"></i></div>
-                        <span>Loading advisory...</span>
-                    </div>
+                <div id="advisory-list" class="advisory-body">
+                    <p style="text-align:center; opacity:0.6;">Loading farm advisory...</p>
                 </div>
             </div>
         </div>
 
         <!-- 7-Day Forecast -->
-        <div class="weather-card forecast-card">
-            <div class="weather-card-header">
+        <div class="card" style="padding:0; overflow:hidden;">
+            <div class="weather-card-header" style="background-color: white; border-bottom: 1px solid var(--border);">
                 <i class="fas fa-calendar-alt"></i> 7-Day Forecast
             </div>
-            <div class="forecast-grid" id="forecast-grid">
-                <div class="forecast-day"
-                    style="grid-column:1/-1; padding:2rem; text-align:center; color:var(--text-light);">
-                    Loading forecast...
+            <div class="forecast-container">
+                <div id="forecast-grid" class="forecast-grid">
+                    <!-- JS will popuate -->
                 </div>
             </div>
         </div>
+
     </div>
 
-    <!-- AI Assistant Floating Button -->
-    <a href="assistant.html" class="ai-floating-btn" title="Chat with AI Assistant">
-        <i class="fas fa-robot"></i>
-    </a>
+    <footer style="margin-top: auto; padding: 2rem 0; text-align: center; border-top: 1px solid var(--border);">
+        <div class="container" style="opacity: 0.5; font-size: 0.9rem;">
+            &copy; 2026 <span style="color:var(--secondary)">Agri1</span>. All rights reserved.
+        </div>
+    </footer>
 
-    <script src="weather.js"></script>
+    <!-- Scripts -->
+    <div id="google_translate_element" style="display:none;"></div>
     <script src="common.js"></script>
+    <script src="weather.js"></script>
+
 </body>
 
 </html>

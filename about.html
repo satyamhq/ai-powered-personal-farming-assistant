@@ -5,155 +5,125 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - Agri1</title>
-    <meta name="description"
-        content="Learn about Agri1 — India's AI-powered farming assistant built to empower farmers with technology.">
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- CSS -->
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="about.css">
-    <link rel="stylesheet" href="mobile.css">
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
-    <link rel="shortcut icon" href="favicon/favicon.ico">
+    <link rel="icon" type="image/svg+xml" href="favicon/icon.svg">
     <link rel="manifest" href="favicon/site.webmanifest">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
-    <div class="top-bar">
-        <div class="container"><span><i class="fas fa-phone-alt"></i> Help: +91 XXXXX-XXXXX</span></div>
-    </div>
+
+    <!-- Main Header -->
     <header class="main-header">
-        <div class="container">
-            <div class="header-content">
-                <a href="index.html" class="logo"><i class="fas fa-leaf"></i> <span>Agri<span>1</span></span></a>
-                <button class="mobile-menu-btn"
-                    style="display:none;background:none;border:none;font-size:1.5rem;color:var(--primary-color);cursor:pointer;margin-left:1rem"><i
-                        class="fas fa-bars"></i></button>
-                <div id="google_translate_element" style="margin-left:1rem"></div>
-            </div>
-            <nav class="main-nav">
-                <ul class="nav-list">
-                    <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="crop.html" class="nav-link">Crop Guidance</a></li>
-                    <li><a href="pest.html" class="nav-link">Pest Management</a></li>
-                    <li><a href="weather.html" class="nav-link">Weather</a></li>
-                    <li><a href="market.html" class="nav-link">Market Prices</a></li>
-                    <li><a href="assistant.html" class="nav-link">AI Assistant</a></li>
-                </ul>
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <i class="fas fa-leaf"></i>
+                <span>Agri<span>1</span></span>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="weather.html" class="nav-link">Weather</a>
+                <a href="market.html" class="nav-link">Market</a>
+                <a href="assistant.html" class="nav-link">AI Assistant</a>
+                <a href="about.html" class="nav-link active">About</a>
+                <a href="login.html" class="btn btn-primary">Login</a>
             </nav>
+
+            <!-- Mobile Toggle -->
+            <button class="mobile-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </header>
 
-    <section class="about-hero">
-        <h1>About Agri1</h1>
-        <p>India's AI-powered farming assistant — making smart agriculture accessible to every farmer through real-time
-            data and intelligent technology.</p>
-    </section>
+    <!-- Content -->
+    <main class="container section">
+        <div class="card" style="max-width: 800px; margin: 0 auto;">
+            <div style="text-align: center; margin-bottom: var(--space-lg);">
+                <i class="fas fa-leaf"
+                    style="font-size: 4rem; color: var(--primary); margin-bottom: var(--space-md);"></i>
+                <h1>About <span class="text-primary">Agri1</span></h1>
+                <p class="hero-subtitle" style="color: var(--text-muted);">Empowering Indian Farmers with Technology</p>
+            </div>
 
-    <div class="about-section">
-        <h2><i class="fas fa-bullseye"></i> Our Mission</h2>
-        <p>Agri1 was created with a single goal — to bridge the gap between technology and Indian agriculture. Millions
-            of farmers lack access to real-time market prices, accurate weather forecasts, and expert crop guidance.
-            Agri1 brings all of this together in one simple, mobile-friendly platform powered by AI.</p>
+            <div style="margin-bottom: var(--space-lg);">
+                <h3><i class="fas fa-tractor"></i> Our Mission</h3>
+                <p><span class="text-primary">Agri1</span> is dedicated to making smart farming accessible to every
+                    farmer in India. We combine artificial
+                    intelligence with real-time data to provide accurate weather forecasts, live mandi prices, and
+                    expert crop advice—all in one simple app.</p>
+            </div>
 
-        <div class="mission-grid">
-            <div class="mission-card"><i class="fas fa-chart-line"></i>
-                <h3>Live Market Prices</h3>
-                <p>Real-time mandi rates from 300+ markets across India, sorted by nearest location with price
-                    comparison.</p>
+            <div style="margin-bottom: var(--space-lg);">
+                <h3><i class="fas fa-bullseye"></i> Our Vision</h3>
+                <p>To bridge the gap between traditional farming and modern technology, ensuring higher yields, better
+                    profits, and sustainable agriculture for future generations.</p>
             </div>
-            <div class="mission-card"><i class="fas fa-robot"></i>
-                <h3>AI Crop Assistant</h3>
-                <p>A fine-tuned farming-only chatbot that understands English and Hindi, with live price and weather
-                    integration.</p>
-            </div>
-            <div class="mission-card"><i class="fas fa-cloud-sun-rain"></i>
-                <h3>7-Day Weather Forecast</h3>
-                <p>Rain probability, temperature trends, and AI-generated farming advisories tailored to your location.
-                </p>
-            </div>
-            <div class="mission-card"><i class="fas fa-shield-alt"></i>
-                <h3>Pest &amp; Disease Solutions</h3>
-                <p>Identification guides and treatment plans for common crop pests with visual references.</p>
-            </div>
-        </div>
 
-        <h2><i class="fas fa-user-tie"></i> Meet the Founder</h2>
-        <div class="founder-card">
-            <div class="founder-icon"><i class="fas fa-code"></i></div>
-            <div class="founder-info">
-                <h3>Satyam Kumar</h3>
-                <p class="founder-title">Founder &amp; Full-Stack Developer</p>
-                <p>Satyam Kumar is the founder and sole developer of the Agri1 platform. A passionate technologist based
-                    at Lovely Professional University (LPU), India, he designed and built every component of Agri1 —
-                    from the AI chatbot engine and live mandi price system to the 7-day weather integration and
-                    mobile-optimized UI. His vision is to make smart farming accessible to every farmer in India,
-                    regardless of scale or digital literacy.</p>
-                <div class="tech-badges">
-                    <span class="tech-badge"><i class="fab fa-html5"></i> HTML5</span>
-                    <span class="tech-badge"><i class="fab fa-css3-alt"></i> CSS3</span>
-                    <span class="tech-badge"><i class="fab fa-js-square"></i> JavaScript</span>
-                    <span class="tech-badge"><i class="fas fa-bolt"></i> Vite</span>
-                    <span class="tech-badge"><i class="fas fa-cloud"></i> Open-Meteo</span>
-                    <span class="tech-badge"><i class="fas fa-database"></i> data.gov.in</span>
+            <div class="grid grid-2">
+                <div style="padding: var(--space-md); background: #f9fafb; border-radius: var(--radius-md);">
+                    <h4><i class="fas fa-robot"></i> AI Crop Expert</h4>
+                    <p>Instant answers to farming questions in your language.</p>
+                </div>
+                <div style="padding: var(--space-md); background: #f9fafb; border-radius: var(--radius-md);">
+                    <h4><i class="fas fa-chart-line"></i> Real-time Markets</h4>
+                    <p>Live prices from 3,000+ mandis to help you sell better.</p>
                 </div>
             </div>
+
+            <!-- Founder Section -->
+            <div
+                style="margin-top: var(--space-xl); padding-top: var(--space-lg); border-top: 1px solid var(--border); text-align: center;">
+                <div
+                    style="width: 100px; height: 100px; background: #e5e7eb; border-radius: 50%; margin: 0 auto var(--space-md); display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--text-muted);">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h3>Satyam Kumar</h3>
+                <p style="color: var(--primary); font-weight: 500;">Founder & Developer</p>
+                <p>Built with ❤️ at LPU, India.</p>
+            </div>
         </div>
+    </main>
 
-        <h2><i class="fas fa-cogs"></i> Our Technology</h2>
-        <p>Agri1 is built entirely with vanilla HTML, CSS, and JavaScript — no heavy frameworks — ensuring fast load
-            times even on low-bandwidth rural connections. It integrates with the <strong>data.gov.in Agmarknet
-                API</strong> for live mandi prices, the <strong>Open-Meteo API</strong> for weather forecasts, and
-            <strong>Nominatim</strong> for location services. The AI assistant uses a custom intent-detection engine
-            with bilingual NLP support for English and Hindi.</p>
-
-        <h2><i class="fas fa-heart"></i> Why Agri1?</h2>
-        <p>Farming is the backbone of India. Yet most farmers depend on word-of-mouth for market prices, guesswork for
-            weather planning, and trial-and-error for pest management. Agri1 changes that by putting verified, real-time
-            data directly in the hands of those who need it most — for free, in their language, on any device.</p>
-    </div>
-
-    <footer>
+    <!-- Footer -->
+    <footer class="footer">
         <div class="container">
             <div class="footer-grid">
-                <div class="footer-col">
-                    <div class="footer-logo"><i class="fas fa-leaf"></i> Agri1</div>
-                    <p>Empowering millions of farmers with technology and transparency.</p>
+                <div>
+                    <div class="logo" style="color: white; margin-bottom: 1rem;">
+                        <i class="fas fa-leaf" style="color: var(--secondary);"></i>
+                        <span>Agri<span style="color: var(--secondary);">1</span></span>
+                    </div>
                 </div>
-                <div class="footer-col">
+                <div>
                     <h4>Quick Links</h4>
-                    <ul class="footer-links">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="contact.html">Contact Us</a></li>
-                        <li><a href="market.html">Market Prices</a></li>
-                    </ul>
+                    <p><a href="about.html">About Us</a></p>
+                    <p><a href="contact.html">Contact</a></p>
+                    <p><a href="faq.html">FAQs</a></p>
                 </div>
-                <div class="footer-col">
-                    <h4>Customer Care</h4>
-                    <ul class="footer-links">
-                        <li><a href="account.html">My Account</a></li>
-                        <li><a href="faq.html">FAQs</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
+                <div>
                     <h4>Contact</h4>
-                    <ul class="footer-links">
-                        <li><i class="fas fa-map-marker-alt"></i> LPU, India</li>
-                        <li><i class="fas fa-envelope"></i> support@agri1.in</li>
-                        <li><i class="fas fa-phone"></i> +91 XXXXX-XXXXX</li>
-                    </ul>
+                    <p><i class="fas fa-envelope"></i> support@agri1.in</p>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 Agri1. All rights reserved.</p>
+            <div style="text-align: center; margin-top: 3rem; opacity: 0.5; font-size: 0.9rem;">
+                &copy; 2026 Agri1. All rights reserved.
             </div>
         </div>
     </footer>
 
-    <a href="assistant.html" class="ai-floating-btn" title="Chat with AI Assistant"><i class="fas fa-robot"></i></a>
+    <!-- Scripts -->
+    <div id="google_translate_element" style="display:none;"></div>
     <script src="common.js"></script>
+
 </body>
 
 </html>

@@ -5,58 +5,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Agri1</title>
-    <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="mobile.css">
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
-    <link rel="shortcut icon" href="favicon/favicon.ico">
-    <link rel="manifest" href="favicon/site.webmanifest">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="login.css">
+    <link rel="icon" type="image/svg+xml" href="favicon/icon.svg">
+    <link rel="manifest" href="favicon/site.webmanifest">
 </head>
 
-<body>
+<body
+    style="background-color: #f0fdf4; display: flex; align-items: center; justify-content: center; min-height: 100vh;">
 
-    <!-- Include Header from index.html (Simplified) -->
-    <header class="main-header">
-        <div class="container">
-            <div class="header-content" style="justify-content: center;">
-                <a href="index.html" class="logo">
-                    <i class="fas fa-leaf"></i> <span>Agri<span>1</span></span>
-                </a>
-                <div id="google_translate_element" style="position: absolute; right: 1rem;"></div>
-            </div>
+    <!-- Card Container -->
+    <div class="card"
+        style="width: 100%; max-width: 400px; padding: var(--space-xl) var(--space-lg); box-shadow: var(--shadow-lg);">
+
+        <div style="text-align: center; margin-bottom: var(--space-lg);">
+            <a href="index.html"
+                style="display: inline-block; margin-bottom: var(--space-md); color: var(--primary); font-size: 2rem; font-weight: 800; text-decoration: none;">
+                <i class="fas fa-leaf"></i> Agri1
+            </a>
+            <h2 style="margin-bottom: var(--space-xs);">Welcome Back</h2>
+            <p style="color: var(--text-muted);">Sign in to your farm account</p>
         </div>
-    </header>
 
-    <div class="auth-container">
-        <div class="auth-card">
-            <div class="auth-header">
-                <i class="fas fa-user-circle"></i>
-                <h2>Welcome Back</h2>
-                <p>Login to access your personalized farming dashboard.</p>
-            </div>
-            <form onsubmit="event.preventDefault(); window.location.href='index.html';">
-                <div class="form-group">
-                    <label class="form-label">Email Address</label>
-                    <input type="email" class="form-input" placeholder="you@example.com" required>
+        <form>
+            <div class="form-group">
+                <label for="mobile">Mobile Number</label>
+                <div style="position: relative;">
+                    <i class="fas fa-phone-alt"
+                        style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-muted);"></i>
+                    <input type="tel" id="mobile" placeholder="+91 XXXXX-XXXXX" style="padding-left: 2.5rem;">
                 </div>
-                <div class="form-group">
-                    <label class="form-label">Password</label>
-                    <input type="password" class="form-input" placeholder="••••••••" required>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
-            </form>
-            <div class="auth-footer">
-                <p>Don't have an account? <a href="#">Sign Up</a></p>
-                <p style="margin-top: 0.5rem;"><a href="#">Forgot Password?</a></p>
             </div>
+
+            <div class="form-group">
+                <label for="pins">4-Digit PIN</label>
+                <div style="position: relative;">
+                    <i class="fas fa-lock"
+                        style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-muted);"></i>
+                    <input type="password" id="pins" placeholder="****" maxlength="4" style="padding-left: 2.5rem;">
+                </div>
+            </div>
+
+            <div style="text-align: right; margin-bottom: var(--space-md);">
+                <a href="#" style="font-size: var(--text-sm); color: var(--primary); font-weight: 500;">Forgot PIN?</a>
+            </div>
+
+            <button type="submit" class="btn btn-primary"
+                style="width: 100%; margin-bottom: var(--space-md);">Login</button>
+            <button type="button" class="btn btn-outline" style="width: 100%;"><i class="fab fa-google"></i> Sign in
+                with Google</button>
+        </form>
+
+        <div
+            style="text-align: center; margin-top: var(--space-lg); padding-top: var(--space-md); border-top: 1px solid var(--border);">
+            <span style="color: var(--text-muted); font-size: var(--text-sm);">Don't have an account?</span>
+            <a href="#" style="color: var(--primary); font-weight: 600; font-size: var(--text-sm);">Register Now</a>
         </div>
     </div>
 
+    <!-- Scripts -->
+    <div id="google_translate_element" style="display:none;"></div>
     <script src="common.js"></script>
+
 </body>
 
 </html>

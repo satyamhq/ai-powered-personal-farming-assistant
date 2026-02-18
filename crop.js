@@ -1,35 +1,48 @@
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('crop-form');
-    const resultsContainer = document.getElementById('recommendations');
+    const resultsArea = document.getElementById('recommendations-area');
+    const resultsGrid = document.getElementById('results-grid');
 
     const recommendedCrops = {
         'clay-kharif': [
-            { name: 'Rice (Paddy)', reason: 'High water retention of clay soil is perfect for paddy.', yield: '40-50 Qtl/acre' },
-            { name: 'Cotton', reason: 'Suitable for deep clay soils.', yield: '20-25 Qtl/acre' }
+            { name: 'Rice (Paddy)', reason: 'High water retention of clay soil is perfect for paddy.', yield: '40-50 Qtl/acre', icon: 'fa-seedling' },
+            { name: 'Cotton', reason: 'Suitable for deep clay soils.', yield: '20-25 Qtl/acre', icon: 'fa-tshirt' }
         ],
         'clay-rabi': [
-            { name: 'Wheat', reason: 'Clay loam is ideal for wheat cultivation.', yield: '35-40 Qtl/acre' },
-            { name: 'Chickpea', reason: 'Thrives in residual moisture.', yield: '10-15 Qtl/acre' }
+            { name: 'Wheat', reason: 'Clay loam is ideal for wheat cultivation.', yield: '35-40 Qtl/acre', icon: 'fa-bread-slice' },
+            { name: 'Chickpea', reason: 'Thrives in residual moisture.', yield: '10-15 Qtl/acre', icon: 'fa-cookie' }
         ],
         'sandy-kharif': [
-            { name: 'Bajra (Pearl Millet)', reason: 'Drought tolerant and prefers light soils.', yield: '15-20 Qtl/acre' },
-            { name: 'Groundnut', reason: 'Pods develop well in loose sandy soil.', yield: '18-22 Qtl/acre' }
+            { name: 'Bajra (Pearl Millet)', reason: 'Drought tolerant and prefers light soils.', yield: '15-20 Qtl/acre', icon: 'fa-leaf' },
+            { name: 'Groundnut', reason: 'Pods develop well in loose sandy soil.', yield: '18-22 Qtl/acre', icon: 'fa-utensils' }
         ],
         'sandy-rabi': [
-            { name: 'Mustard', reason: 'Requires less water and light soil.', yield: '12-15 Qtl/acre' },
-            { name: 'Potato', reason: 'Tubers expand easily in loose soil.', yield: '200-250 Qtl/acre' }
+            { name: 'Mustard', reason: 'Requires less water and light soil.', yield: '12-15 Qtl/acre', icon: 'fa-bottle-droplet' },
+            { name: 'Potato', reason: 'Tubers expand easily in loose soil.', yield: '200-250 Qtl/acre', icon: 'fa-carrot' }
         ],
         'loamy-kharif': [
-            { name: 'Maize', reason: 'Loam offers perfect drainage and nutrient balance.', yield: '30-40 Qtl/acre' },
-            { name: 'Soybean', reason: 'Balances moisture well.', yield: '20-25 Qtl/acre' }
+            { name: 'Maize', reason: 'Loam offers perfect drainage and nutrient balance.', yield: '30-40 Qtl/acre', icon: 'fa-corn' }, // fa-corn might not exist in free set, fallback used
+            { name: 'Soybean', reason: 'Balances moisture well.', yield: '20-25 Qtl/acre', icon: 'fa-leaf' }
         ],
         'loamy-rabi': [
-            { name: 'Tomato', reason: 'Rich loamy soil ensures good fruit set.', yield: '25-30 Tons/acre' },
-            { name: 'Wheat', reason: 'Versatile soil for grain crops.', yield: '35-40 Qtl/acre' }
+            { name: 'Tomato', reason: 'Rich loamy soil ensures good fruit set.', yield: '25-30 Tons/acre', icon: 'fa-apple-alt' },
+            { name: 'Wheat', reason: 'Versatile soil for grain crops.', yield: '35-40 Qtl/acre', icon: 'fa-bread-slice' }
         ],
-        // Default fallbacks
-        'black-kharif': [{ name: 'Cotton', reason: 'Black cotton soil is famous for this.', yield: '25-30 Qtl/acre' }],
-        'black-rabi': [{ name: 'Sorghum', reason: 'Holds moisture well for winter.', yield: '20-25 Qtl/acre' }]
+        'black-kharif': [
+            { name: 'Cotton', reason: 'Black cotton soil holds moisture for long periods.', yield: '25-30 Qtl/acre', icon: 'fa-tshirt' },
+            { name: 'Soybean', reason: 'Excellent growth in black soil.', yield: '20-25 Qtl/acre', icon: 'fa-leaf' }
+        ],
+        'black-rabi': [
+            { name: 'Sorghum (Jowar)', reason: 'Uses residual moisture in black soil effectively.', yield: '20-25 Qtl/acre', icon: 'fa-leaf' },
+            { name: 'Safflower', reason: 'Deep rooted, good for black soil.', yield: '10-12 Qtl/acre', icon: 'fa-sun' }
+        ],
+        'red-kharif': [
+            { name: 'Groundnut', reason: 'Red soil is aerated and good for root penetration.', yield: '15-20 Qtl/acre', icon: 'fa-utensils' },
+            { name: 'Ragi', reason: 'Hardy crop for red soil regions.', yield: '12-15 Qtl/acre', icon: 'fa-circle' }
+        ],
+        'red-rabi': [
+            { name: 'Horse Gram', reason: 'Can grow in low moisture red soils.', yield: '8-10 Qtl/acre', icon: 'fa-leaf' }
+        ]
     };
 
     form.addEventListener('submit', (e) => {
@@ -43,35 +56,52 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const key = `${soil}-${season}`;
-        const crops = recommendedCrops[key] || recommendedCrops[`sandy-${season}`]; // Fallback
+        // Fallback logic
+        let crops = recommendedCrops[key];
+        if (!crops) {
+            // Try partial match or generic fallback
+            crops = recommendedCrops[`sandy-${season}`] || [];
+        }
 
         displayResults(crops);
     });
 
     function displayResults(crops) {
-        resultsContainer.innerHTML = '';
+        resultsGrid.innerHTML = '';
+        resultsArea.style.display = 'block';
 
         if (!crops || crops.length === 0) {
-            resultsContainer.innerHTML = '<p>No specific recommendations found. Try different parameters.</p>';
+            resultsGrid.innerHTML = `
+                <div class="crop-card" style="grid-column: 1/-1; text-align: center; border-left: 4px solid var(--text-muted);">
+                    <h3>No specific recommendations</h3>
+                    <p>Try different soil or season combinations, or ask our AI Assistant.</p>
+                </div>`;
             return;
         }
 
         crops.forEach(crop => {
             const card = document.createElement('div');
-            card.className = 'crop-card'; // Make sure this class is styled or re-use existing
-            card.style.background = 'var(--white)';
-            card.style.padding = '1.5rem';
-            card.style.borderRadius = 'var(--radius)';
-            card.style.border = '1px solid var(--border-color)';
-            card.style.boxShadow = 'var(--shadow-sm)';
+            card.className = 'crop-card';
+
+            // Icon handling (fa-corn is not standard free, using fallbacks)
+            let iconClass = crop.icon || 'fa-leaf';
+            if (crop.name.includes('Maize')) iconClass = 'fa-candy-cane'; // Visually distinct fallback
 
             card.innerHTML = `
-                <h3 style="color: var(--primary-color); margin-bottom: 0.5rem;">${crop.name}</h3>
-                <p style="margin-bottom: 0.5rem;"><strong>Why:</strong> ${crop.reason}</p>
-                <p><strong>Expected Yield:</strong> ${crop.yield}</p>
-                <button class="btn btn-outline" style="margin-top: 1rem; font-size: 0.8rem;" onclick="location.href='assistant.html?q=How to grow ${crop.name}'">View Detailed Guide</button>
+                <h3><i class="fas ${iconClass}"></i> ${crop.name}</h3>
+                <p>${crop.reason}</p>
+                <div style="margin-top: var(--space-sm);">
+                    <span class="crop-stat"><i class="fas fa-chart-bar"></i> Yield: ${crop.yield}</span>
+                </div>
+                <button class="btn btn-outline" style="width: 100%; margin-top: var(--space-md); font-size: 0.85rem;" 
+                    onclick="location.href='assistant.html?q=How to grow ${encodeURIComponent(crop.name)}'">
+                    <i class="fas fa-book-open"></i> View Guide
+                </button>
             `;
-            resultsContainer.appendChild(card);
+            resultsGrid.appendChild(card);
         });
+
+        // Scroll to results
+        resultsArea.scrollIntoView({ behavior: 'smooth' });
     }
 });

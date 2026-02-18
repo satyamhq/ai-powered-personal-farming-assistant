@@ -5,224 +5,189 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pest Management - Agri1</title>
-  <link rel="stylesheet" href="index.css">
-  <link rel="stylesheet" href="mobile.css">
-  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
-  <link rel="shortcut icon" href="favicon/favicon.ico">
-  <link rel="manifest" href="favicon/site.webmanifest">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="index.css">
   <link rel="stylesheet" href="pest.css">
+  <link rel="icon" type="image/svg+xml" href="favicon/icon.svg">
+  <link rel="manifest" href="favicon/site.webmanifest">
 </head>
 
 <body>
 
-  <div class="top-bar">
-    <div class="container"><span><i class="fas fa-phone-alt"></i> Help: +91 1800-123-4567</span></div>
-  </div>
+  <!-- Main Header -->
   <header class="main-header">
-    <div class="container">
-      <div class="header-content">
-        <a href="index.html" class="logo"><i class="fas fa-leaf"></i> <span>Agri<span>1</span></span></a>
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <i class="fas fa-leaf"></i>
+        <span>Agri<span>1</span></span>
+      </a>
 
-        <div class="search-bar">
-          <input type="text" class="search-input" placeholder="Search for pests or symptoms...">
-          <button class="search-btn"><i class="fas fa-search"></i></button>
-        </div>
-        <!-- Mobile Menu Button -->
-        <button class="mobile-menu-btn"
-          style="display: none; background: none; border: none; font-size: 1.5rem; color: var(--primary-color); cursor: pointer; margin-left: 1rem;">
-          <i class="fas fa-bars"></i>
-        </button>
-        <!-- Translate Widget -->
-        <div id="google_translate_element" style="margin-left: 1rem;"></div>
-      </div>
-      <nav class="main-nav">
-        <ul class="nav-list">
-          <li><a href="index.html" class="nav-link">Home</a></li>
-          <li><a href="crop.html" class="nav-link">Crop Guidance</a></li>
-          <li><a href="pest.html" class="nav-link active">Pest Management</a></li>
-          <li><a href="weather.html" class="nav-link">Weather</a></li>
-          <li><a href="market.html" class="nav-link">Market Prices</a></li>
-          <li><a href="assistant.html" class="nav-link">AI Assistant</a></li>
-        </ul>
+      <!-- Desktop Nav -->
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="weather.html" class="nav-link">Weather</a>
+        <a href="market.html" class="nav-link">Market</a>
+        <a href="assistant.html" class="nav-link">AI Assistant</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="login.html" class="btn btn-primary">Login</a>
       </nav>
+
+      <!-- Mobile Toggle -->
+      <button class="mobile-toggle">
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
   </header>
 
-  <div class="container" style="padding: 2rem 1rem;">
-    <h1 class="section-title">Common Crop Pests & Remedies</h1>
+  <!-- Content -->
+  <div class="container section">
 
-    <div class="pest-grid">
+    <div style="text-align: center; margin-bottom: var(--space-lg);">
+      <h1 class="section-title">Insect & Pest Control</h1>
+      <p class="hero-subtitle">Identify pests and find organic or chemical remedies.</p>
 
-      <!-- Pest 1 (already OK) -->
+      <div style="max-width: 500px; margin: var(--space-md) auto; position: relative;">
+        <input type="text" id="pest-search" class="search-input" placeholder="Search pest (e.g. Aphids, Borer)..."
+          style="width: 100%; border: 1px solid var(--border); padding: 0.75rem 1rem; border-radius: var(--radius-full);">
+        <button
+          style="position: absolute; right: 0.5rem; top: 0.5rem; background: var(--primary); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer;">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="pest-grid" id="pest-grid">
+
+      <!-- Pest 1 -->
       <div class="pest-card">
         <div class="pest-image">
-          <img src="images/aphid.jpg" alt="Aphids">
+          <img src="images/aphid.jpg" alt="Aphids" onerror="this.src='https://placehold.co/400x300?text=Aphids'">
           <div class="image-overlay">
-            <h4>Aphids</h4>
+            <h4>Aphids (Mahun)</h4>
           </div>
         </div>
         <div class="pest-content">
-          <p class="pest-symptoms">
-            Small soft-bodied insects that suck nutrient-rich liquids from plants.
-            They cause yellowing and distorted leaves.
-          </p>
-          <button class="btn btn-outline" onclick="location.href='assistant.html?q=aphids'">
-            View Remedy
-          </button>
+          <p class="pest-symptoms">Small sucking insects causing yellowing and curled leaves. They excrete honeydew
+            leading to sooty mold.</p>
+          <a href="assistant.html?q=How to control Aphids" class="btn btn-outline" style="width:100%">Get Remedy</a>
         </div>
       </div>
 
       <!-- Pest 2 -->
       <div class="pest-card">
         <div class="pest-image">
-          <img src="images/spider.jpg" alt="Spider Mites">
+          <img src="images/stem-borer.jpg" alt="Stem Borer"
+            onerror="this.src='https://placehold.co/400x300?text=Stem+Borer'">
           <div class="image-overlay">
-            <h4>Spider Mites</h4>
+            <h4>Stem Borer</h4>
           </div>
         </div>
         <div class="pest-content">
-          <p class="pest-symptoms">
-            Tiny reddish or brown arachnids. Look for fine silk webbing on the
-            underside of leaves and stippling.
-          </p>
-          <button class="btn btn-outline" onclick="location.href='assistant.html?q=mites'">
-            View Remedy
-          </button>
+          <p class="pest-symptoms">Larvae bore into stems causing 'Dead Heart' in young plants and 'White Ear' in mature
+            paddy.</p>
+          <a href="assistant.html?q=Control Stem Borer" class="btn btn-outline" style="width:100%">Get Remedy</a>
         </div>
       </div>
 
       <!-- Pest 3 -->
       <div class="pest-card">
         <div class="pest-image">
-          <img src="images/armyworm.jpg" alt="Fall Armyworm">
+          <img src="images/armyworm.jpg" alt="Fall Armyworm"
+            onerror="this.src='https://placehold.co/400x300?text=Armyworm'">
           <div class="image-overlay">
             <h4>Fall Armyworm</h4>
           </div>
         </div>
         <div class="pest-content">
-          <p class="pest-symptoms">
-            Voracious caterpillars that feed on maize and other crops. Look for ragged
-            holes in leaves and sawdust-like frass.
-          </p>
-          <button class="btn btn-outline" onclick="location.href='assistant.html?q=armyworm'">
-            View Remedy
-          </button>
+          <p class="pest-symptoms">Voracious caterpillars that eat maize leaves leaving ragged holes and sawdust-like
+            frass.</p>
+          <a href="assistant.html?q=Control Fall Armyworm" class="btn btn-outline" style="width:100%">Get Remedy</a>
         </div>
       </div>
 
       <!-- Pest 4 -->
       <div class="pest-card">
         <div class="pest-image">
-          <img src="images/root.jpg" alt="Root Knot Nematodes">
+          <img src="images/whiteflies.jpg" alt="Whiteflies"
+            onerror="this.src='https://placehold.co/400x300?text=Whitefly'">
           <div class="image-overlay">
-            <h4>Root Knot Nematodes</h4>
+            <h4>Whitefly</h4>
           </div>
         </div>
         <div class="pest-content">
-          <p class="pest-symptoms">
-            Microscopic worms that cause galls or knots on roots. Results in stunted
-            growth and yellowing.
-          </p>
-          <button class="btn btn-outline" onclick="location.href='assistant.html?q=nematodes'">
-            View Remedy
-          </button>
+          <p class="pest-symptoms">Tiny white insects under leaves. Transmits Leaf Curl Virus in tomato, cotton, and
+            chilli.</p>
+          <a href="assistant.html?q=Control Whitefly" class="btn btn-outline" style="width:100%">Get Remedy</a>
         </div>
       </div>
+
       <!-- Pest 5 -->
       <div class="pest-card">
         <div class="pest-image">
-          <img src="images/stem-borer.jpg" alt="Stem Borer">
-          <div class="image-overlay">
-            <h4>Stem Borer</h4>
-          </div>
-        </div>
-        <div class="pest-content">
-          <p class="pest-symptoms">
-            Larvae bore into stems, causing deadheart in young plants and whiteheads in mature crops. Early detection
-            and timely insecticide application are key.
-          </p>
-          <button class="btn btn-outline" onclick="location.href='assistant.html?q=stem borer'">
-            View Remedy
-          </button>
-        </div>
-      </div>
-      <!-- Pest 6 -->
-      <div class="pest-card">
-        <div class="pest-image">
-          <img src="images/leaf-miners.jpg" alt="leaf-miners">
-          <div class="image-overlay">
-            <h4>Leaf-Miners</h4>
-          </div>
-        </div>
-        <div class="pest-content">
-          <p class="pest-symptoms">
-            Leaf miners create white zig-zag lines inside leaves and weaken plants. Early neem spray helps control them.
-          </p>
-          <button class="btn btn-outline" onclick="location.href='assistant.html?q=leaf miners'">
-            View Remedy
-          </button>
-        </div>
-      </div>
-      <!-- Pest 7-->
-      <div class="pest-card">
-        <div class="pest-image">
-          <img src="images/bollworm.jpg" alt="Bollworm">
+          <img src="images/bollworm.jpg" alt="Bollworm" onerror="this.src='https://placehold.co/400x300?text=Bollworm'">
           <div class="image-overlay">
             <h4>Bollworm</h4>
           </div>
         </div>
         <div class="pest-content">
-          <p class="pest-symptoms">
-            Bollworm is a harmful caterpillar that bores into fruits and bolls, causing heavy crop damage. Early control
-            is essential.
+          <p class="pest-symptoms">Larvae bore into cotton bolls and fruits (tomato/okra) causing heavy economic loss.
           </p>
-          <button class="btn btn-outline" onclick="location.href='assistant.html?q=bollworm'">
-            View Remedy
-          </button>
+          <a href="assistant.html?q=Control Bollworm" class="btn btn-outline" style="width:100%">Get Remedy</a>
         </div>
       </div>
-      <!-- Pest 8 -->
+
+      <!-- Pest 6 -->
       <div class="pest-card">
         <div class="pest-image">
-          <img src="images/whiteflies.jpg" alt="Whiteflies">
+          <img src="images/root.jpg" alt="Nematodes" onerror="this.src='https://placehold.co/400x300?text=Nematodes'">
           <div class="image-overlay">
-            <h4>Whiteflies</h4>
+            <h4>Root Knot Nematodes</h4>
           </div>
         </div>
         <div class="pest-content">
-          <p class="pest-symptoms">
-            Whiteflies are tiny white insects that suck plant sap and spread diseases. They weaken crops and reduce
-            yield quickly.
-          </p>
-          <button class="btn btn-outline" onclick="location.href='assistant.html?q=whitefly'">
-            View Remedy
-          </button>
+          <p class="pest-symptoms">Microscopic worms causing galls/knots on roots. Plants become stunted and yellow.</p>
+          <a href="assistant.html?q=Control Nematodes" class="btn btn-outline" style="width:100%">Get Remedy</a>
         </div>
       </div>
 
     </div>
 
-    <div
-      style="text-align: center; margin-top: 4rem; padding: 3rem; background: var(--white); border-radius: var(--radius);">
-      <h2>Don't see your pest?</h2>
-      <p style="margin-bottom: 1.5rem; color: var(--text-light);">Upload a photo or describe the symptoms to our
-        AI Assistant for instant identification.</p>
-      <a href="assistant.html" class="btn btn-primary">Ask AI Assistant</a>
+    <div class="card" style="text-align: center; margin-top: var(--space-xl); background: #f0fdf4;">
+      <h3><i class="fas fa-camera"></i> Unknown Pest?</h3>
+      <p>Describe the symptoms to our AI Assistant for instant identification.</p>
+      <a href="assistant.html" class="btn btn-primary">Ask AI Expert</a>
     </div>
 
   </div>
 
-  <!-- AI Assistant Floating Button -->
-  <a href="assistant.html" class="ai-floating-btn" title="Chat with AI Assistant">
-    <i class="fas fa-robot"></i>
-  </a>
+  <footer style="margin-top: auto; padding: 2rem 0; text-align: center; border-top: 1px solid var(--border);">
+    <div class="container" style="opacity: 0.5; font-size: 0.9rem;">
+      &copy; 2026 <span style="color:var(--secondary)">Agri1</span>. All rights reserved.
+    </div>
+  </footer>
 
-  </div>
+  <!-- Scripts -->
+  <div id="google_translate_element" style="display:none;"></div>
   <script src="common.js"></script>
+  <script>
+    // Simple Search Filter
+    const searchInput = document.getElementById('pest-search');
+    const grid = document.getElementById('pest-grid');
+    const cards = grid.getElementsByClassName('pest-card');
+
+    searchInput.addEventListener('keyup', (e) => {
+      const term = e.target.value.toLowerCase();
+      Array.from(cards).forEach(card => {
+        const text = card.textContent.toLowerCase();
+        card.style.display = text.includes(term) ? 'flex' : 'none';
+      });
+    });
+  </script>
 </body>
 
 </html>

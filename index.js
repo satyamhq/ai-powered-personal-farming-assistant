@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
             greeting = "Good Evening";
         }
 
-        welcomeMessageElement.textContent = `${greeting}, Welcome to Agri1`;
+        welcomeMessageElement.innerHTML = `${greeting}, Welcome to <span style="color:var(--secondary)">Agri1</span>`;
     }
     // Search Bar Redirection
     const searchInput = document.querySelector('.search-input');
