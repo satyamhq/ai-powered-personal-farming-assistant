@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { name: 'Potato', reason: 'Tubers expand easily in loose soil.', yield: '200-250 Qtl/acre' }
         ],
         'loamy-kharif': [
-            { name: 'Maize', reason: 'Loam offers perfect drainage and nutrient cooling.', yield: '30-40 Qtl/acre' },
+            { name: 'Maize', reason: 'Loam offers perfect drainage and nutrient balance.', yield: '30-40 Qtl/acre' },
             { name: 'Soybean', reason: 'Balances moisture well.', yield: '20-25 Qtl/acre' }
         ],
         'loamy-rabi': [

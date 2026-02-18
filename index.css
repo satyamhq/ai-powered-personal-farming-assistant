@@ -472,3 +472,172 @@ footer {
         transform: translateY(0px);
     }
 }
+
+/* Home Weather Section */
+.hw-section {
+    background: linear-gradient(135deg, #1a6b1a 0%, #228B22 50%, #2e7d32 100%);
+    color: white;
+    padding: 1.25rem 0;
+    overflow: hidden;
+}
+
+.hw-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.hw-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.hw-location {
+    font-size: 0.85rem;
+    opacity: 0.85;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.hw-current {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1rem;
+}
+
+.hw-current-temp {
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.hw-current-icon {
+    font-size: 1.4rem;
+    opacity: 0.9;
+}
+
+.hw-current-desc {
+    font-size: 0.85rem;
+    opacity: 0.85;
+}
+
+.hw-summary {
+    font-size: 0.8rem;
+    opacity: 0.8;
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+    display: flex;
+    gap: 0.4rem;
+    align-items: flex-start;
+}
+
+.hw-link {
+    color: white;
+    text-decoration: underline;
+    font-size: 0.8rem;
+    opacity: 0.8;
+    white-space: nowrap;
+}
+
+.hw-forecast-strip {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    border-radius: 0.6rem;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.hw-forecast-strip::-webkit-scrollbar {
+    display: none;
+}
+
+.hw-day {
+    flex: 0 0 calc(100% / 7);
+    min-width: 75px;
+    text-align: center;
+    padding: 0.75rem 0.4rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background 0.2s;
+}
+
+.hw-day:last-child {
+    border-right: none;
+}
+
+.hw-day:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.hw-day-name {
+    font-size: 0.7rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    opacity: 0.9;
+}
+
+.hw-day-name.today {
+    color: #bbf7d0;
+}
+
+.hw-day-icon {
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+}
+
+.hw-day-temps {
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.hw-day-temps .hw-min {
+    opacity: 0.6;
+    font-weight: 400;
+}
+
+.hw-rain-bar {
+    width: 30px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    margin: 0.25rem auto 0.15rem;
+    overflow: hidden;
+}
+
+.hw-rain-fill {
+    height: 100%;
+    background: #93c5fd;
+    border-radius: 2px;
+}
+
+.hw-rain-pct {
+    font-size: 0.6rem;
+    opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+    .hw-section {
+        padding: 1rem 0;
+    }
+
+    .hw-top {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .hw-day {
+        min-width: 65px;
+        flex: 0 0 auto;
+        padding: 0.6rem 0.35rem;
+    }
+
+    .hw-forecast-strip {
+        border-radius: 0.4rem;
+    }
+}

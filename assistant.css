@@ -1,0 +1,119 @@
+/* Specific Styles for Strong Chatbox */
+.chat-layout {
+    display: flex;
+    height: calc(100vh - 180px);
+    background-color: var(--white);
+    margin-top: 1rem;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.chat-sidebar {
+    width: 300px;
+    background-color: #f8f9fa;
+    border-right: 1px solid var(--border-color);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-header {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--white);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 1.5rem;
+    overflow-y: auto;
+    background-color: #f0fdf4;
+}
+
+.message {
+    margin-bottom: 1rem;
+    max-width: 80%;
+}
+
+.message.user {
+    margin-left: auto;
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 0.75rem 1rem;
+    border-radius: 1rem 1rem 0 1rem;
+}
+
+.message.bot {
+    margin-right: auto;
+    background-color: var(--white);
+    border: 1px solid var(--border-color);
+    padding: 0.75rem 1rem;
+    border-radius: 1rem 1rem 1rem 0;
+    box-shadow: var(--shadow-sm);
+}
+
+.chat-input-area {
+    padding: 1rem 1.5rem;
+    background-color: var(--white);
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    gap: 1rem;
+}
+
+.chat-input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 2rem;
+    outline: none;
+}
+
+.chat-input:focus {
+    border-color: var(--primary-color);
+}
+
+.send-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.suggested-questions {
+    margin-top: auto;
+}
+
+.suggestion-chip {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.75rem;
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.suggestion-chip:hover {
+    border-color: var(--primary-color);
+    background-color: #e6f0eb;
+}

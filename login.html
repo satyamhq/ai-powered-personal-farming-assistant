@@ -14,72 +14,7 @@
     <link rel="manifest" href="favicon/site.webmanifest">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        .auth-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 80vh;
-            background-color: var(--secondary-color);
-        }
-
-        .auth-card {
-            background: var(--white);
-            padding: 2.5rem;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow-md);
-            width: 100%;
-            max-width: 400px;
-        }
-
-        .auth-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .auth-header i {
-            font-size: 3rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: var(--text-dark);
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius);
-            font-family: inherit;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 2px rgba(0, 103, 56, 0.1);
-        }
-
-        .auth-footer {
-            text-align: center;
-            margin-top: 1.5rem;
-            font-size: 0.9rem;
-            color: var(--text-light);
-        }
-
-        .auth-footer a {
-            color: var(--primary-color);
-            font-weight: 600;
-        }
-    </style>
+    <link rel="stylesheet" href="login.css">
 </head>
 
 <body>
@@ -106,7 +41,7 @@
             <form onsubmit="event.preventDefault(); window.location.href='index.html';">
                 <div class="form-group">
                     <label class="form-label">Email Address</label>
-                    <input type="email" class="form-input" placeholder="you@exmaple.com" required>
+                    <input type="email" class="form-input" placeholder="you@example.com" required>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Password</label>

@@ -1,0 +1,224 @@
+.acct-hero {
+    background: linear-gradient(135deg, #1a6b1a, #228B22, #2e7d32);
+    color: #fff;
+    text-align: center;
+    padding: 3rem 1rem 2.5rem;
+}
+
+.acct-hero h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.acct-hero p {
+    opacity: 0.9;
+}
+
+.acct-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 2rem;
+}
+
+.acct-side {
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    padding: 2rem 1.25rem;
+    text-align: center;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary-color), #2e7d32);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    color: #fff;
+    font-size: 2rem;
+}
+
+.acct-side h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.acct-side .uemail {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+}
+
+.snav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+
+.snav li {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.snav li:last-child {
+    border-bottom: none;
+}
+
+.snav a {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.snav a:hover,
+.snav a.active {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.snav i {
+    width: 18px;
+    text-align: center;
+    color: var(--text-light);
+}
+
+.snav a:hover i,
+.snav a.active i {
+    color: var(--primary-color);
+}
+
+.acct-main {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.acard {
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+
+.acard-h {
+    padding: 1rem 1.5rem;
+    font-weight: 700;
+    font-size: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-dark);
+}
+
+.acard-b {
+    padding: 1.5rem;
+}
+
+.irow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.irow:last-child {
+    border-bottom: none;
+}
+
+.ilbl {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+.ival {
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+.sgrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+}
+
+.sitem {
+    text-align: center;
+    padding: 1.25rem 1rem;
+    background: #f0fdf4;
+    border-radius: var(--radius);
+    border: 1px solid #c8e6c9;
+}
+
+.sitem .snum {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.sitem .slbl {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin-top: 0.25rem;
+}
+
+.edit-btn {
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem;
+    background: none;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.edit-btn:hover {
+    background: var(--primary-color);
+    color: #fff;
+}
+
+.logout-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 0.75rem;
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    transition: background 0.2s;
+}
+
+.logout-btn:hover {
+    background: #fee2e2;
+}
+
+@media (max-width: 768px) {
+    .acct-wrap {
+        grid-template-columns: 1fr;
+    }
+}

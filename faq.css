@@ -1,0 +1,108 @@
+.faq-hero {
+    background: linear-gradient(135deg, #1a6b1a, #228B22, #2e7d32);
+    color: #fff;
+    text-align: center;
+    padding: 4rem 1rem 3rem;
+}
+
+.faq-hero h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
+.faq-hero p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.faq-wrap {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2.5rem 1rem;
+}
+
+.faq-category {
+    margin-bottom: 2.5rem;
+}
+
+.faq-category h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.faq-item {
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.faq-q {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    transition: background 0.2s;
+}
+
+.faq-q:hover {
+    background: #f0fdf4;
+}
+
+.faq-q i {
+    transition: transform 0.3s;
+    color: var(--text-light);
+    font-size: 0.85rem;
+}
+
+.faq-q.open i {
+    transform: rotate(180deg);
+    color: var(--primary-color);
+}
+
+.faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    padding: 0 1.25rem;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--text-light);
+}
+
+.faq-a.open {
+    max-height: 300px;
+    padding: 0.5rem 1.25rem 1.25rem;
+}
+
+.cta-box {
+    text-align: center;
+    margin-top: 3rem;
+    padding: 2.5rem;
+    background: linear-gradient(135deg, #f0fdf4, #e8f5e9);
+    border-radius: var(--radius);
+    border: 1px solid #c8e6c9;
+}
+
+.cta-box h2 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-dark);
+}
+
+.cta-box p {
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+}

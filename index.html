@@ -23,7 +23,7 @@
   <!-- Top Bar -->
   <div class="top-bar">
     <div class="container">
-      <span><i class="fas fa-phone-alt"></i> Call Us: +91 8709865685</span>
+      <span><i class="fas fa-phone-alt"></i> Help: +91 XXXXX-XXXXX</span>
       <span>Download App</span>
     </div>
   </div>
@@ -72,6 +72,96 @@
       </nav>
     </div>
   </header>
+
+  <!-- ===== Weather Section (below nav) ===== -->
+  <section id="home-weather-section">
+
+    <div class="hw-section">
+      <div class="hw-inner">
+        <div class="hw-top">
+          <div>
+            <div class="hw-location"><i class="fas fa-map-marker-alt"></i> <span id="hw-loc">Detecting
+                location...</span></div>
+          </div>
+          <div class="hw-current">
+            <span class="hw-current-icon" id="hw-icon"><i class="fas fa-spinner fa-spin"></i></span>
+            <span class="hw-current-temp" id="hw-temp">--°</span>
+            <span class="hw-current-desc" id="hw-desc">Loading...</span>
+            <a href="weather.html" class="hw-link">Full forecast →</a>
+          </div>
+        </div>
+        <div class="hw-summary" id="hw-summary"><span>🔄</span><span>Fetching weather data...</span></div>
+        <div class="hw-forecast-strip" id="hw-strip">
+          <div class="hw-day" style="flex:1; opacity:0.6; padding:1rem;">Loading 7-day forecast...</div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        var wcodes = { 0: { l: 'Clear', i: 'fa-sun' }, 1: { l: 'Clear', i: 'fa-sun' }, 2: { l: 'Cloudy', i: 'fa-cloud-sun' }, 3: { l: 'Overcast', i: 'fa-cloud' }, 45: { l: 'Fog', i: 'fa-smog' }, 48: { l: 'Fog', i: 'fa-smog' }, 51: { l: 'Drizzle', i: 'fa-cloud-rain' }, 53: { l: 'Drizzle', i: 'fa-cloud-rain' }, 55: { l: 'Drizzle', i: 'fa-cloud-showers-heavy' }, 61: { l: 'Rain', i: 'fa-cloud-rain' }, 63: { l: 'Rain', i: 'fa-cloud-showers-heavy' }, 65: { l: 'Heavy Rain', i: 'fa-cloud-showers-heavy' }, 71: { l: 'Snow', i: 'fa-snowflake' }, 73: { l: 'Snow', i: 'fa-snowflake' }, 75: { l: 'Snow', i: 'fa-snowflake' }, 80: { l: 'Showers', i: 'fa-cloud-rain' }, 81: { l: 'Showers', i: 'fa-cloud-showers-heavy' }, 82: { l: 'Showers', i: 'fa-cloud-showers-heavy' }, 95: { l: 'Storm', i: 'fa-bolt' }, 96: { l: 'Storm', i: 'fa-bolt' }, 99: { l: 'Storm', i: 'fa-bolt' } };
+        var dayN = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        function wi(c) { return wcodes[c] || { l: 'Fair', i: 'fa-cloud-sun' }; }
+
+        function render(data, locName) {
+          var c = data.current, d = data.daily, h = data.hourly;
+          var info = wi(c.weather_code);
+          document.getElementById('hw-loc').textContent = locName;
+          document.getElementById('hw-temp').textContent = Math.round(c.temperature_2m) + '°C';
+          document.getElementById('hw-icon').innerHTML = '<i class="fas ' + info.i + '"></i>';
+          document.getElementById('hw-desc').textContent = info.l + ' · ' + c.relative_humidity_2m + '% hum · ' + c.wind_speed_10m + 'km/h';
+
+          // AI summary
+          var rainy = 0, dry = 0;
+          for (var j = 0; j < 7; j++) { var rp = d.precipitation_probability_max ? d.precipitation_probability_max[j] : 0; if (rp > 50) rainy++; else dry++; }
+          var sumTxt = '';
+          if (rainy === 0) sumTxt = '☀️ All 7 days look dry — great for spraying, harvesting, and fieldwork.';
+          else if (rainy <= 2) sumTxt = '🌤️ ' + dry + ' dry + ' + rainy + ' rainy day(s) this week. Plan spraying on dry days.';
+          else sumTxt = '🌧️ ' + rainy + ' rainy days ahead. Ensure drainage and delay pesticide spraying.';
+          document.getElementById('hw-summary').innerHTML = '<span>' + (rainy > 2 ? '🌧️' : '☀️') + '</span><span>' + sumTxt + ' <a href="weather.html" class="hw-link">See AI farming advice →</a></span>';
+
+          // 7-day strip
+          var strip = document.getElementById('hw-strip'); strip.innerHTML = '';
+          for (var i = 0; i < 7; i++) {
+            var dt = new Date(d.time[i]);
+            var dn = i === 0 ? 'Today' : i === 1 ? 'Tmrw' : dayN[dt.getDay()];
+            var mx = Math.round(d.temperature_2m_max[i]), mn = Math.round(d.temperature_2m_min[i]);
+            var rp2 = d.precipitation_probability_max ? d.precipitation_probability_max[i] : 0;
+            var ic = wi(d.weather_code[i]);
+            var el = document.createElement('div'); el.className = 'hw-day';
+            el.innerHTML = '<div class="hw-day-name' + (i === 0 ? ' today' : '') + '">' + dn + '</div>' +
+              '<div class="hw-day-icon"><i class="fas ' + ic.i + '"></i></div>' +
+              '<div class="hw-day-temps">' + mx + '° <span class="hw-min">' + mn + '°</span></div>' +
+              '<div class="hw-rain-bar"><div class="hw-rain-fill" style="width:' + Math.min(rp2, 100) + '%"></div></div>' +
+              '<div class="hw-rain-pct">' + rp2 + '% 🌧</div>';
+            strip.appendChild(el);
+          }
+        }
+
+        function go(lat, lon, name) {
+          fetch('https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon + '&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum&timezone=auto&forecast_days=7')
+            .then(function (r) { return r.json(); })
+            .then(function (data) { render(data, name); })
+            .catch(function () { document.getElementById('hw-summary').innerHTML = '<span>⚠️</span><span>Weather unavailable. <a href="weather.html" class="hw-link">Try full page →</a></span>'; });
+        }
+
+        function init() {
+          if (!navigator.geolocation) { go(17.385, 78.487, 'Hyderabad (Default)'); return; }
+          navigator.geolocation.getCurrentPosition(
+            function (p) {
+              fetch('https://nominatim.openstreetmap.org/reverse?format=json&lat=' + p.coords.latitude + '&lon=' + p.coords.longitude + '&zoom=10', { headers: { 'User-Agent': 'Agri1/1.0' } })
+                .then(function (r) { return r.json(); })
+                .then(function (d) { var a = d.address || {}; go(p.coords.latitude, p.coords.longitude, (a.city || a.town || a.village || 'Your area') + ', ' + (a.state || '')); })
+                .catch(function () { go(p.coords.latitude, p.coords.longitude, 'Your Location'); });
+            },
+            function () { go(17.385, 78.487, 'Hyderabad (Default)'); },
+            { timeout: 5000 }
+          );
+        }
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+      })();
+    </script>
+  </section>
 
   <!-- Hero Section -->
   <div class="hero-wrapper">
@@ -194,18 +284,16 @@
         <div class="footer-col">
           <h4>Customer Care</h4>
           <ul class="footer-links">
-            <li><a href="#">My Account</a></li>
-            <li><a href="#"></a></li>
-            <li><a href="#"></a></li>
-            <li><a href="#">FAQs</a></li>
+            <li><a href="account.html">My Account</a></li>
+            <li><a href="faq.html">FAQs</a></li>
           </ul>
         </div>
         <div class="footer-col">
           <h4>Contact</h4>
           <ul class="footer-links">
             <li><i class="fas fa-map-marker-alt"></i> LPU, India</li>
-            <li><i class="fas fa-envelope"></i> support@agri1.com</li>
-            <li><i class="fas fa-phone"></i> +91 8709865685</li>
+            <li><i class="fas fa-envelope"></i> support@agri1.in</li>
+            <li><i class="fas fa-phone"></i> +91 XXXXX-XXXXX</li>
           </ul>
         </div>
       </div>

@@ -14,6 +14,93 @@ document.addEventListener('DOMContentLoaded', function () {
     const MAX_RESULTS = 50;
 
     // ============================================================
+    // USER LOCATION (for nearest mandi)
+    // ============================================================
+    var userLat = null;
+    var userLon = null;
+
+    function detectUserLocation() {
+        if (!navigator.geolocation) return;
+        navigator.geolocation.getCurrentPosition(
+            function (pos) {
+                userLat = pos.coords.latitude;
+                userLon = pos.coords.longitude;
+                console.log('Market: User location detected', userLat, userLon);
+            },
+            function () { console.log('Market: Location denied, no distance sorting'); },
+            { timeout: 5000 }
+        );
+    }
+    detectUserLocation();
+
+    // Haversine distance in km
+    function getDistanceKm(lat1, lon1, lat2, lon2) {
+        var R = 6371;
+        var dLat = (lat2 - lat1) * Math.PI / 180;
+        var dLon = (lon2 - lon1) * Math.PI / 180;
+        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    }
+
+    // Major Indian mandi/city coordinates lookup
+    var mandiCoords = {
+        'azadpur': [28.7041, 77.1025], 'okhla': [28.5355, 77.2720], 'new delhi': [28.6139, 77.2090],
+        'delhi': [28.6139, 77.2090], 'mumbai': [19.0760, 72.8777], 'pune': [18.5204, 73.8567],
+        'nashik': [19.9975, 73.7898], 'nagpur': [21.1458, 79.0882], 'solapur': [17.6599, 75.9064],
+        'kolhapur': [16.7050, 74.2433], 'aurangabad': [19.8762, 75.3433],
+        'hyderabad': [17.3850, 78.4867], 'bowenpally': [17.4625, 78.4712],
+        'warangal': [17.9784, 79.5941], 'karimnagar': [18.4386, 79.1288],
+        'chennai': [13.0827, 80.2707], 'madurai': [9.9252, 78.1198], 'coimbatore': [11.0168, 76.9558],
+        'salem': [11.6643, 78.1460], 'trichy': [10.7905, 78.7047],
+        'bangalore': [12.9716, 77.5946], 'bengaluru': [12.9716, 77.5946], 'mysore': [12.2958, 76.6394],
+        'hubli': [15.3647, 75.1240], 'kolar': [13.1362, 78.1292], 'davangere': [14.4644, 75.9218],
+        'kolkata': [22.5726, 88.3639], 'siliguri': [26.7271, 88.3953],
+        'lucknow': [26.8467, 80.9462], 'agra': [27.1767, 78.0081], 'kanpur': [26.4499, 80.3319],
+        'varanasi': [25.3176, 82.9739], 'meerut': [28.9845, 77.7064], 'allahabad': [25.4358, 81.8463],
+        'jaipur': [26.9124, 75.7873], 'jodhpur': [26.2389, 73.0243], 'udaipur': [24.5854, 73.7125],
+        'kota': [25.2138, 75.8648], 'bikaner': [28.0229, 73.3119],
+        'ahmedabad': [23.0225, 72.5714], 'rajkot': [22.3039, 70.8022], 'surat': [21.1702, 72.8311],
+        'vadodara': [22.3072, 73.1812], 'unjha': [23.8041, 72.3929],
+        'bhopal': [23.2599, 77.4126], 'indore': [22.7196, 75.8577], 'jabalpur': [23.1815, 79.9864],
+        'gwalior': [26.2183, 78.1828],
+        'patna': [25.6093, 85.1376], 'gaya': [24.7955, 85.0002],
+        'chandigarh': [30.7333, 76.7794], 'ludhiana': [30.9010, 75.8573], 'amritsar': [31.6340, 74.8723],
+        'jalandhar': [31.3260, 75.5762], 'khanna': [30.6971, 76.2173],
+        'raipur': [21.2514, 81.6296], 'durg': [21.1904, 81.2849],
+        'ranchi': [23.3441, 85.3096], 'jamshedpur': [22.8046, 86.2029],
+        'bhubaneswar': [20.2961, 85.8245], 'cuttack': [20.4625, 85.8828],
+        'guwahati': [26.1445, 91.7362], 'dibrugarh': [27.4728, 94.9120],
+        'guntur': [16.3067, 80.4365], 'vijayawada': [16.5062, 80.6480], 'kurnool': [15.8281, 78.0373],
+        'shimla': [31.1048, 77.1734], 'dehradun': [30.3165, 78.0322],
+        'thiruvananthapuram': [8.5241, 76.9366], 'ernakulam': [9.9816, 76.2999],
+        'panaji': [15.4909, 73.8278], 'jammu': [32.7266, 74.8570], 'srinagar': [34.0837, 74.7973],
+        'imphal': [24.8170, 93.9368], 'shillong': [25.5788, 91.8933], 'aizawl': [23.7271, 92.7176],
+        'kohima': [25.6751, 94.1086], 'agartala': [23.8315, 91.2868], 'gangtok': [27.3389, 88.6065]
+    };
+
+    function getMandiLatLon(marketName, districtName) {
+        var key1 = (marketName || '').toLowerCase().trim();
+        var key2 = (districtName || '').toLowerCase().trim();
+        return mandiCoords[key1] || mandiCoords[key2] || null;
+    }
+
+    // Sort records: nearest first, then by price (highest modal)
+    function sortByDistance(records) {
+        if (userLat === null || userLon === null) return records;
+        return records.map(function (r) {
+            var coords = getMandiLatLon(r.market, r.district);
+            if (coords) {
+                r._dist = getDistanceKm(userLat, userLon, coords[0], coords[1]);
+            } else {
+                r._dist = 99999;
+            }
+            return r;
+        }).sort(function (a, b) { return a._dist - b._dist; });
+    }
+
+    // ============================================================
     // DOM REFS
     // ============================================================
     const cropSearchInput = document.getElementById('crop-search');
@@ -171,20 +258,57 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        records.forEach(function (item) {
+        // Calculate average modal price for comparison
+        var allPrices = records.map(function (r) { return parseFloat(r.modal_price) || 0; }).filter(function (p) { return p > 0; });
+        var avgPrice = allPrices.length > 0 ? allPrices.reduce(function (a, b) { return a + b; }, 0) / allPrices.length : 0;
+
+        records.forEach(function (item, idx) {
             var card = document.createElement('div');
             card.className = 'price-card';
+            if (idx === 0 && item._dist && item._dist < 99999) card.className += ' nearest-card';
 
             var minPrice = formatPrice(item.min_price);
             var maxPrice = formatPrice(item.max_price);
             var modalPrice = formatPrice(item.modal_price);
+            var modalNum = parseFloat(item.modal_price) || 0;
             var variety = item.variety || 'Standard';
             var date = item.arrival_date || 'Recent';
+
+            // Distance badge
+            var distBadge = '';
+            if (item._dist && item._dist < 99999) {
+                var distKm = Math.round(item._dist);
+                var distLabel = distKm < 1 ? '<1 km' : distKm + ' km';
+                distBadge = '<span class="distance-badge"><i class="fas fa-location-arrow"></i> ' + distLabel + '</span>';
+            }
+
+            // Price vs average indicator
+            var priceIndicator = '';
+            if (avgPrice > 0 && modalNum > 0) {
+                var diff = modalNum - avgPrice;
+                var diffPct = ((diff / avgPrice) * 100).toFixed(1);
+                if (diff > 0) {
+                    priceIndicator = '<span class="price-vs-avg above"><i class="fas fa-arrow-up"></i> ₹' + Math.round(diff).toLocaleString('en-IN') + ' above avg (' + diffPct + '%)</span>';
+                } else if (diff < 0) {
+                    priceIndicator = '<span class="price-vs-avg below"><i class="fas fa-arrow-down"></i> ₹' + Math.round(Math.abs(diff)).toLocaleString('en-IN') + ' below avg (' + Math.abs(diffPct) + '%)</span>';
+                } else {
+                    priceIndicator = '<span class="price-vs-avg avg">At average price</span>';
+                }
+            }
+
+            // Nearest label for first card
+            var nearestLabel = '';
+            if (idx === 0 && item._dist && item._dist < 99999) {
+                nearestLabel = '<span class="nearest-label">📍 Nearest Mandi</span>';
+            }
 
             card.innerHTML =
                 '<div class="price-card-header">' +
                 '  <h3>' + escapeHtml(item.commodity || 'Unknown') + '</h3>' +
-                '  <span class="variety-tag">' + escapeHtml(variety) + '</span>' +
+                '  <div style="display:flex;gap:0.4rem;flex-wrap:wrap;align-items:center;">' +
+                '    <span class="variety-tag">' + escapeHtml(variety) + '</span>' +
+                distBadge + nearestLabel +
+                '  </div>' +
                 '</div>' +
                 '<div class="price-card-body">' +
                 '  <div class="price-card-location">' +
@@ -205,6 +329,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 '      <div class="value">₹' + maxPrice + '</div>' +
                 '    </div>' +
                 '  </div>' +
+                priceIndicator +
                 '  <div class="price-card-date"><i class="far fa-calendar-alt"></i> ' + escapeHtml(date) + '</div>' +
                 '</div>';
 
@@ -297,6 +422,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Try fallback
                 records = getFallbackResults(cropName, state);
                 if (records.length > 0) {
+                    records = sortByDistance(records);
                     showResultsBar(records.length, cropName, true);
                     renderPrices(records);
                     generateInsights(records, cropName);
@@ -308,6 +434,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
+            records = sortByDistance(records);
             showResultsBar(records.length, cropName, false);
             renderPrices(records);
             generateInsights(records, cropName);
@@ -319,6 +446,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Try fallback
             var fb = getFallbackResults(cropName, state);
             if (fb.length > 0) {
+                fb = sortByDistance(fb);
                 showResultsBar(fb.length, cropName, true);
                 renderPrices(fb);
                 generateInsights(fb, cropName);

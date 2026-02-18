@@ -328,6 +328,36 @@ document.addEventListener('DOMContentLoaded', () => {
   const MANDI_API_KEY = '579b464db66ec23bdd000001cdd3946e44ce4aad7209ff7b23ac571b';
   const mandiCache = {};
 
+  // Hindi crop name → English API name
+  var hindiCropMap = {
+    'gehu': 'Wheat', 'gehun': 'Wheat', 'गेहूं': 'Wheat', 'गेहू': 'Wheat',
+    'dhan': 'Paddy(Dhan)(Common)', 'chawal': 'Rice', 'चावल': 'Rice', 'धान': 'Paddy(Dhan)(Common)',
+    'makka': 'Maize', 'makki': 'Maize', 'मक्का': 'Maize',
+    'chana': 'Bengal Gram(Gram)(Whole)', 'चना': 'Bengal Gram(Gram)(Whole)',
+    'sarson': 'Mustard', 'सरसों': 'Mustard',
+    'kapas': 'Cotton', 'कपास': 'Cotton',
+    'tamatar': 'Tomato', 'टमाटर': 'Tomato',
+    'pyaz': 'Onion', 'pyaaz': 'Onion', 'प्याज': 'Onion',
+    'aloo': 'Potato', 'आलू': 'Potato',
+    'soyabean': 'Soyabean', 'soya': 'Soyabean', 'सोयाबीन': 'Soyabean',
+    'moong': 'Green Gram (Moong)(Whole)', 'मूंग': 'Green Gram (Moong)(Whole)',
+    'urad': 'Black Gram (Urd Beans)(Whole)', 'उड़द': 'Black Gram (Urd Beans)(Whole)',
+    'arhar': 'Arhar (Tur/Red Gram)(Whole)', 'tur': 'Arhar (Tur/Red Gram)(Whole)', 'तूर': 'Arhar (Tur/Red Gram)(Whole)',
+    'bhindi': 'Bhindi(Ladies Finger)', 'भिंडी': 'Bhindi(Ladies Finger)',
+    'gobhi': 'Cauliflower', 'gobi': 'Cauliflower', 'गोभी': 'Cauliflower',
+    'matar': 'Peas', 'मटर': 'Peas',
+    'lahsun': 'Garlic', 'लहसुन': 'Garlic',
+    'adrak': 'Ginger', 'अदरक': 'Ginger',
+    'mirch': 'Chillies', 'mirchi': 'Chillies', 'मिर्ची': 'Chillies',
+    'ganna': 'Sugarcane', 'गन्ना': 'Sugarcane',
+    'baigan': 'Brinjal', 'baingan': 'Brinjal', 'बैंगन': 'Brinjal',
+    'jeera': 'Cumin Seed', 'जीरा': 'Cumin Seed',
+    'haldi': 'Turmeric', 'हल्दी': 'Turmeric',
+    'mungfali': 'Groundnut', 'moongfali': 'Groundnut', 'मूंगफली': 'Groundnut',
+    'jowar': 'Jowar(Sorghum)', 'ज्वार': 'Jowar(Sorghum)',
+    'bajra': 'Bajra(Pearl Millet)', 'बाजरा': 'Bajra(Pearl Millet)'
+  };
+
   async function fetchLiveMandiPrice(cropName) {
     if (!cropName) return null;
     var cacheKey = cropName.toLowerCase();
@@ -356,52 +386,59 @@ document.addEventListener('DOMContentLoaded', () => {
     var sorted = records.slice().sort(function (a, b) { return (parseFloat(b.modal_price) || 0) - (parseFloat(a.modal_price) || 0); });
     var best = sorted[0];
     var worst = sorted[sorted.length - 1];
+    var bestPrice = parseFloat(best.modal_price) || 0;
+    var worstPrice = parseFloat(worst.modal_price) || 0;
 
-    var result = '**💰 Live Mandi Prices: ' + label + '**\n';
-    result += '*(Real-time data from Agmarknet/data.gov.in)*\n\n';
+    // Lead with best mandi recommendation
+    var result = '**📍 Best Mandi: Sell ' + label + ' at ' + (best.market || '') + ', ' + (best.state || '') + ' — ₹' + bestPrice.toLocaleString('en-IN') + '/Qtl**\n';
+    result += '*(₹' + Math.round(bestPrice - avg).toLocaleString('en-IN') + ' above average of ₹' + Math.round(avg).toLocaleString('en-IN') + '/Qtl)*\n\n';
 
-    // Show top markets (max 8)
-    var shown = Math.min(records.length, 8);
+    // Top markets (max 5, concise)
+    var shown = Math.min(records.length, 5);
     for (var i = 0; i < shown; i++) {
       var r = records[i];
       var modal = parseFloat(r.modal_price) || 0;
-      var market = (r.market || 'Unknown') + ', ' + (r.state || '');
-      var variety = r.variety ? ' (' + r.variety + ')' : '';
-      result += '• **' + market + '**' + variety + ': ₹' + modal.toLocaleString('en-IN') + '/Qtl';
-      result += ' (Min: ₹' + (parseFloat(r.min_price) || 0).toLocaleString('en-IN') + ' — Max: ₹' + (parseFloat(r.max_price) || 0).toLocaleString('en-IN') + ')\n';
+      var market = (r.market || '?') + ', ' + (r.state || '');
+      var diffFromAvg = modal - avg;
+      var diffLabel = diffFromAvg >= 0 ? '▲₹' + Math.round(diffFromAvg) : '▼₹' + Math.round(Math.abs(diffFromAvg));
+      result += (i === 0 ? '🏆 ' : '• ') + '**' + market + '** — ₹' + modal.toLocaleString('en-IN') + '/Qtl (' + diffLabel + ' avg)\n';
     }
     if (records.length > shown) {
-      result += '\n*...and ' + (records.length - shown) + ' more markets.*\n';
+      result += '\n*+' + (records.length - shown) + ' more markets on [Market page](market.html?q=' + encodeURIComponent(cropName) + ')*\n';
     }
 
-    // AI Insights
-    result += '\n**🤖 AI Market Insights:**\n';
-    if (best) {
-      result += '• 📈 **Best price:** ₹' + (parseFloat(best.modal_price) || 0).toLocaleString('en-IN') + '/Qtl at ' + (best.market || '') + ', ' + (best.state || '') + '\n';
-    }
-    if (worst && records.length > 1) {
-      result += '• 📉 **Lowest price:** ₹' + (parseFloat(worst.modal_price) || 0).toLocaleString('en-IN') + '/Qtl at ' + (worst.market || '') + ', ' + (worst.state || '') + '\n';
-    }
-    result += '• 📊 **Average:** ₹' + Math.round(avg).toLocaleString('en-IN') + '/Qtl across ' + records.length + ' markets\n';
-
+    // Smart recommendation
     var spread = prices.length > 0 ? ((Math.max.apply(null, prices) - Math.min.apply(null, prices)) / avg * 100).toFixed(0) : 0;
+    result += '\n**💡 Recommendation:** ';
     if (spread > 30) {
-      result += '• ⚠️ High price variation (' + spread + '%) — compare multiple mandis before selling!\n';
-    } else if (spread > 15) {
-      result += '• ℹ️ Moderate variation (' + spread + '%). Check best mandi near you.\n';
+      result += 'Price difference is large (' + spread + '%). Compare mandis and sell at the best one. Transport may be worth it!';
+    } else if (bestPrice > avg * 1.1) {
+      result += 'Prices are good. Sell now at ' + (best.market || 'best mandi') + ' for the best return.';
+    } else if (worstPrice < avg * 0.85) {
+      result += 'Prices are low in some markets. Avoid selling at ' + (worst.market || 'lowest market') + '. Store if possible and wait.';
     } else {
-      result += '• ✅ Stable pricing across markets. Good selling conditions.\n';
+      result += 'Prices are stable across markets. Good time to sell at your nearest mandi.';
     }
 
-    result += '\n👉 **[See all prices on Market page](market.html?q=' + encodeURIComponent(cropName) + ')**';
+    result += '\n\n👉 **[See all prices](market.html?q=' + encodeURIComponent(cropName) + ')**';
     return result;
   }
 
-  // Extract crop name from a price query
+  // Extract crop name from a price query (English + Hindi)
   function extractCropFromPriceQuery(query) {
     var q = query.toLowerCase().trim();
-    // Remove price-related words
-    q = q.replace(/\b(price|rate|cost|mandi|msp|market|value|bhav|of|for|the|what|is|are|how|much|today|current|live|show|tell|me|get|check)\b/gi, '').trim();
+
+    // Check Hindi crop names first
+    var hindiKeys = Object.keys(hindiCropMap);
+    for (var h = 0; h < hindiKeys.length; h++) {
+      if (q.includes(hindiKeys[h])) {
+        return hindiCropMap[hindiKeys[h]];
+      }
+    }
+
+    // Remove price-related words (English + Hindi)
+    q = q.replace(/\b(price|rate|cost|mandi|msp|market|value|bhav|daam|kimat|kharcha|ka|ki|ke|kya|hai|batao|bata|dikhao|dikha|kitna|kitne|kitni|aaj|abhi|of|for|the|what|is|are|how|much|today|current|live|show|tell|me|get|check)\b/gi, '').trim();
+
     // Also try matching against known crops
     var crops = Object.keys(priceDatabase).sort(function (a, b) { return b.length - a.length; });
     for (var i = 0; i < crops.length; i++) {
@@ -437,26 +474,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Greetings (exact or near-exact match) ---
     if (/^(hi|hey|hello|hii+|start|wake|up)$/i.test(q.replace(/[!.?]/g, '').trim())) {
-      return "Hello! 👋 I am **AgriBot**, your smart farming companion.\n\nI can help you with:\n• 🌤️ **Weather updates** for your farm\n• 🌾 **Crop advice** & disease diagnosis\n• 💰 **Mandi prices** for 50+ crops\n• 🏛️ **Government schemes**\n\nTry asking: *\"What is the weather today?\"* or *\"Price of cotton\"*";
+      return "Namaste! 👋 Main hoon **AgriBot**, aapka farming assistant.\n\n🌾 Crop advice | 💰 Mandi prices | 🌤️ Weather | 🐛 Pest help\n\nPuchho: *'Gehu ka bhav'* ya *'Price of cotton'*";
     }
-    if (/^(namaste|namaskar)$/i.test(q.replace(/[!.?]/g, '').trim())) {
-      return "Namaste! 🙏 I am your **Agri1 AI Assistant**. Ask me about crops, pests, weather, prices, or government schemes!";
+    if (/^(namaste|namaskar|jai\s*hind|jai\s*jawan|ram\s*ram|pranam)$/i.test(q.replace(/[!.?]/g, '').trim())) {
+      return "Namaste! 🙏 Main **Agri1 AI Assistant** hoon. Puchho — fasal, keede, mausam, bhav, sarkari yojana — sab bataunga!";
     }
-    if (q.includes('who are you') || q.includes('what are you')) {
-      return "I am **Agri1**, your personal AI farming assistant. I know about 50+ crop prices, cultivation methods, pest control, government schemes, and I can search Wikipedia for anything else!";
+    if (q.includes('who are you') || q.includes('what are you') || q.includes('kaun ho') || q.includes('kaun hai')) {
+      return "Main **Agri1** hoon — aapka AI farming assistant! 50+ faslon ke bhav, kheti ki salah, keet niyantran, sarkari yojanaein — sab jaanta hoon.";
     }
-    if (q.includes('what can you do') || q.includes('help me') && q.length < 20) {
-      return "I can help with:\n• 🌾 Crop cultivation (Rice, Wheat, Cotton, Vegetables...)\n• 🐛 Pest & disease management\n• 💰 Market prices for 50+ crops\n• 🌤️ Live weather data\n• 🏛️ Government schemes (PM-KISAN, PMFBY, KCC...)\n• 📚 Any general question (via Wikipedia)\n\nJust ask!";
+    if (q.includes('what can you do') || q.includes('kya kar sakte') || (q.includes('help') && q.length < 20) || q.includes('madad')) {
+      return "Main help kar sakta hoon:\n• 🌾 Fasal ki jaankari\n• 🐛 Keet/rog samadhan\n• 💰 50+ faslon ke live bhav\n• 🌤️ Mausam\n• 🏛️ Sarkari yojanaein\n\nBas puchho!";
     }
-    if (/\b(thank|thanks|thankyou|thank\s*you|dhanyavad)\b/i.test(q)) {
-      return "You're welcome! Happy farming! 🌱";
+    if (/\b(thank|thanks|thankyou|thank\s*you|dhanyavad|shukriya)\b/i.test(q)) {
+      return "Dhanyavaad! Acchi fasal ki shubhkaamnayein! 🌱";
     }
-    if (/\b(bye|goodbye|good\s*bye|alvida)\b/i.test(q)) {
-      return "Goodbye! Wishing you a great harvest! 🌾";
+    if (/\b(bye|goodbye|good\s*bye|alvida|chalo)\b/i.test(q)) {
+      return "Alvida! Acchi fasal ho! 🌾";
     }
 
-    // --- Price / Mandi Intent --- (handled async in handleSend, return null to trigger live fetch)
-    if (/\b(price|rate|cost|mandi|msp|market\s*value|bhav)\b/i.test(q)) {
+    // --- Founder / Creator ---
+    if (/\b(satyam\s*kumar|satyam)\b/i.test(q) || q.includes('founder') || q.includes('creator') || q.includes('who made') || q.includes('who built') || q.includes('kisne banaya')) {
+      return "👨‍💻 **Satyam Kumar** — Founder & Developer of Agri1\n\n" +
+        "Satyam Kumar is the **founder and sole developer** of the **Agri1 platform** — an AI-powered personal farming assistant built to empower Indian farmers with technology.\n\n" +
+        "🌾 **What he built:**\n" +
+        "• Live mandi prices from 300+ markets across India\n" +
+        "• AI chatbot for crop guidance, pest control & weather\n" +
+        "• 7-day weather forecast with farming advisory\n" +
+        "• Government scheme finder for farmers\n\n" +
+        "🎯 **Vision:** To make smart farming accessible to every farmer in India — from small-scale to commercial — using AI and real-time data.\n\n" +
+        "📍 Built with ❤️ at LPU, India";
+    }
+
+    // --- Price / Mandi Intent (English + Hindi) ---
+    if (/\b(price|rate|cost|mandi|msp|market\s*value|bhav|daam|kimat|kharcha|kitna|kitne)\b/i.test(q)) {
       return '__LIVE_PRICE_INTENT__'; // Signal to handleSend to fetch live data
     }
 
@@ -489,12 +539,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
       // Generic pest/disease
-      if (/\b(pest|bug|insect|keet)\b/i.test(q)) return farmingKB['aphids'] + "\n\n*Ask about specific pests like 'whitefly', 'bollworm', 'stem borer', 'fall armyworm' for targeted control methods.*";
-      if (/\b(disease|infection|rog|bimari)\b/i.test(q)) return farmingKB['fungus'] + "\n\n*Ask about 'blight', 'rust', 'wilt', 'powdery mildew', 'leaf curl' for specific treatment.*";
+      // Generic pest/disease (Hindi + English)
+      if (/\b(pest|bug|insect|keet|keede|कीट)\b/i.test(q)) return farmingKB['aphids'] + "\n\n*Specific pest puchho — 'whitefly', 'bollworm', 'stem borer', 'fall armyworm' for targeted control.*";
+      if (/\b(disease|infection|rog|bimari|बीमारी|रोग)\b/i.test(q)) return farmingKB['fungus'] + "\n\n*Ask about 'blight', 'rust', 'wilt', 'powdery mildew', 'leaf curl' for specific treatment.*";
     }
 
     // --- Government / Scheme / Subsidy / Loan ---
-    if (/\b(government|govt|scheme|yojana|pm.kisan|pmfby|kcc|subsidy|grant|loan|credit|insurance)\b/i.test(q)) {
+    if (/\b(government|govt|scheme|yojana|sarkari|pm.kisan|pmfby|kcc|subsidy|grant|loan|credit|insurance|anudan)\b/i.test(q)) {
       if (q.includes('pm-kisan') || q.includes('pm kisan') || q.includes('pmkisan')) return farmingKB['pm-kisan'];
       if (q.includes('pmfby') || q.includes('crop insurance')) return farmingKB['pmfby'];
       if (q.includes('kcc') || q.includes('kisan credit')) return farmingKB['kcc'];
@@ -505,14 +556,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Soil / Organic / Irrigation ---
-    if (/\b(soil|land\s*type|mitti)\b/i.test(q)) return farmingKB['soil'];
-    if (/\b(organic|jaivik)\b/i.test(q)) return farmingKB['organic farming'];
-    if (/\b(irrigation|drip|sprinkler|sinchai)\b/i.test(q)) return farmingKB['irrigation'];
-    if (/\b(vermicompost|kechua khad)\b/i.test(q)) return farmingKB['vermicompost'];
+    if (/\b(soil|land\s*type|mitti|मिट्टी)\b/i.test(q)) return farmingKB['soil'];
+    if (/\b(organic|jaivik|जैविक)\b/i.test(q)) return farmingKB['organic farming'];
+    if (/\b(irrigation|drip|sprinkler|sinchai|सिंचाई|paani|pani)\b/i.test(q)) return farmingKB['irrigation'];
+    if (/\b(vermicompost|kechua khad|केंचुआ)\b/i.test(q)) return farmingKB['vermicompost'];
     if (/\b(urea)\b/i.test(q)) return farmingKB['urea'];
     if (/\b(dap)\b/i.test(q)) return farmingKB['dap'];
     if (/\b(npk)\b/i.test(q)) return farmingKB['npk'];
-    if (/\b(fertilizer|fertiliser|khad|nutrient)\b/i.test(q)) return farmingKB['fertilizer'];
+    if (/\b(fertilizer|fertiliser|khad|nutrient|खाद)\b/i.test(q)) return farmingKB['fertilizer'];
 
     // --- Seasonal ---
     if (/\b(kharif|monsoon\s*crop)\b/i.test(q)) return farmingKB['kharif'];
@@ -623,7 +674,16 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ============================================================
-  // 6. MAIN HANDLER
+  // 6. FARMING-ONLY TOPIC GUARD
+  // ============================================================
+  function isFarmingRelated(query) {
+    var q = query.toLowerCase();
+    // Comprehensive farming/agriculture keyword list (English + Hindi)
+    return /\b(crop|fasal|khet|kheti|farm|agri|seeds|beej|plant|sow|grow|cultivat|harvest|yield|produce|grain|cereal|pulse|vegetable|sabzi|fruit|phal|flower|phool|weed|kharpatwar|nursery|compost|mulch|manure|organic|jaivik|soil|mitti|land|zameen|field|irrigation|sinchai|drip|sprinkler|canal|borewell|tubewell|pani|paani|water|rain|barish|baarish|monsoon|drought|sukha|flood|baadh|pest|keet|keede|insect|bug|disease|rog|bimari|blight|rust|wilt|mildew|fungus|virus|bacteria|spray|pesticide|herbicide|fungicide|neem|bio.control|fertilizer|fertiliser|khad|urea|dap|npk|potash|nitrogen|phosphorus|nutrient|weather|mausam|temperature|humidity|wind|heatwave|frost|cold|garmi|sardi|forecast|climate|season|rabi|kharif|zaid|price|rate|cost|bhav|daam|kimat|mandi|market|msp|apmc|enam|quintal|commodity|wheat|gehu|rice|dhan|chawal|cotton|kapas|maize|makka|bajra|jowar|sugarcane|ganna|soyabean|soya|mustard|sarson|chana|gram|arhar|tur|moong|urad|dal|onion|pyaz|tomato|tamatar|potato|aloo|chilli|mirch|garlic|lahsun|ginger|adrak|turmeric|haldi|cumin|jeera|groundnut|moongfali|brinjal|baingan|okra|bhindi|cauliflower|gobhi|gobi|peas|matar|banana|kela|mango|aam|guava|amrood|papaya|coconut|nariyal|tea|chai|coffee|rubber|jute|tobacco|cashew|cardamom|pepper|scheme|yojana|sarkari|government|govt|pm.kisan|pmfby|kcc|subsidy|anudan|loan|credit|insurance|msp|minimum.support|procurement|warehouse|cold.storage|food.processing|dairy|cattle|livestock|poultry|fish|aqua|goat|bakri|cow|gaay|buffalo|bhains|tractor|plough|harvester|thresher|sprayer|machinery|equipment|tool|vermicompost|kechua|biogas|solar|dryer|greenhouse|polyhouse|horticulture|floriculture|sericulture|apiculture|mushroom|animal.husbandry|veterinary|fodder|silage|hay)\b/i.test(q);
+  }
+
+  // ============================================================
+  // 7. MAIN HANDLER
   // ============================================================
   async function handleSend() {
     var text = userInput.value.trim();
@@ -680,8 +740,8 @@ document.addEventListener('DOMContentLoaded', () => {
         response = await callWeatherAPI();
       }
 
-      // Step 3: Wikipedia (try optimized query, then raw)
-      if (!response) {
+      // Step 3: Wikipedia — ONLY for farming-related queries
+      if (!response && isFarmingRelated(text)) {
         var wikiQuery = buildWikiQuery(text);
         response = await callWikipediaAPI(wikiQuery);
         if (!response && wikiQuery.toLowerCase() !== text.toLowerCase()) {
@@ -703,10 +763,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
 
-      // Step 5: Fallback
+      // Step 5: Fallback — farming-only guard
       if (!response) {
-        var googleUrl = 'https://www.google.com/search?q=' + encodeURIComponent(text);
-        response = "I need more details to give accurate advice. 🤔\n\nMeanwhile, you can try:\n• Be specific (e.g., 'How to grow rice?' or 'Price of wheat')\n• Ask about a crop, pest, disease, or scheme\n\n👉 **[Search Google for \"" + text + "\"](" + googleUrl + ")**";
+        if (isFarmingRelated(text)) {
+          response = "I don't have specific info on that yet, but here's what I can help with:\n\n" +
+            "• 🌾 **Crop guidance** — 'How to grow rice?'\n" +
+            "• 💰 **Mandi prices** — 'Price of wheat' / 'Gehu ka bhav'\n" +
+            "• 🐛 **Pest solutions** — 'How to control whitefly?'\n" +
+            "• 🌤️ **Weather** — 'What is the weather today?'\n" +
+            "• 🏛️ **Schemes** — 'PM-KISAN details'\n\n" +
+            "Try rephrasing your question with a crop or topic name!";
+        } else {
+          response = "🚜 I'm **Agri1 AI Assistant** — I only help with **farming and agriculture** topics.\n\n" +
+            "I can answer questions about:\n" +
+            "• 🌾 Crops, seeds, cultivation\n" +
+            "• 💰 Mandi prices & market rates\n" +
+            "• 🐛 Pests, diseases & treatment\n" +
+            "• 🌤️ Weather & farming advice\n" +
+            "• 🏛️ Government schemes & subsidies\n" +
+            "• 💧 Irrigation, soil, fertilizers\n\n" +
+            "Please ask a farming-related question! 🌱";
+        }
       }
     } catch (err) {
       console.error("handleSend error:", err);

@@ -347,6 +347,70 @@
     border-top: 1px solid #f0f0f0;
 }
 
+/* Distance Badge */
+.distance-badge {
+    font-size: 0.7rem;
+    background: #e3f2fd;
+    color: #1565c0;
+    padding: 0.15rem 0.5rem;
+    border-radius: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-weight: 500;
+}
+
+.distance-badge i {
+    font-size: 0.6rem;
+}
+
+/* Nearest Mandi Label */
+.nearest-label {
+    font-size: 0.7rem;
+    background: #228B22;
+    color: white;
+    padding: 0.15rem 0.5rem;
+    border-radius: 1rem;
+    font-weight: 600;
+}
+
+/* Nearest Card Highlight */
+.price-card.nearest-card {
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(34, 139, 34, 0.1);
+}
+
+/* Price vs Average Indicator */
+.price-vs-avg {
+    display: block;
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.35rem 0.5rem;
+    border-radius: 0.4rem;
+    margin-top: 0.5rem;
+}
+
+.price-vs-avg.above {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.price-vs-avg.below {
+    background: #fbe9e7;
+    color: #c62828;
+}
+
+.price-vs-avg.avg {
+    background: #f5f5f5;
+    color: #757575;
+}
+
+.price-vs-avg i {
+    font-size: 0.65rem;
+    margin-right: 0.2rem;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .market-search-section {
