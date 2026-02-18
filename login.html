@@ -20,7 +20,17 @@
 </head>
 
 <body
-    style="background-color: #f0fdf4; display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+    style="background-color: #f0fdf4; display: flex; align-items: center; justify-content: center; min-height: 100vh; position: relative;">
+
+    <!-- Top Bar -->
+    <div class="top-bar" style="position: absolute; top: 0; left: 0; right: 0; z-index: 10;">
+        <div class="container">
+            <button class="btn install-app-btn"
+                style="background:white; color:var(--primary); padding:0.3rem 0.8rem; font-size:0.85rem; border-radius:20px; border:none; font-weight:600; cursor:pointer;">
+                <i class="fas fa-download"></i> Download App
+            </button>
+        </div>
+    </div>
 
     <!-- Card Container -->
     <div class="card"
@@ -31,6 +41,7 @@
                 style="display: inline-block; margin-bottom: var(--space-md); color: var(--primary); font-size: 2rem; font-weight: 800; text-decoration: none;">
                 <i class="fas fa-leaf"></i> Agri1
             </a>
+
             <h2 style="margin-bottom: var(--space-xs);">Welcome Back</h2>
             <p style="color: var(--text-muted);">Sign in to your farm account</p>
         </div>

@@ -19,9 +19,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Header Download Button Logic (Global)
-    const headerBtn = document.getElementById('header-download-btn');
-    if (headerBtn) {
-        headerBtn.addEventListener('click', async () => {
+    // Download Button Logic (Global via Class)
+    // Use event delegation or querySelectorAll
+    document.addEventListener('click', async (e) => {
+        if (e.target.closest('.install-app-btn') || e.target.closest('#header-download-btn')) {
+            // Ensure popup is injected
+            if (!document.getElementById('pwa-install-popup')) {
+                injectPWAPopup();
+            }
+
+            const pwaPopup = document.getElementById('pwa-install-popup');
+
             if (deferredPrompt) {
                 deferredPrompt.prompt();
                 const choiceResult = await deferredPrompt.userChoice;
@@ -29,23 +37,28 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.log('User accepted the A2HS prompt');
                 }
                 deferredPrompt = null;
+                if (pwaPopup) pwaPopup.style.display = 'none';
             } else {
-                // Check if popup exists, if not, inject it
-                if (!document.getElementById('pwa-install-popup')) {
-                    // We need to access injectPWAPopup. It is defined in global scope below.
-                    // Since functions are hoisted, this might work if defined as function declaration.
-                    // injectPWAPopup is defined as: function injectPWAPopup() {...} so it is hoisted!
-                    injectPWAPopup();
-                }
-
-                const pwaPopup = document.getElementById('pwa-install-popup');
+                // Show popup with manual instructions context if helpful, or just show it
                 if (pwaPopup) {
                     pwaPopup.style.display = 'block';
                 } else {
                     alert('To install the app, look for "Add to Home Screen" in your browser menu.');
                 }
             }
-        });
+        }
+    });
+
+    // Force show popup after a delay if not installed and not dismissed
+    // This runs on every page load to ensure visibility
+    if (!sessionStorage.getItem('pwa-dismissed') && !window.matchMedia('(display-mode: standalone)').matches) {
+        setTimeout(() => {
+            if (!document.getElementById('pwa-install-popup')) {
+                injectPWAPopup();
+            }
+            const pwaPopup = document.getElementById('pwa-install-popup');
+            if (pwaPopup) pwaPopup.style.display = 'block';
+        }, 3000); // Show after 3 seconds
     }
 });
 
@@ -70,7 +83,6 @@ if ('serviceWorker' in navigator) {
             });
     });
 }
-// PWA Install Logic
 // PWA Install Logic
 let deferredPrompt;
 
@@ -115,6 +127,9 @@ function attachPWAEvents() {
                     console.log('User dismissed the A2HS prompt');
                 }
                 deferredPrompt = null;
+            } else {
+                // Fallback for when purely manual install is needed or prompt not ready
+                alert('To install:\n\n1. Tap the Share/Menu button in your browser.\n2. Select "Add to Home Screen".');
             }
             if (pwaPopup) pwaPopup.style.display = 'none';
         });
@@ -126,8 +141,6 @@ function attachPWAEvents() {
             sessionStorage.setItem('pwa-dismissed', 'true');
         });
     }
-
-
 }
 
 // Listen for install prompt
@@ -135,18 +148,8 @@ window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
     console.log('beforeinstallprompt fired');
-
-    if (!sessionStorage.getItem('pwa-dismissed')) {
-        // Inject popup if not already present
-        injectPWAPopup();
-
-        const pwaPopup = document.getElementById('pwa-install-popup');
-        if (pwaPopup) {
-            setTimeout(() => {
-                pwaPopup.style.display = 'block';
-            }, 2000);
-        }
-    }
+    // We already force show the popup in DOMContentLoaded, so we might not need to do anything here
+    // other than capture the event.
 });
 
 // Check if app is already installed
@@ -156,13 +159,90 @@ window.addEventListener('appinstalled', () => {
     if (pwaPopup) pwaPopup.style.display = 'none';
 });
 
-// Forcing popup for debugging/demo if needed (Optional: Remove in prod)
-// Check if not standalone and not dismissed
-if (!window.matchMedia('(display-mode: standalone)').matches) {
-    window.addEventListener('load', () => {
-        // If no prompt fired after 3 seconds, logging it (logic remains driven by beforeinstallprompt for compliance)
-        setTimeout(() => {
-            if (!deferredPrompt) console.log('PWA prompt did not fire yet. Check HTTPS/Manifest.');
-        }, 3000);
-    });
+// --- Page Specific Logic Merged ---
+
+// Contact Page Logic
+document.addEventListener('DOMContentLoaded', function () {
+    var contactForm = document.getElementById('contact-form');
+    var successMsg = document.getElementById('success-msg');
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            contactForm.style.display = 'none';
+            if (successMsg) successMsg.style.display = 'block';
+        });
+    }
+});
+
+// FAQ Page Logic
+function toggleFaq(el) {
+    var ans = el.nextElementSibling;
+    var wasOpen = el.classList.contains('open');
+
+    // Close all
+    document.querySelectorAll('.faq-q').forEach(function (q) { q.classList.remove('open'); });
+    document.querySelectorAll('.faq-a').forEach(function (a) { a.classList.remove('open'); });
+
+    // Toggle clicked
+    if (!wasOpen) {
+        el.classList.add('open');
+        ans.classList.add('open');
+    }
 }
+// Expose to window for onclick handlers in HTML
+window.toggleFaq = toggleFaq;
+
+
+// Account Page Logic
+document.addEventListener('DOMContentLoaded', function () {
+    // Only run if on account page elements exist
+    var uname = document.getElementById('uname');
+    if (uname) {
+        var name = localStorage.getItem('agri1_user_name') || 'Farmer';
+        var email = localStorage.getItem('agri1_user_email') || 'farmer@agri1.com';
+
+        var uemail = document.getElementById('uemail');
+        var pname = document.getElementById('pname');
+        var pemail = document.getElementById('pemail');
+
+        uname.textContent = name;
+        if (uemail) uemail.textContent = email;
+        if (pname) pname.textContent = name;
+        if (pemail) pemail.textContent = email;
+    }
+});
+
+// Home Page Logic (Merged from index.js)
+document.addEventListener('DOMContentLoaded', () => {
+    // Welcome Message based on time
+    const welcomeMessageElement = document.getElementById('welcome-message');
+    if (welcomeMessageElement) {
+        const hour = new Date().getHours();
+        let greeting;
+        if (hour < 12) greeting = "Good Morning";
+        else if (hour < 18) greeting = "Good Afternoon";
+        else greeting = "Good Evening";
+        welcomeMessageElement.innerHTML = `${greeting}, Welcome to <span style="color:var(--secondary)">Agri1</span>`;
+    }
+
+    // Search Bar Redirection
+    const searchInput = document.querySelector('.search-input');
+    const searchBtn = document.querySelector('.search-btn');
+
+    function handleSearch() {
+        const query = searchInput.value.trim();
+        if (query) {
+            window.location.href = `assistant.html?q=${encodeURIComponent(query)}`;
+        }
+    }
+
+    if (searchBtn && searchInput) {
+        searchBtn.addEventListener('click', handleSearch);
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleSearch();
+            }
+        });
+    }
+});

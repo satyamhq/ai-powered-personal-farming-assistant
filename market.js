@@ -118,6 +118,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const aiInsightsBody = document.getElementById('ai-insights-body');
     const quickChips = document.querySelectorAll('.quick-chip');
 
+    // Guard clause - if critical elements missing, stop
+    if (!cropSearchInput || !pricesGrid) return;
+
     // ============================================================
     // CACHE
     // ============================================================

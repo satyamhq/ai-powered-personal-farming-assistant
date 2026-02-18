@@ -285,6 +285,7 @@ function generateAdvisory(current, daily, currentRainProb) {
 // ============================================================
 function getUserLocation() {
     var nameEl = document.getElementById('location-name');
+    if (!nameEl) return; // Guard clause
     nameEl.innerText = 'Detecting your location...';
 
     function loadDefault() {

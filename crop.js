@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('crop-form');
+    // Guard clause
+    if (!form) return;
+
     const resultsArea = document.getElementById('recommendations-area');
     const resultsGrid = document.getElementById('results-grid');
 

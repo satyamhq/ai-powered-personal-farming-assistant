@@ -14,7 +14,7 @@ const ASSETS_TO_CACHE = [
     './account.html',
     './index.css',
     './common.js',
-    './index.js',
+
     './weather.js',
     './market.js',
     './assistant.js',
