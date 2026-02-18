@@ -252,7 +252,14 @@ document.addEventListener('DOMContentLoaded', () => {
       messageDiv.innerText = text;
     }
     chatMessages.appendChild(messageDiv);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
+    chatMessages.appendChild(messageDiv);
+    // Remove forced scroll to bottom
+    // chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    // Scroll the new message into view smoothly
+    // block: 'nearest' ensures that if the message is tall, the top is aligned to the top of the viewport
+    // preventing the user from being disoriented.
+    messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
   function showLoading() {
@@ -261,7 +268,8 @@ document.addEventListener('DOMContentLoaded', () => {
     el.innerHTML = '<em>🔍 Searching for the best answer...</em>';
     el.id = "loading-message";
     chatMessages.appendChild(el);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
+    chatMessages.appendChild(el);
+    el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
   function hideLoading() {
