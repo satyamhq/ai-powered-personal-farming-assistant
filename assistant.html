@@ -76,19 +76,10 @@
                     <p>Ask about crops, diseases, weather, or prices</p>
                 </div>
 
-                <div id="chat-messages" class="chat-messages">
-                    <div class="message bot">
-                        <strong>Namaste! 🙏 I am <span class="text-primary">Agri1</span> AI.</strong><br>
-                        I can help you with:
-                        <ul>
-                            <li>🌾 Crop advice & cultivation</li>
-                            <li>💰 Live Mandi prices (e.g. "Price of Wheat")</li>
-                            <li>🐛 Pest & disease control</li>
-                            <li>🌤️ Weather forecast</li>
-                            <li>🏛️ Government schemes</li>
-                        </ul>
-                        How can I help you today?
-                    </div>
+                <div class="input-area">
+                    <input type="text" id="user-input" placeholder="Type your question here... (e.g. 'Gehu ka bhav')"
+                        autocomplete="off">
+                    <button id="send-btn"><i class="fas fa-paper-plane"></i></button>
                 </div>
 
                 <div class="quick-prompts">
@@ -106,10 +97,19 @@
                         Schemes</button>
                 </div>
 
-                <div class="input-area">
-                    <input type="text" id="user-input" placeholder="Type your question here... (e.g. 'Gehu ka bhav')"
-                        autocomplete="off">
-                    <button id="send-btn"><i class="fas fa-paper-plane"></i></button>
+                <div id="chat-messages" class="chat-messages">
+                    <div class="message bot">
+                        <strong>Namaste! 🙏 I am <span class="text-primary">Agri1</span> AI.</strong><br>
+                        I can help you with:
+                        <ul>
+                            <li>🌾 Crop advice & cultivation</li>
+                            <li>💰 Live Mandi prices (e.g. "Price of Wheat")</li>
+                            <li>🐛 Pest & disease control</li>
+                            <li>🌤️ Weather forecast</li>
+                            <li>🏛️ Government schemes</li>
+                        </ul>
+                        How can I help you today?
+                    </div>
                 </div>
             </div>
         </div>

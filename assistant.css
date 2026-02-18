@@ -93,7 +93,7 @@
 .input-area {
     padding: var(--space-md);
     background: white;
-    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
     display: flex;
     gap: var(--space-sm);
     align-items: flex-end;

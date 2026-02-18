@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
         + '&current_weather=true'
         + '&hourly=relativehumidity_2m,precipitation_probability'
         + '&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,weathercode'
-        + '&timezone=auto&forecast_days=3';
+        + '&timezone=auto&forecast_days=7';
       var res = await fetchSafe(url, 8000);
       var raw = await res.json();
       var w = raw.current_weather || {};
@@ -119,16 +119,9 @@ document.addEventListener('DOMContentLoaded', () => {
   function getWeatherContext(wd) {
     if (!wd) return '';
     var parts = [];
-    parts.push('\n\n**📍 Your Location: ' + wd.city + (wd.state ? ', ' + wd.state : '') + '**');
-    parts.push('• 🌡️ Temperature: ' + wd.temp + '°C');
-    if (wd.humidity !== null) parts.push('• 💧 Humidity: ' + wd.humidity + '%');
-    if (wd.rainProbability !== null) parts.push('• 🌧️ Rain chance: ' + wd.rainProbability + '%');
-    // Farming tips based on conditions
-    if (wd.rainProbability > 60) parts.push('• ⚠️ High rain expected — avoid spraying. Ensure field drainage.');
-    if (wd.temp > 38) parts.push('• ⚠️ Extreme heat — irrigate morning/evening, use mulching.');
-    if (wd.humidity > 80) parts.push('• ⚠️ High humidity — watch for fungal diseases.');
-    if (wd.temp < 10) parts.push('• ⚠️ Frost risk — protect nurseries and young crops.');
-    return parts.join('\n');
+    parts.push('\n**🌤️ ' + wd.city + ' Weather:** ' + wd.temp + '°C');
+    if (wd.rainProbability > 30) parts.push('Rain chance: ' + wd.rainProbability + '%');
+    return parts.join(' | ');
   }
 
   // Start location detection immediately
@@ -295,13 +288,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     switch (questionType) {
       case 'what':
-        return '**📖 Definition:**\n' + answer + '\n\n*🌾 Farming Relevance: This information can help you make better farming decisions.*';
+        return answer;
       case 'how':
-        return '**📋 Step-by-Step Guide:**\n' + answer;
+        return answer;
       case 'why':
-        return '**❓ Reason:**\n' + answer + '\n\n*Understanding this helps you plan better and avoid risks.*';
+        return answer;
       case 'when':
-        return '**📅 Timing:**\n' + answer;
+        return answer;
       default:
         return answer;
     }
@@ -616,11 +609,11 @@ document.addEventListener('DOMContentLoaded', () => {
     result += '\n• ☁️ Condition: ' + desc;
     if (wd.rainProbability !== null) result += '\n• 🌧️ Rain Probability: **' + wd.rainProbability + '%**';
 
-    // 3-day forecast
-    if (wd.dailyMax.length >= 3) {
-      var days = ['Today', 'Tomorrow', 'Day 3'];
-      result += '\n\n**📅 3-Day Forecast:**';
-      for (var i = 0; i < 3; i++) {
+    // 7-day forecast
+    if (wd.dailyMax.length >= 7) {
+      var days = ['Today', 'Tmrw', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'];
+      result += '\n\n**📅 7-Day Forecast:**';
+      for (var i = 0; i < 7; i++) {
         var dc = codes[wd.dailyCodes[i]] || '🌤️';
         result += '\n• ' + days[i] + ': ' + wd.dailyMin[i] + '-' + wd.dailyMax[i] + '°C, Rain: ' + (wd.dailyRain[i] || 0) + 'mm ' + dc;
       }
