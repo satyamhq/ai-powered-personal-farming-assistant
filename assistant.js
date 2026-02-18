@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  console.log("Agri1 Assistant v5.0 - Smart Krishi Expert");
+  // Agri1 Assistant v5.0 - Smart Krishi Expert
 
   const sendBtn = document.getElementById('send-btn');
   const userInput = document.getElementById('user-input');
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
             userLocation.detected = true;
             // Reverse geocode to get city name
             reverseGeocode(pos.coords.latitude, pos.coords.longitude).then(function () {
-              console.log('Location (GPS):', userLocation.city);
+              // Location GPS
               resolve(userLocation);
             });
           },
@@ -54,12 +54,12 @@ document.addEventListener('DOMContentLoaded', () => {
           userLocation.city = data.city || 'Your Area';
           userLocation.state = data.region || '';
           userLocation.detected = true;
-          console.log('Location (IP):', userLocation.city);
+          // Location IP
         }
         return userLocation;
       })
       .catch(function () {
-        console.log('Location detection failed, using default: Hyderabad');
+        // Location detection failed
         return userLocation;
       });
   }

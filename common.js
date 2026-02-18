@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 deferredPrompt.prompt();
                 const choiceResult = await deferredPrompt.userChoice;
                 if (choiceResult.outcome === 'accepted') {
-                    console.log('User accepted the A2HS prompt');
+                    // User accepted A2HS
                 }
                 deferredPrompt = null;
                 if (pwaPopup) pwaPopup.style.display = 'none';
@@ -76,10 +76,10 @@ if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('./service-worker.js')
             .then(registration => {
-                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                // ServiceWorker registration successful
             })
             .catch(err => {
-                console.log('ServiceWorker registration failed: ', err);
+                // ServiceWorker registration failed
             });
     });
 }
@@ -122,9 +122,9 @@ function attachPWAEvents() {
                 deferredPrompt.prompt();
                 const choiceResult = await deferredPrompt.userChoice;
                 if (choiceResult.outcome === 'accepted') {
-                    console.log('User accepted the A2HS prompt');
+                    // User accepted
                 } else {
-                    console.log('User dismissed the A2HS prompt');
+                    // User dismissed
                 }
                 deferredPrompt = null;
             } else {
@@ -147,14 +147,14 @@ function attachPWAEvents() {
 window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
-    console.log('beforeinstallprompt fired');
+    // beforeinstallprompt fired
     // We already force show the popup in DOMContentLoaded, so we might not need to do anything here
     // other than capture the event.
 });
 
 // Check if app is already installed
 window.addEventListener('appinstalled', () => {
-    console.log('PWA was installed');
+    // PWA installed
     const pwaPopup = document.getElementById('pwa-install-popup');
     if (pwaPopup) pwaPopup.style.display = 'none';
 });

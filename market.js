@@ -25,9 +25,9 @@ document.addEventListener('DOMContentLoaded', function () {
             function (pos) {
                 userLat = pos.coords.latitude;
                 userLon = pos.coords.longitude;
-                console.log('Market: User location detected', userLat, userLon);
+                // Location detected
             },
-            function () { console.log('Market: Location denied, no distance sorting'); },
+            function () { /* Location denied */ },
             { timeout: 5000 }
         );
     }
@@ -227,24 +227,69 @@ document.addEventListener('DOMContentLoaded', function () {
     // ============================================================
     // FALLBACK DATA
     // ============================================================
+    // ============================================================
+    // FALLBACK DATA (Offline/API Failure Mode)
+    // ============================================================
     const fallbackData = [
-        { state: "Delhi", district: "New Delhi", market: "Azadpur", commodity: "Wheat", variety: "Desi", arrival_date: "Today", min_price: "2000", max_price: "2300", modal_price: "2100" },
-        { state: "Delhi", district: "New Delhi", market: "Okhla", commodity: "Tomato", variety: "Hybrid", arrival_date: "Today", min_price: "1200", max_price: "1800", modal_price: "1500" },
-        { state: "Telangana", district: "Hyderabad", market: "Bowenpally", commodity: "Onion", variety: "Nasik", arrival_date: "Today", min_price: "2200", max_price: "2800", modal_price: "2500" },
-        { state: "Telangana", district: "Warangal", market: "Enumamula", commodity: "Rice", variety: "BPT", arrival_date: "Today", min_price: "2000", max_price: "2400", modal_price: "2200" },
-        { state: "Punjab", district: "Ludhiana", market: "Khanna", commodity: "Wheat", variety: "PBW-343", arrival_date: "Today", min_price: "2050", max_price: "2250", modal_price: "2150" },
-        { state: "Maharashtra", district: "Nashik", market: "Nashik", commodity: "Onion", variety: "Red", arrival_date: "Today", min_price: "2100", max_price: "2500", modal_price: "2300" },
-        { state: "Maharashtra", district: "Pune", market: "Pune", commodity: "Tomato", variety: "Local", arrival_date: "Today", min_price: "1200", max_price: "1600", modal_price: "1400" },
-        { state: "Karnataka", district: "Kolar", market: "Kolar", commodity: "Tomato", variety: "Hybrid", arrival_date: "Today", min_price: "1100", max_price: "1600", modal_price: "1350" },
-        { state: "Madhya Pradesh", district: "Indore", market: "Indore", commodity: "Soyabean", variety: "Yellow", arrival_date: "Today", min_price: "4500", max_price: "5100", modal_price: "4800" },
-        { state: "Uttar Pradesh", district: "Agra", market: "Agra", commodity: "Potato", variety: "Jyoti", arrival_date: "Today", min_price: "700", max_price: "1000", modal_price: "850" },
-        { state: "Gujarat", district: "Rajkot", market: "Rajkot", commodity: "Cotton", variety: "Shankar-6", arrival_date: "Today", min_price: "6200", max_price: "6900", modal_price: "6620" },
-        { state: "Rajasthan", district: "Jodhpur", market: "Jodhpur", commodity: "Cumin Seed", variety: "Local", arrival_date: "Today", min_price: "25000", max_price: "30000", modal_price: "27500" },
+        // Maize
+        { state: "Karnataka", district: "Davangere", market: "Davangere", commodity: "Maize", variety: "Hybrid", arrival_date: "Today", min_price: "1800", max_price: "2200", modal_price: "2050" },
+        { state: "Madhya Pradesh", district: "Chhindwara", market: "Chhindwara", commodity: "Maize", variety: "Desi", arrival_date: "Today", min_price: "1750", max_price: "2100", modal_price: "1900" },
+        { state: "Bihar", district: "Purnia", market: "Gulabbagh", commodity: "Maize", variety: "Hybrid", arrival_date: "Today", min_price: "1900", max_price: "2300", modal_price: "2150" },
+        { state: "Maharashtra", district: "Nashik", market: "Malegaon", commodity: "Maize", variety: "Local", arrival_date: "Today", min_price: "1850", max_price: "2150", modal_price: "2000" },
+
+        // Wheat
+        { state: "Punjab", district: "Ludhiana", market: "Khanna", commodity: "Wheat", variety: "PBW-343", arrival_date: "Today", min_price: "2275", max_price: "2350", modal_price: "2300" },
+        { state: "Haryana", district: "Karnal", market: "Karnal", commodity: "Wheat", variety: "HD-2967", arrival_date: "Today", min_price: "2250", max_price: "2325", modal_price: "2290" },
+        { state: "Madhya Pradesh", district: "Bhopal", market: "Bhopal", commodity: "Wheat", variety: "Sharbati", arrival_date: "Today", min_price: "3500", max_price: "4200", modal_price: "3800" },
+        { state: "Uttar Pradesh", district: "Lucknow", market: "Lucknow", commodity: "Wheat", variety: "Dara", arrival_date: "Today", min_price: "2200", max_price: "2350", modal_price: "2280" },
+        { state: "Rajasthan", district: "Kota", market: "Kota", commodity: "Wheat", variety: "Mill Quality", arrival_date: "Today", min_price: "2150", max_price: "2300", modal_price: "2250" },
+
+        // Rice/Paddy
+        { state: "Telangana", district: "Warangal", market: "Enumamula", commodity: "Rice", variety: "Sona Masuri", arrival_date: "Today", min_price: "4200", max_price: "4800", modal_price: "4500" },
+        { state: "Andhra Pradesh", district: "Guntur", market: "Guntur", commodity: "Rice", variety: "Common", arrival_date: "Today", min_price: "3500", max_price: "3900", modal_price: "3700" },
+        { state: "West Bengal", district: "Burdwan", market: "Burdwan", commodity: "Paddy", variety: "Common", arrival_date: "Today", min_price: "2100", max_price: "2250", modal_price: "2183" },
+        { state: "Punjab", district: "Amritsar", market: "Amritsar", commodity: "Rice", variety: "Basmati 1121", arrival_date: "Today", min_price: "7500", max_price: "8500", modal_price: "8000" },
+
+        // Tomato
+        { state: "Karnataka", district: "Kolar", market: "Kolar", commodity: "Tomato", variety: "Hybrid", arrival_date: "Today", min_price: "1200", max_price: "1800", modal_price: "1500" },
+        { state: "Maharashtra", district: "Pune", market: "Pune", commodity: "Tomato", variety: "Local", arrival_date: "Today", min_price: "1000", max_price: "1500", modal_price: "1250" },
+        { state: "Andhra Pradesh", district: "Chittoor", market: "Madanapalle", commodity: "Tomato", variety: "Hybrid", arrival_date: "Today", min_price: "1300", max_price: "2100", modal_price: "1700" },
+        { state: "Delhi", district: "Delhi", market: "Azadpur", commodity: "Tomato", variety: "Desi", arrival_date: "Today", min_price: "1500", max_price: "2200", modal_price: "1800" },
+
+        // Onion
+        { state: "Maharashtra", district: "Nashik", market: "Lasalgaon", commodity: "Onion", variety: "Red", arrival_date: "Today", min_price: "1800", max_price: "2400", modal_price: "2100" },
+        { state: "Maharashtra", district: "Pune", market: "Pune", commodity: "Onion", variety: "Pink", arrival_date: "Today", min_price: "1700", max_price: "2300", modal_price: "2000" },
+        { state: "Madhya Pradesh", district: "Indore", market: "Indore", commodity: "Onion", variety: "Nasik", arrival_date: "Today", min_price: "1600", max_price: "2200", modal_price: "1900" },
+        { state: "Karnataka", district: "Hubli", market: "Hubli", commodity: "Onion", variety: "Bellary", arrival_date: "Today", min_price: "1500", max_price: "2100", modal_price: "1800" },
+
+        // Potato
+        { state: "Uttar Pradesh", district: "Agra", market: "Agra", commodity: "Potato", variety: "Desi", arrival_date: "Today", min_price: "800", max_price: "1100", modal_price: "950" },
+        { state: "West Bengal", district: "Hooghly", market: "Sheoraphuli", commodity: "Potato", variety: "Jyoti", arrival_date: "Today", min_price: "900", max_price: "1200", modal_price: "1050" },
+        { state: "Punjab", district: "Jalandhar", market: "Jalandhar", commodity: "Potato", variety: "Pukhraj", arrival_date: "Today", min_price: "700", max_price: "900", modal_price: "800" },
+
+        // Cotton
+        { state: "Gujarat", district: "Rajkot", market: "Rajkot", commodity: "Cotton", variety: "Shankar-6", arrival_date: "Today", min_price: "6800", max_price: "7200", modal_price: "7000" },
+        { state: "Maharashtra", district: "Yavatmal", market: "Yavatmal", commodity: "Cotton", variety: "H-4", arrival_date: "Today", min_price: "6600", max_price: "7000", modal_price: "6800" },
+        { state: "Telangana", district: "Adilabad", market: "Adilabad", commodity: "Cotton", variety: "Bunny", arrival_date: "Today", min_price: "6700", max_price: "7100", modal_price: "6900" },
+
+        // Other Common Crops
+        { state: "Madhya Pradesh", district: "Indore", market: "Indore", commodity: "Soyabean", variety: "Yellow", arrival_date: "Today", min_price: "4600", max_price: "5200", modal_price: "4900" },
+        { state: "Rajasthan", district: "Jodhpur", market: "Jodhpur", commodity: "Cumin Seed", variety: "Local", arrival_date: "Today", min_price: "28000", max_price: "32000", modal_price: "30000" },
+        { state: "Kerala", district: "Idukki", market: "Kumily", commodity: "Cardamom", variety: "Small", arrival_date: "Today", min_price: "120000", max_price: "140000", modal_price: "135000" },
+        { state: "Uttar Pradesh", district: "Meerut", market: "Meerut", commodity: "Sugarcane", variety: "Co-0238", arrival_date: "Today", min_price: "340", max_price: "370", modal_price: "350" }
     ];
 
     function getFallbackResults(commodity, state) {
         return fallbackData.filter(function (item) {
-            var commodityMatch = !commodity || item.commodity.toLowerCase().includes(commodity.toLowerCase());
+            // Flexible matching
+            var itemCommodity = item.commodity.toLowerCase();
+            var searchCommodity = (commodity || '').toLowerCase();
+
+            // Check for alias matching
+            if (searchCommodity === 'paddy' && itemCommodity === 'rice') return true;
+            if (searchCommodity === 'rice' && itemCommodity === 'paddy') return true;
+
+            var commodityMatch = !commodity || itemCommodity.includes(searchCommodity);
             var stateMatch = !state || item.state.toLowerCase() === state.toLowerCase();
             return commodityMatch && stateMatch;
         });
