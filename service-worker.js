@@ -19,7 +19,8 @@ const ASSETS_TO_CACHE = [
     './market.js',
     './assistant.js',
     './crop.js',
-    './favicon/icon.svg',
+    './favicon_io/favicon-32x32.png',
+    './favicon_io/android-chrome-192x192.png',
     './manifest.json'
 ];
 

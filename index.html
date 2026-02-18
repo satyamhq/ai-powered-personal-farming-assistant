@@ -9,10 +9,10 @@
     content="Empowering Indian farmers with AI-driven crop advice, weather forecasts, and market insights.">
 
   <!-- Favicon -->
-  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
-  <link rel="manifest" href="favicon/site.webmanifest">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+  <link rel="manifest" href="manifest.json">
 
   <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -191,6 +191,23 @@
   <!-- Scripts -->
   <!-- Google Translate (Hidden but functional) -->
   <div id="google_translate_element" style="display:none;"></div>
+
+  <!-- PWA Install Popup -->
+  <div id="pwa-install-popup" class="pwa-popup" style="display: none;">
+    <div class="pwa-popup-content">
+      <div class="pwa-icon">
+        <img src="favicon_io/android-chrome-192x192.png" alt="Agri1 Logo">
+      </div>
+      <div class="pwa-details">
+        <h3>Install Agri1 App</h3>
+        <p>Get the best experience with our app.</p>
+      </div>
+      <div class="pwa-actions">
+        <button id="pwa-install-btn" class="btn btn-primary">Install</button>
+        <button id="pwa-dismiss-btn" class="btn btn-ghost">Maybe Later</button>
+      </div>
+    </div>
+  </div>
 
   <script src="common.js"></script>
   <script src="weather.js"></script>
